@@ -1,0 +1,30 @@
+:root {
+  /* colors */
+  --white: white;
+  --grey1: #e3e3e3;
+  --grey2: #f7f7f7;
+  --grey3: #c8c8c8;
+  --grey4: #a4a4a4;
+  --grey5: #818181;
+  --yellow: #eeb004;
+  --red: #f44250;
+  --blue: #3992ff;
+  --black: #121212;
+  --blue-alpha5: hsl(224, 98%, 58%);
+  --black-alpha2: hsla(0, 0%, 0%, 0.2);
+  --black-alpha4: hsla(0, 0%, 0%, 0.4);
+  --black-alpha6: hsla(0, 0%, 0%, 0.4);
+
+  /* shadows: */
+  --icon-shadow: 3px 3px 3px rgb(2 15 15 / 85%);
+
+  /* fonts */
+  --accent-font: "Literata", serif;
+  --main-font: "Sarabun", sans-serif;
+  --huge: 25px;
+  --big: 19px;
+  --medium: 16px;
+  --small: 13px;
+  --tiny: 9px;
+}
+
