@@ -1,21 +1,20 @@
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   RouterProvider,
 } from 'react-router-dom';
 import { Router } from '@/pages';
 
 export function App() {
-  // Выкидывает ошибку в консоль, функионал уточняется у наставника
-  // useEffect(() => {
-  //   const fetchServerData = async () => {
-  //     const url = `http://localhost:${__SERVER_PORT__}`
-  //     const response = await fetch(url)
-  //     const data = await response.json()
-  //     console.log(data)
-  //   }
+  useEffect(() => {
+    const fetchServerData = async () => {
+      const url = `http://localhost:${__SERVER_PORT__}`
+      const response = await fetch(url)
+      const data = await response.json()
+      console.log(data)
+    }
 
-  //   fetchServerData()
-  // }, [])
+    fetchServerData()
+  }, [])
   return <div className="app">
     <RouterProvider router={Router} />
   </div>
