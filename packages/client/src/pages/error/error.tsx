@@ -1,8 +1,17 @@
 import { useRouteError } from "react-router-dom";
+import './error.scss';
 
-export default function ErrorPage() {
-  const error: any = useRouteError();
-  console.error(error);
+export function ErrorPage() {
+  let error: any = useRouteError();
+
+  if (error) {
+    console.error(error);
+  } else {
+    error = {
+      statusText:  "404",
+      message: "Not Found"
+    }
+  }
 
   return (
     <div id="error-page">
