@@ -1,11 +1,11 @@
 import {
   Link,
 } from "react-router-dom";
-import './game.scss';
+import './gamePage.scss';
 
 export function GamePage() {
   return (
-    <div id="game">
+    <div className="game-page">
       Pages:
       <Link
           to={`/`}

@@ -1,11 +1,11 @@
 import {
   NavLink,
 } from "react-router-dom";
-import './map.scss';
+import './mapPage.scss';
 
 export function MapPage() {
   return (
-    <div id="map">
+    <div className="map-page">
       Pages:
       <br/>
       <nav>

@@ -2,9 +2,9 @@ import {
   createBrowserRouter,
 } from 'react-router-dom';
 
-import { MapPage } from '@/pages/map';
-import { ErrorPage } from '@/pages/error';
-import { GamePage } from '@/pages/game';
+import { MapPage } from '@/pages/mapPage';
+import { ErrorPage } from '@/pages/errorPage';
+import { GamePage } from '@/pages/gamePage';
 
 export const Router = createBrowserRouter([
   {
