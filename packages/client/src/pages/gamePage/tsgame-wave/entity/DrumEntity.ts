@@ -1,3 +1,5 @@
+// import useResponsiveData from '../hooks/useResponsiveData'
+
 class DrumEntity {
   private waveLength: number[]
   private color: string
@@ -19,15 +21,29 @@ class DrumEntity {
     multiplication: Array<number>,
     letters: Array<string>,
     amount: Array<number>,
-    frequency: number
+    // word: string,
   ): void => {
 
+
+
+
     const radius = width < height ? width*0.35 : height*0.35;
+
+    // colors
+    // rgba(132, 200, 239, 1) - blue
+    // rgba(222, 221, 97, 1) - yellow
+    // rgba(88, 170, 98, 1) - green
+    // rgba(208, 126, 151, 1) - pink
+
+    // background
+    context.fillStyle = 'rgba(132, 199, 239, 1)';
+    context.fillRect(0, 0, width, height);
+
 
     //big
     context.beginPath();
     context.arc(width/2, height/2, radius, 0, 2 * Math.PI);
-    context.fillStyle = "#DEDD44";
+    context.fillStyle = "rgba(222, 221, 97, 1)";
     context.fill();
 
 
@@ -41,11 +57,11 @@ class DrumEntity {
       context.moveTo(origin.x, origin.y);
       context.arc(origin.x, origin.y, radius, startAngle, endAngle, false);
       if (multiplication[i] === 1){
-        context.fillStyle = `#DEDD4${i}`;    
+        context.fillStyle = `rgba(222, 22${i}, 97, 1)`;  // y
       } else if (multiplication[i] === 2){
-        context.fillStyle = `#58AA6${i}`;
+        context.fillStyle = `rgba(88, 17${i}, 98, 1)`; // g
       } else if (multiplication[i] === 3){
-        context.fillStyle = `#DD799${i}`;
+        context.fillStyle = `rgba(208, 12${i}, 151, 1)`;  // p
       }
 
       context.fill();
@@ -53,26 +69,25 @@ class DrumEntity {
 
     //letters
     context.translate(width*0.495, height*0.505);
-    context.font = `bold ${radius * 0.5}px arial`;
     context.textBaseline = "middle";
     context.textAlign = "center";
     for(let i = 0; i < 8; i++){
       const ang = i * Math.PI / 4 + Math.PI / 8 * 5;
       context.rotate(ang);
-      context.translate(0, -radius * 0.7);
+      context.translate(0, -radius * 0.7125);
       context.rotate(-ang);
 
-      context.fillStyle = '#15100D';
-      context.font = `bold ${radius * 0.35}px Impact`;
+      context.fillStyle = `rgba(20, 1${i}, 13, 1)`;
+      context.font = `bold ${radius * 0.425}px Impact`;
       context.fillText(letters[i], 0, 0);
       if (amount[i] > 1) {
-        context.font = `bold ${radius * 0.125}px arial`;
-        context.fillText((amount[i]).toString(), radius * 0.18, radius * 0.14);
+        context.font = `bold ${radius * 0.125}px Impact`;
+        context.fillText((amount[i]).toString(), radius * 0.205, radius * 0.15);
+
       }
 
-
       context.rotate(ang);
-      context.translate(0, radius * 0.7);
+      context.translate(0, radius * 0.7125);
       context.rotate(-ang);
     }
     context.translate(-width*0.495, - height*0.505);
@@ -84,20 +99,20 @@ class DrumEntity {
     context.beginPath();
     context.arc(width/2, height/2, radius*0.3, 0, 2 * Math.PI);
     if (multiplication[8] === 1){
-      context.fillStyle = `#DEDD48`;    
+      context.fillStyle = `rgba(222, 228, 97, 1)`;  // y
     } else if (multiplication[8] === 2){
-      context.fillStyle = `#58AA68`;
+      context.fillStyle = `rgba(88, 178, 98, 1)`; // g
     } else if (multiplication[8] === 3){
-      context.fillStyle = `#DD7998`;
+      context.fillStyle = `rgba(208, 128, 151, 1)`;  // p
     }
     context.fill();
 
     context.translate(width*0.495, height*0.505);
-    context.fillStyle = '#15100D';
-    context.font = `bold ${radius * 0.35}px Impact`;
+    context.fillStyle = `rgba(20, 18, 13, 1)`;
+    context.font = `bold ${radius * 0.425}px Impact`;
     context.fillText(letters[8], 0, 0);
     if (amount[8] > 1) {
-      context.font = `bold ${radius * 0.125}px arial`;
+      context.font = `bold ${radius * 0.125}px Impact`;
       context.fillText((amount[8]).toString(), radius * 0.18, radius * 0.14);
     }
     context.translate(-width*0.495, - height*0.505);
@@ -105,8 +120,8 @@ class DrumEntity {
 
     
     
-    context.font = "40px Arial";
-    context?.fillText("Bumble", width/4, height/8);
+    // context.font = "40px Arial";
+    // context?.fillText(word, width/4, height/12);
 
     // context.moveTo(0, 0);
     // context.lineTo(200, 100);
