@@ -10,7 +10,7 @@ export function GamePage() {
       <Link
           to={`/`}
         >
-          {<p>Карта сайта</p>}{" "}
+          {<p>Карта сайта</p>}
       </Link>
     </div>
   );

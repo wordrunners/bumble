@@ -12,12 +12,7 @@ export function MapPage() {
         <NavLink
           to={`game`}
         >
-          {<p>Механика игры на Canvas API - game-page</p>}{" "}
-        </NavLink>
-        <NavLink
-          to={`error`}
-        >
-          {<p>Заглушку страницы - error-page</p>}{" "}
+          {<p>Механика игры на Canvas API - game-page</p>}
         </NavLink>
       </nav>
     </div>
