@@ -12,8 +12,12 @@ export function GamePage() {
     // <Canvas ></Canvas>
     
     <div className="game-page">
-      <App></App>
-      {/* <Canvas ></Canvas> */}
+      Pages:
+      <Link
+          to={`/`}
+        >
+          {<p>Карта сайта</p>}
+      </Link>
     </div>
   );
 }
