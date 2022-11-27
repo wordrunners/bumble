@@ -1,13 +1,16 @@
-import React, { FC, useState, useEffect } from 'react'
-import { passwordAPI } from '../../api/passwordApi'
-import type { User } from '../../components/Avatar'
+import React, { FC, useState, useEffect, useContext } from 'react'
+import { passwordAPI } from '@/api/passwordApi'
+import type { User } from '@/components/Avatar'
 import { Button } from '@/components/Button'
-import avatar from '../../assets/images/avatar.png'
+import { LinkButton } from '@/components/LinkButton'
+import avatar from '@/assets/images/avatar.png'
 import './changePasswordPage.scss'
+import { AppContext } from '@/Core'
 
 export const ChangePasswordPage: FC<User> = (props: User) => {
-  const avatarUser = props.avatar
-    ? `${__API_ENDPOINT__}/resources${props.avatar}`
+  const user = useContext(AppContext)
+  const avatarUser = user.avatar
+    ? `${__API_ENDPOINT__}/resources${user.avatar}`
     : avatar
 
   const [oldPassword, setOldPassword] = useState('')
@@ -145,6 +148,7 @@ export const ChangePasswordPage: FC<User> = (props: User) => {
               onClick={passwordUp}
               children="Заменить"
             />
+            <LinkButton to="/profile" children="Назад" modifier="back" />
           </div>
         </form>
       </div>

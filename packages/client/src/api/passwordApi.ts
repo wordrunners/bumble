@@ -8,6 +8,7 @@ type PasswordRequestData = {
 
 export const passwordAPI = async (requestData: PasswordRequestData) => {
   const response = await request.put('/user/password', requestData)
+
   if (hasError(response)) {
     return response.reason
   }

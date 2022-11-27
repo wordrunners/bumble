@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { RouterProvider } from 'react-router-dom'
 import { Router } from '@/pages'
+import { AppContext, user } from '@/Core'
 
 export function App() {
   useEffect(() => {
@@ -16,7 +17,9 @@ export function App() {
 
   return (
     <div className="app">
-      <RouterProvider router={Router} />
+      <AppContext.Provider value={user}>
+        <RouterProvider router={Router} />
+      </AppContext.Provider>
     </div>
   )
 }
