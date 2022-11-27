@@ -1,14 +1,12 @@
-import {
-  createBrowserRouter,
-} from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom'
 
-import { StartPage } from '@/pages/startPage';
-import { ErrorPage } from '@/pages';
-import { GameStartPage } from '@/pages';
-import { GamePlayPage } from '@/pages';
-import { GameOverPage } from '@/pages';
-import { SigninPage } from './signinPage';
-import { SignupPage } from './signupPage';
+import { StartPage } from '@/pages/startPage'
+import { ErrorPage } from '@/pages'
+import { GameStartPage } from '@/pages'
+import { GamePlayPage } from '@/pages'
+import { GameOverPage } from '@/pages'
+import { SigninPage } from './signinPage'
+import { SignupPage } from './signupPage'
 
 export const Router = createBrowserRouter([
   {
