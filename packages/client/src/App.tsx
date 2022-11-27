@@ -3,6 +3,7 @@ import { RouterProvider } from 'react-router-dom'
 import { Router } from '@/pages'
 import { store } from '@/store/store'
 import { Provider } from 'react-redux'
+import { AppContext, user } from '@/Core'
 
 export function App() {
   useEffect(() => {
@@ -18,7 +19,9 @@ export function App() {
   return (
     <div className="app">
       <Provider store={store}>
-        <RouterProvider router={Router} />
+        <AppContext.Provider value={user}>
+          <RouterProvider router={Router} />
+        </AppContext.Provider>
       </Provider>
     </div>
   )
