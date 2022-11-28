@@ -5,6 +5,7 @@ import useResponsiveSize from '../hooks/useResponsiveSize'
 import useResponsiveData from '../hooks/useResponsiveData'
 import Wave from './wave'
 import { useCanvasContext } from '../hooks/useCanvas'
+import { AppContext } from '../AppContext';
 interface CanvasProps {
   width: number;
   height: number;
@@ -25,7 +26,7 @@ export const Canvas = ({ width, height }: CanvasProps) => {
   // const { width, height } = useResponsiveSize()
 
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
-
+  // AppContext.Provider.data.word
 
 
 
