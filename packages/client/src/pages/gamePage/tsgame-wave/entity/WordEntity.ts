@@ -21,7 +21,7 @@ class WordEntity {
     // multiplication: Array<number>,
     // letters: Array<string>,
     // amount: Array<number>,
-    word: string,
+    count: string,
   ): void => {
 
 
@@ -32,7 +32,9 @@ class WordEntity {
     
     
     context.font = "40px Arial";
-    context?.fillText(word, width/4, height/12);
+    context.textAlign = 'center';
+
+    context?.fillText(count, width/2, height/12);
 
   }
 

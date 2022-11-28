@@ -21,7 +21,7 @@ class DrumEntity {
     multiplication: Array<number>,
     letters: Array<string>,
     amount: Array<number>,
-    // word: string,
+    // word: number,
   ): void => {
 
 
@@ -121,7 +121,8 @@ class DrumEntity {
     
     
     // context.font = "40px Arial";
-    // context?.fillText(word, width/4, height/12);
+    // context.textAlign = 'center';
+    // context?.fillText(word, width/2, height/12);
 
     // context.moveTo(0, 0);
     // context.lineTo(200, 100);

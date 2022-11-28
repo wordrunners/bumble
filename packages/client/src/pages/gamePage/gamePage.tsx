@@ -1,3 +1,9 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { store } from './tsgame-wave/store/store';
+// import App from './App';
+// import { Counter } from './features/counter/Counter';
 import {
   Link,
 } from "react-router-dom";
@@ -12,12 +18,10 @@ export function GamePage() {
     // <Canvas ></Canvas>
     
     <div className="game-page">
-      Pages:
-      <Link
-          to={`/`}
-        >
-          {<p>Карта сайта</p>}
-      </Link>
+    <Provider store={store}>
+      <App />
+    </Provider>
+      {/* <Canvas ></Canvas> */}
     </div>
   );
 }
