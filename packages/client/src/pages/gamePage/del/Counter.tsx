@@ -1,9 +1,9 @@
-import { useAppSelector, useAppDispatch } from '../hooks/useStore';
+import { useAppSelector, useAppDispatch } from '../game/hooks/useStore';
 import {
   decrement,
   increment,
   selectCount,
-} from '../components/counterSlice';
+} from '../game/components/gameSlice';
 
 export function Counter() {
   const count = useAppSelector(selectCount);

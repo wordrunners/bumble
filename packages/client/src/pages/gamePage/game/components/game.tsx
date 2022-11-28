@@ -5,26 +5,25 @@ import { FC } from 'react'
 import { useCanvasContext } from '../hooks/useCanvas'
 import useResponsiveSize from '../hooks/useResponsiveSize'
 // import useResponsiveData from '../hooks/useResponsiveData'
-import WaveEntity from '../del/WaveEntity'
 import DrumEntity from '../entity/DrumEntity'
 import WordEntity from '../entity/WordEntity'
-import * as data from '../cards/cards.json'
+import cards from '../cards/cards.json'
 
 import useColor from '../hooks/useColor'
 
 import { useAppSelector, useAppDispatch } from '../hooks/useStore';
 import {
-  decrement,
+  deleteLetter,
   increment,
-  selectCount,
-} from './counterSlice';
+  selectWord,
+} from './gameSlice';
 // interface CanvasProps {
   // word: string
 // }
 
-const Wave = () => {
-// const Wave: FC = () => {
-  const count = useAppSelector(selectCount);
+const Game = () => {
+// const Game: FC = () => {
+  const word = useAppSelector(selectWord);
   
   const { context } = useCanvasContext()
   const { width, height } = useResponsiveSize()
@@ -35,9 +34,9 @@ const Wave = () => {
   // let colors: { [key: string]: string } = generateColor()
 
   let timer = 1
-  // const waves = {
-  //   frontWave: new WaveEntity([0.0211, 0.028, 0.015], 'rgba(255,179,0,0.88)'),
-  //   backWave: new WaveEntity([0.0122, 0.018, 0.005], 'rgba(255,179,0,0.48)'),
+  // const games = {
+  //   frontGame: new GameEntity([0.0211, 0.028, 0.015], 'rgba(255,179,0,0.88)'),
+  //   backGame: new GameEntity([0.0122, 0.018, 0.005], 'rgba(255,179,0,0.48)'),
   // }
 
   const drumCanvas = new DrumEntity([0.0211, 0.028, 0.015], 'rgba(255,179,0,0.88)')
@@ -48,9 +47,9 @@ const Wave = () => {
     context?.clearRect(0, 0, width, height)
     // word = useResponsiveData()
 
-    // Object.entries(waves).forEach(([waveName, wave]) => {
-    //   wave.waveColor = colors[waveName]
-    //   wave.draw(context!, width, height, frequency)
+    // Object.entries(games).forEach(([gameName, game]) => {
+    //   game.gameColor = colors[gameName]
+    //   game.draw(context!, width, height, frequency)
     // })
     if (timer === 500) {
       // colors = generateColor()
@@ -62,8 +61,8 @@ const Wave = () => {
 
     // console.log(word);
 
-    // const {name} = data;
-    // console.log(name);
+    // const cards1 = JSON.stringify(cards);
+    // console.log(cards1);
 
     const multiplication = [2, 1, 3, 1, 2, 3, 1, 3, 2]
     const letters = ['Е', 'E', 'Ш', 'А', 'Л', 'Ц', 'Н', 'И', 'П', ]
@@ -72,7 +71,7 @@ const Wave = () => {
 
     // const word = '';
     drumCanvas.draw(context!, width, height, multiplication, letters, amount)
-    wordCanvas.draw(context!, width, height, count)
+    wordCanvas.draw(context!, width, height, word)
     // console.log(angel);
     // while (angel <= Math.PI * 2) {
     //   angel = angel + Math.PI / 18;
@@ -89,8 +88,8 @@ const Wave = () => {
   return null
 }
 
-// Wave.defaultProps = {
+// Game.defaultProps = {
 //   word: '2'
 // };
 
-export default Wave
+export default Game

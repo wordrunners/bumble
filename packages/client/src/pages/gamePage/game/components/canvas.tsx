@@ -3,20 +3,18 @@ import { useRef, FC, useEffect, useState, useCallback } from 'react'
 import { CanvasContext } from '../hooks/useCanvas'
 import useResponsiveSize from '../hooks/useResponsiveSize'
 import useResponsiveData from '../hooks/useResponsiveData'
-import Wave from './wave'
+import Game from './game'
 import { useCanvasContext } from '../hooks/useCanvas'
-import { AppContext } from '../AppContext';
-import { Counter } from '../del/Counter';
 
 import { useAppSelector, useAppDispatch } from '../hooks/useStore';
 import {
-  decrement,
+  deleteLetter,
   increment,
-  incrementByAmount,
+  addLetter,
   // incrementAsync,
   incrementIfOdd,
-  selectCount,
-} from './counterSlice';
+  selectWord,
+} from './gameSlice';
 
 interface CanvasProps {
   width: number;
@@ -41,11 +39,11 @@ export const Canvas = ({ width, height }: CanvasProps) => {
   // AppContext.Provider.data.word
 
 
-  const count = useAppSelector(selectCount);
+  const word = useAppSelector(selectWord);
   const dispatch = useAppDispatch();
   const [incrementAmount, setIncrementAmount] = useState();
 
-  const incrementValue = Number(incrementAmount) || 0;
+  const incrementValue = incrementAmount || '';
 
 
 
@@ -166,24 +164,30 @@ export const Canvas = ({ width, height }: CanvasProps) => {
       const context = canvas.getContext("2d",{willReadFrequently:true});
       // get pixel under cursor
       const pixel = context?.getImageData(mousePos.x, mousePos.y, 1, 1).data;
-      let sector = `${pixel![1]}`;
-      sector = sector.charAt(sector.length-1);
+      const colorInfo = `${pixel![1]}`;
+      const lastColorIndex = colorInfo.charAt(colorInfo.length-1)
+      let sector = ''
+      if (Number(lastColorIndex) < 9) {
+        sector = lastColorIndex;
+      } else if (Number(lastColorIndex) === 9) {
+        dispatch(deleteLetter())
+      }
+
       // setItems(sector);
-      // count = sector;
+      // word = sector;
       // dispatch(increment());
       console.log(sector);
       // setIncrementAmount(sector)
       // console.log(incrementAmount);
 
       // incrementAmount = 12;
-      dispatch(incrementByAmount(sector))
+      dispatch(addLetter(sector))
       // dispatch(incrementIfOdd(5))
       // console.log(sector);
       // word = word + sector.toString();
       // setWord(word)
       // console.log(word, '===', sector);
-      // setCount(count + 1)
-      // console.log(count)
+
 
       // context!.font = "40px Arial";
       // context?.fillText('word', width/4, height/12);
@@ -217,23 +221,25 @@ export const Canvas = ({ width, height }: CanvasProps) => {
   };
 
 
-
-
-
-
-
   return (
     <>
       <CanvasContext.Provider value={{ context: context }}>
+        <canvas
+            id="canvas"
+            ref={canvasRef}
+            width={width}
+            height={height}
+          ></canvas>
+          <Game />
       <div >
         <div >
           <button
-            aria-label="Decrement value"
-            onClick={() => dispatch(decrement())}
+            aria-label="Decrement letter"
+            onClick={() => dispatch(deleteLetter())}
           >
             -
           </button>
-          <span>{count}</span>
+          <span>{word}</span>
           <button
             aria-label="Increment value"
             onClick={() => dispatch(increment())}
@@ -241,37 +247,8 @@ export const Canvas = ({ width, height }: CanvasProps) => {
             +
           </button>
         </div>
-        <div>
-          {/* <input
-            aria-label="Set increment amount"
-            value={incrementAmount}
-            onChange={(e) => setIncrementAmount(e.target.value)}
-          /> */}
-          <button
-            onClick={() => dispatch(incrementByAmount(incrementValue))}
-          >
-            Add Amount
-          </button>
-          {/* <button
-            onClick={() => dispatch(incrementAsync(incrementValue))}
-          >
-            Add Async
-          </button> */}
-          <button
-            onClick={() => dispatch(incrementIfOdd(incrementValue))}
-          >
-            Add If Odd
-          </button>
-        </div>
       </div>
-        {/* <Counter/> */}
-        <canvas
-          id="canvas"
-          ref={canvasRef}
-          width={width}
-          height={height}
-        ></canvas>
-        <Wave/>
+
       </CanvasContext.Provider>
     </>
   )
@@ -283,5 +260,4 @@ export default Canvas
 Canvas.defaultProps = {
   width: window.innerWidth,
   height: window.innerHeight,
-  // count: 0
 };
