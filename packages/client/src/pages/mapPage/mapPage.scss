@@ -1,0 +1,18 @@
+.map-page {
+  margin: auto;
+  text-align: center;
+  color: var(--background5);
+}
+
+.map-page a {
+  color: inherit;
+}
+
+.map-page a:hover {
+  color: var(--text);
+}
+
+.map-page:before {
+  display: block;
+  margin-bottom: 0.5rem;
+}

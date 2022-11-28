@@ -1,0 +1,18 @@
+.game-page {
+  margin: auto;
+  text-align: center;
+  color: var(--background5);
+}
+
+.game-page a {
+  color: inherit;
+}
+
+.game-page a:hover {
+  color: var(--text);
+}
+
+.game-page:before {
+  display: block;
+  margin-bottom: 0.5rem;
+}
