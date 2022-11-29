@@ -1,3 +1,5 @@
+// import useResponsiveData from '../hooks/useResponsiveData'
+
 class DrumEntity {
   private waveLength: number[]
   private color: string
@@ -15,10 +17,18 @@ class DrumEntity {
     context: CanvasRenderingContext2D,
     width: number,
     height: number,
+    // angel: number,
+    // multiplication: Array<number>,
+    // letters: Array<string>,
+    // amount: Array<number>,
+    // word: number,
     card: [  
       {"letter": string, "multiplication": number, "amount": number},  
     ]
   ): void => {
+
+
+
 
     const radius = width < height*0.73 ? width*0.48 : height*0.35;
 
@@ -31,6 +41,7 @@ class DrumEntity {
       letters.push(card[i].letter);
       amount.push(card[i].amount);
     }
+
 
     // const multiplication = [2, 1, 3, 1, 2, 3, 1, 3, 2]
     // const letters = ['Е', 'E', 'Ш', 'А', 'Л', 'Ц', 'Н', 'И', 'П', ]
@@ -46,11 +57,13 @@ class DrumEntity {
     context.fillStyle = 'rgba(132, 199, 239, 1)';
     context.fillRect(0, 0, width, height);
 
+
     //big
     context.beginPath();
     context.arc(width/2, height/2, radius, 0, 2 * Math.PI);
     context.fillStyle = "rgba(222, 221, 97, 1)";
     context.fill();
+
 
     //sectors
     for (let i = 0; i < 8; i++) {
@@ -97,6 +110,9 @@ class DrumEntity {
     }
     context.translate(-width*0.495, - height*0.505);
     
+
+
+
     //small
     context.beginPath();
     context.arc(width/2, height/2, radius*0.3, 0, 2 * Math.PI);
@@ -119,8 +135,50 @@ class DrumEntity {
     }
     context.translate(-width*0.495, - height*0.505);
 
+
+    
+    
+    // context.font = "40px Arial";
+    // context.textAlign = 'center';
+    // context?.fillText(word, width/2, height/12);
+
+    // context.moveTo(0, 0);
+    // context.lineTo(200, 100);
+    // context.stroke();
+
+    // context.moveTo(0, 0);
+    // context.lineTo(width, height);
+    // context.stroke();
+    
+    // context.beginPath()
+    // context.moveTo(0, height)
+    // if (this.waveLength.length < 3) {
+    //   return
+    // }
+    // for (let i = 0; i < width; i++) {
+    //   let wave1 = Math.sin(i * this.waveLength[0] - frequency)
+    //   let wave2 = Math.sin(i * this.waveLength[1] - frequency)
+    //   let wave3 = Math.sin(i * this.waveLength[2] - frequency)
+
+    //   context.lineTo(i * 2.5, height - 400 + wave1 * wave2 * wave3 * 200)
+    // }
+    // context.lineTo(width, height)
+    // context.fillStyle = this.color
+    // context.fill()
+    // context.closePath()
   }
 
+  // public rotate = (
+  //   context: CanvasRenderingContext2D,
+  //   width: number,
+  //   height: number,
+  //   angel: number,
+
+  // ): void => {
+  //   // context.translate(width*0.495, height*0.505);
+  //   context.rotate(angel);
+  //   // // context.translate(-width*0.495, -height*0.505);
+  // }
 }
 
 export default DrumEntity

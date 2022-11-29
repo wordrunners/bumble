@@ -1,15 +1,15 @@
 {
   "cards": {  
     "card1": [  
-      {"letter": "Е", "multiplication": 2, "amount": 0},  
-      {"letter": "Е", "multiplication": 1, "amount": 0}, 
+      {"letter": "Е", "multiplication": 2, "amount": 1},  
+      {"letter": "Е", "multiplication": 1, "amount": 1}, 
       {"letter": "Ш", "multiplication": 3, "amount": 2}, 
-      {"letter": "А", "multiplication": 1, "amount": 0},
-      {"letter": "Л", "multiplication": 2, "amount": 0}, 
+      {"letter": "А", "multiplication": 1, "amount": 1},
+      {"letter": "Л", "multiplication": 2, "amount": 1}, 
       {"letter": "Ц", "multiplication": 3, "amount": 2}, 
-      {"letter": "Н", "multiplication": 1, "amount": 0}, 
+      {"letter": "Н", "multiplication": 1, "amount": 1}, 
       {"letter": "И", "multiplication": 3, "amount": 2}, 
-      {"letter": "П", "multiplication": 2, "amount": 0}
+      {"letter": "П", "multiplication": 2, "amount": 1}
     ]  
   }  
 }  

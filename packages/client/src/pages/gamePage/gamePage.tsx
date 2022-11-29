@@ -1,26 +1,21 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+=======
+>>>>>>> b408c01 (game)
 import { Provider } from 'react-redux';
 import { store } from './game/store/store';
-// import App from './App';
-// import { Counter } from './features/counter/Counter';
-import App from "./game";
-// import { App } from "./tsgame/App"
-// import { Canvas } from "./tsgame3/Canvas";
 import './gamePage.scss';
-
+import { Canvas } from './game/components/canvas'
 
 export function GamePage() {
   return (
-    // <Canvas ></Canvas>
-    
     <div className="game-page">
-    <Provider store={store}>
-      <App />
-    </Provider>
-      {/* <Canvas ></Canvas> */}
+      <Provider store={store}>
+        <Canvas />
+      </Provider>
     </div>
   );
 }
