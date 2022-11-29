@@ -64,7 +64,7 @@ class WordEntity {
     
     context.fillStyle = `rgba(20, 19, 13, 1)`;
     // context.font = "40px Arial";
-    context.font = `bold ${height * 0.05}px Impact`;
+    context.font = `bold ${height * 0.075}px PequenaPro`;
     context.textAlign = 'center';
 
     newWord = (score !== 0) ? `${score} – ${newWord}` : '';
