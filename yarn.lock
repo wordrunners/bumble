@@ -4984,6 +4984,7 @@ cjs-module-lexer@^1.0.0:
   integrity sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 clean-css@^5.2.2:
   version "5.3.1"
   resolved "https://registry.npmjs.org/clean-css/-/clean-css-5.3.1.tgz"
@@ -4997,9 +4998,11 @@ classnames@2.3.2:
   integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
 >>>>>>> cf0ec53 (task-13 Стартовая страница (#4))
 
+=======
+>>>>>>> bfdd763 (lock)
 clean-css@^5.2.2:
   version "5.3.1"
-  resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-5.3.1.tgz#d0610b0b90d125196a2894d35366f734e5d7aa32"
+  resolved "https://registry.npmjs.org/clean-css/-/clean-css-5.3.1.tgz"
   integrity sha512-lCr8OHhiWCTw4v8POJovCoh4T7I9U11yVsPjMWWnnMmp9ZowCxyad1Pathle/9HjaDp+fdQKjO9fQydE6RHTZg==
   dependencies:
     source-map "~0.6.0"
@@ -6209,12 +6212,12 @@ esbuild-android-arm64@0.14.54:
 
 esbuild-darwin-64@0.14.54:
   version "0.14.54"
-  resolved "https://registry.npmjs.org/esbuild-darwin-64/-/esbuild-darwin-64-0.14.54.tgz"
+  resolved "https://registry.yarnpkg.com/esbuild-darwin-64/-/esbuild-darwin-64-0.14.54.tgz#24ba67b9a8cb890a3c08d9018f887cc221cdda25"
   integrity sha512-jtdKWV3nBviOd5v4hOpkVmpxsBy90CGzebpbO9beiqUYVMBtSc0AL9zGftFuBon7PNDcdvNCEuQqw2x0wP9yug==
 
 esbuild-darwin-arm64@0.14.54:
   version "0.14.54"
-  resolved "https://registry.yarnpkg.com/esbuild-darwin-arm64/-/esbuild-darwin-arm64-0.14.54.tgz#3f7cdb78888ee05e488d250a2bdaab1fa671bf73"
+  resolved "https://registry.npmjs.org/esbuild-darwin-arm64/-/esbuild-darwin-arm64-0.14.54.tgz"
   integrity sha512-OPafJHD2oUPyvJMrsCvDGkRrVCar5aVyHfWGQzY1dWnzErjrDuSETxwA2HSsyg2jORLY8yBfzc1MIpUkXlctmw==
 
 esbuild-freebsd-64@0.14.54:
@@ -6363,7 +6366,7 @@ escodegen@^2.0.0:
 
 eslint-config-prettier@8.5.0, eslint-config-prettier@^8.5.0:
   version "8.5.0"
-  resolved "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-8.5.0.tgz"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.5.0.tgz#5a81680ec934beca02c7b1a61cf8ca34b66feab1"
   integrity sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==
 
 eslint-config-react-app@^7.0.1:
@@ -9251,12 +9254,12 @@ language-tags@^1.0.5:
 
 lefthook-darwin-arm64@1.1.1:
   version "1.1.1"
-  resolved "https://registry.yarnpkg.com/lefthook-darwin-arm64/-/lefthook-darwin-arm64-1.1.1.tgz#2731ebbeea9ab6ba2e64e6aa77ab9ebc45ab1ba9"
+  resolved "https://registry.npmjs.org/lefthook-darwin-arm64/-/lefthook-darwin-arm64-1.1.1.tgz"
   integrity sha512-Vs+3kRgC8S8Vz4Xxug6u3wV24BpO3IG/R1D8mZYolHyrS60Nx24ZadV267BjYp7OPe+mwC4xZFwj388YJGF2Ew==
 
 lefthook-darwin-x64@1.1.1:
   version "1.1.1"
-  resolved "https://registry.npmjs.org/lefthook-darwin-x64/-/lefthook-darwin-x64-1.1.1.tgz"
+  resolved "https://registry.yarnpkg.com/lefthook-darwin-x64/-/lefthook-darwin-x64-1.1.1.tgz#9a9273774a238a9e63ec922130836f912b6a3ba4"
   integrity sha512-wrkg2NYBW/y5pnpiTplkn7mbvCe5hkoAUhag+xw6xVyti4GcS5uMFZEJdKzq+LajOK50DhfdmZ2nEud2XM6FQQ==
 
 lefthook-linux-arm64@1.1.1:
