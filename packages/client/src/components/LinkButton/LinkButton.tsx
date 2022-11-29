@@ -8,7 +8,7 @@ interface Props{
     modifier?: string;
 }
 
-const LinkButton: FC<Props> = ({ to, children, modifier }): JSX.Element => {
+export const LinkButton: FC<Props> = ({ to, children, modifier }): JSX.Element => {
     return (
         <Link
             to={to}
@@ -18,5 +18,3 @@ const LinkButton: FC<Props> = ({ to, children, modifier }): JSX.Element => {
         </Link>
     )
 }
-
-export default LinkButton;

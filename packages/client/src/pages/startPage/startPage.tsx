@@ -4,7 +4,7 @@ import './startPage.scss';
 import LinkButton from '@/components/LinkButton';
 import Header from '@/components/Header';
 
-const StartPage = (): JSX.Element => {
+export const StartPage = (): JSX.Element => {
     return (
         <section className={cn('start')}>
             <Header />
@@ -14,5 +14,3 @@ const StartPage = (): JSX.Element => {
         </section> 
     )
 };
-
-export default StartPage;

@@ -1,8 +1,8 @@
-import Button from "../Button";
+import { Button } from "../Button";
 import LinkButton from "../LinkButton";
 import './Header.scss';
 
-const Header = ():JSX.Element => {
+export const Header = ():JSX.Element => {
     return (
         <header className='header'>
             <Button className='header__btn'>Правила</Button>
@@ -12,4 +12,3 @@ const Header = ():JSX.Element => {
     )
 };
 
-export default Header;
