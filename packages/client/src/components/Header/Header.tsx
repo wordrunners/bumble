@@ -1,5 +1,5 @@
 import { Button } from "../Button";
-import LinkButton from "../LinkButton";
+import { LinkButton } from "../LinkButton";
 import './Header.scss';
 
 export const Header = ():JSX.Element => {

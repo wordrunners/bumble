@@ -1,8 +1,8 @@
 import cn from 'classnames';
 import Logo from '../../assets/images/logo.png';
 import './startPage.scss';
-import LinkButton from '@/components/LinkButton';
-import Header from '@/components/Header';
+import { LinkButton } from '@/components/LinkButton';
+import { Header } from '@/components/Header';
 
 export const StartPage = (): JSX.Element => {
     return (
