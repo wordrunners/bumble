@@ -50,15 +50,15 @@ export const Game = () => {
 
 
       emptyCanvas.draw(context)
-      // if (card) {
-      //   drumCanvas.draw(card)
-      //   wordCanvas.draw(word, card)
-      //   HUDCanvas.draw()
-      //   SendCanvas.draw()
-      //   TimerCanvas.draw(timer)
+      if (card) {
+        drumCanvas.draw(card)
+        wordCanvas.draw(word, card)
+        HUDCanvas.draw()
+        SendCanvas.draw()
+        TimerCanvas.draw(timer)
 
 
-      // }
+      }
     }
   }
   if (context) {

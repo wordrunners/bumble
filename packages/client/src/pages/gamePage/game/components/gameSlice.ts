@@ -10,7 +10,8 @@ export interface GameState {
   height: number,
   card: cardType | undefined,
   canvas: undefined,
-  timer: number
+  timer: number,
+  setI: undefined
 }
 
 const initialState: GameState = {
@@ -21,7 +22,8 @@ const initialState: GameState = {
   height: 300,
   card: undefined,
   canvas: undefined,
-  timer: 0
+  timer: 0,
+  setI: undefined
 };
 
 export const gameSlice = createSlice({
@@ -64,6 +66,16 @@ export const gameSlice = createSlice({
         // }, 2000);
       // });
     },
+    setSetI: (state, action: PayloadAction<any>) => {
+      state.setI = action.payload;
+      // useEffect(() => {
+        // setTimeout(() => {
+        //   // state.timer -= 1;
+        //   decrementTimer()
+        //   console.log(state.timer)
+        // }, 2000);
+      // });
+    },
     decrementTimer: (state) => {
       state.timer -= 1;
     },
@@ -78,7 +90,7 @@ export const { setCard } = gameSlice.actions;
 
 export const { setCanvas } = gameSlice.actions;
 
-export const { setTimer, decrementTimer } = gameSlice.actions;
+export const { setTimer, decrementTimer, setSetI } = gameSlice.actions;
 
 export const selectWord = (state: RootState) => state.game.word;
 
@@ -92,16 +104,28 @@ export const selectCanvas = (state: RootState) => state.game.canvas;
 
 export const selectTimer = (state: RootState) => state.game.timer;
 
+export const selectSetI = (state: RootState) => state.game.setI;
+
 
 export const decrementIfTime =
   (amount: number): AppThunk =>
   (dispatch, getState) => {
-    setInterval(() => {
+    let currentSetI = selectSetI(getState());
+    if (currentSetI) {
+      clearInterval(currentSetI);
+      dispatch(setSetI(undefined));
+      currentSetI = selectSetI(getState());
+    }
+    dispatch(decrementTimer());
+    if (currentSetI === undefined) {
+      const newI = setInterval(() => {
 
-      dispatch(decrementTimer());
-  
-        // console.log(timer);
-    }, 1000);
+        dispatch(decrementTimer());
+    
+          // console.log(timer);
+      }, 1000);
+      dispatch(setSetI(newI));
+    }
     // const currentWord = selectWord(getState());
     // if (currentWord === '1') {
     //   dispatch(addLetter(amount));

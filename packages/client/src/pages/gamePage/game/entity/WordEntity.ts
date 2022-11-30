@@ -63,6 +63,7 @@ export class WordEntity {
     context.font = `bold ${height * 0.075}px PequenaPro`;
     context.textAlign = 'center';
 
+    // newWord = (score !== 0) ? `${score} – ${newWord} – ⮕` : '';
     newWord = (score !== 0) ? `${score} – ${newWord}` : '';
     context?.fillText(newWord, width/2, height/12);
 

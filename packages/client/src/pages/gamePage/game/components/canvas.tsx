@@ -79,15 +79,8 @@ export const Canvas = () => {
       dispatch(setHeight(window.outerHeight))
       dispatch(setCard(cards[0]))
       dispatch(setTimer(60))
-      // dispatch(decrementIfTime(timer))
+      dispatch(decrementIfTime(timer))
       
-
-      // setInterval(() => {
-      //   // const t = 
-      //   setTimer(timer--)
-  
-      //   console.log(timer);
-      // }, 1000);
 
     }
   }, [])
@@ -149,7 +142,7 @@ export const Canvas = () => {
             width={width}
             height={height}
           ></canvas>
-          {/* <Game /> */}
+          <Game />
       </CanvasContext.Provider>
     </>
   )
