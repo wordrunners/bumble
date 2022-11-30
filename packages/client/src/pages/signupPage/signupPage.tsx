@@ -18,10 +18,10 @@ export const SignupPage: FC = ({ submitForm }: any) => {
     <div className={cn('auth')}>
       <Form onSubmit={handleSubmit}>
         <h1 className="auth__title">Регистрация</h1>
-        <FormField type="text" name="first_name" value={values.first_name} label="Имя" onChange={handleChange} />
-        {errors.first_name && <p className="auth__error">{errors.first_name}</p>}
-        <FormField type="text" name="second_name" value={values.second_name} label="Фамилия" onChange={handleChange} />
-        {errors.second_name && <p className="auth__error">{errors.second_name}</p>}
+        <FormField type="text" name="first_name" value={values.firstName} label="Имя" onChange={handleChange} />
+        {errors.firstName && <p className="auth__error">{errors.firstName}</p>}
+        <FormField type="text" name="second_name" value={values.secondName} label="Фамилия" onChange={handleChange} />
+        {errors.secondName && <p className="auth__error">{errors.secondName}</p>}
         <FormField type="text" name="login" value={values.login} label="Логин" onChange={handleChange} />
         {errors.login && <p className="auth__error">{errors.login}</p>}
         <FormField type="text" name="email" value={values.email} label="Email" onChange={handleChange} />

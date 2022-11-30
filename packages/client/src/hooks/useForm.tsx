@@ -5,13 +5,13 @@ import { useState, useEffect } from 'react';
 export type FormProps = {
   login?: string;
   password?: string;
-  first_name?: string;
-  second_name?: string;
+  firstName?: string;
+  secondName?: string;
   phone?: string;
   email?: string;
 }
 
-export const useForm = (callback: any, validate: any) => {
+export const useForm = (callback: () => void, validate: any) => {
   const [values, setValues] = useState<FormProps>({});
   const [errors, setErrors] = useState<FormProps>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
