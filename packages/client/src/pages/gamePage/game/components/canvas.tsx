@@ -20,7 +20,9 @@ import {
   setTimer,
   selectTimer,
   decrementTimer,
-  decrementIfTime
+  decrementIfTime,
+  selectPlayers,
+  setPlayers,
 } from './gameSlice';
 
 import cards from '../cards/cards.json'
@@ -42,6 +44,9 @@ export const Canvas = () => {
   const height = useAppSelector(selectHeight);
 
   const timer = useAppSelector(selectTimer);
+
+  const players = useAppSelector(selectPlayers);
+
 
   // const context = useAppSelector(selectCanvas);
 
@@ -74,12 +79,29 @@ export const Canvas = () => {
     if (context) {
       setContext(context)
       // dispatch(setCanvas(context))
+      console.log(timer,'12')
 
       dispatch(setWidth(window.outerWidth))
       dispatch(setHeight(window.outerHeight))
       dispatch(setCard(cards[0]))
-      dispatch(setTimer(60))
-      dispatch(decrementIfTime(timer))
+      dispatch(setTimer(600))
+      dispatch(decrementIfTime())
+
+      const newPlayer1 = {  
+        name: 'Игрок 1',
+        words: ['Раздватри', 'Дватрираз', 'Трираздва'],
+        score: 0,
+        enabled: true
+      }
+      const newPlayer2 = {  
+        name: 'Игрок 2',
+        words: ['Раздватри', 'Дватрираз', 'Трираздва'],
+        score: 0,
+        enabled: false
+      }
+      const newPlayers = [newPlayer1, newPlayer2]
+      dispatch(setPlayers(newPlayers))
+
       
 
     }

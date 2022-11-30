@@ -10,6 +10,8 @@ import {HUDEntity} from '../entity/HUDEntity'
 import {SendEntity} from '../entity/SendEntity'
 import {EmptyEntity} from '../entity/EmptyEntity'
 import {TimerEntity} from '../entity/TimerEntity'
+import {PlayersEntity} from '../entity/PlayersEntity'
+
 
 
 
@@ -19,13 +21,16 @@ import {
   selectCard,
   selectTimer,
   setTimer,
-  decrementTimer
+  decrementTimer,
+  selectPlayers
 } from './gameSlice';
 
 export const Game = () => {
   const word = useAppSelector(selectWord);
   const card = useAppSelector(selectCard);
   const timer = useAppSelector(selectTimer);
+  const players = useAppSelector(selectPlayers);
+
   const dispatch = useAppDispatch();
 
   
@@ -46,17 +51,36 @@ export const Game = () => {
       const wordCanvas = new WordEntity(context, width, height, )
       const HUDCanvas = new HUDEntity(context, width, height)
       const SendCanvas = new SendEntity(context, width, height)
-      const TimerCanvas = new TimerEntity(context, width, height)
+      const timerCanvas = new TimerEntity(context, width, height)
+      const playersCanvas = new PlayersEntity(context, width, height, )
 
 
-      emptyCanvas.draw(context)
+
+
+      // emptyCanvas.draw(context)
       if (card) {
-        drumCanvas.draw(card)
-        wordCanvas.draw(word, card)
-        HUDCanvas.draw()
-        SendCanvas.draw()
-        TimerCanvas.draw(timer)
 
+        if (document.fonts) {
+          document.fonts.load("bold 16px 'PequenaPro'", "b").then(() => {
+              // console.log(timer)
+
+              drumCanvas.draw(card)
+              wordCanvas.draw(word, card)
+              HUDCanvas.draw()
+              timerCanvas.draw(timer)
+
+              if (word) {
+                SendCanvas.draw()
+
+              }
+
+              if (players) {
+                playersCanvas.draw(players)
+
+              }
+
+          });
+        }
 
       }
     }

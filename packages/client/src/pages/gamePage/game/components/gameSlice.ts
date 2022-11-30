@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../store/store';
-import { cardType } from "../types/canvas"
+import { cardType, playersType, playerType } from "../types/canvas"
 
 export interface GameState {
   word: string;
@@ -11,7 +11,8 @@ export interface GameState {
   card: cardType | undefined,
   canvas: undefined,
   timer: number,
-  setI: undefined
+  setI: undefined,
+  players: playersType | undefined,
 }
 
 const initialState: GameState = {
@@ -23,7 +24,8 @@ const initialState: GameState = {
   card: undefined,
   canvas: undefined,
   timer: 0,
-  setI: undefined
+  setI: undefined,
+  players: undefined,
 };
 
 export const gameSlice = createSlice({
@@ -58,26 +60,15 @@ export const gameSlice = createSlice({
     },
     setTimer: (state, action: PayloadAction<number>) => {
       state.timer = action.payload;
-      // useEffect(() => {
-        // setTimeout(() => {
-        //   // state.timer -= 1;
-        //   decrementTimer()
-        //   console.log(state.timer)
-        // }, 2000);
-      // });
     },
     setSetI: (state, action: PayloadAction<any>) => {
       state.setI = action.payload;
-      // useEffect(() => {
-        // setTimeout(() => {
-        //   // state.timer -= 1;
-        //   decrementTimer()
-        //   console.log(state.timer)
-        // }, 2000);
-      // });
     },
     decrementTimer: (state) => {
       state.timer -= 1;
+    },
+    setPlayers: (state, action: PayloadAction<playersType>) => {
+      state.players = action.payload;
     },
   },
 });
@@ -91,6 +82,8 @@ export const { setCard } = gameSlice.actions;
 export const { setCanvas } = gameSlice.actions;
 
 export const { setTimer, decrementTimer, setSetI } = gameSlice.actions;
+
+export const { setPlayers } = gameSlice.actions;
 
 export const selectWord = (state: RootState) => state.game.word;
 
@@ -106,30 +99,21 @@ export const selectTimer = (state: RootState) => state.game.timer;
 
 export const selectSetI = (state: RootState) => state.game.setI;
 
+export const selectPlayers = (state: RootState) => state.game.players;
 
 export const decrementIfTime =
-  (amount: number): AppThunk =>
+  (): AppThunk =>
   (dispatch, getState) => {
-    let currentSetI = selectSetI(getState());
+    const currentSetI = selectSetI(getState());
     if (currentSetI) {
       clearInterval(currentSetI);
       dispatch(setSetI(undefined));
-      currentSetI = selectSetI(getState());
     }
-    dispatch(decrementTimer());
-    if (currentSetI === undefined) {
-      const newI = setInterval(() => {
 
-        dispatch(decrementTimer());
-    
-          // console.log(timer);
-      }, 1000);
-      dispatch(setSetI(newI));
-    }
-    // const currentWord = selectWord(getState());
-    // if (currentWord === '1') {
-    //   dispatch(addLetter(amount));
-    // }
+    const newSetI = setInterval(() => {
+      dispatch(decrementTimer());
+    }, 1000);
+    dispatch(setSetI(newSetI));
   };
 
 

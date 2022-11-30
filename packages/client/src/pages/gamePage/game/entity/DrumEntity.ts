@@ -1,4 +1,5 @@
 import { cardType } from "../types/canvas"
+import randomLetters from '../cards/randomLetters.json'
 
 export class DrumEntity {
   private context: CanvasRenderingContext2D
@@ -15,17 +16,13 @@ export class DrumEntity {
       this.height = height
   }
 
-  // public set waveColor(color: string) {
-  //   this.color = color
-  // }
-
   public draw = (
     card: cardType
   ): void => {
 
     const {context, width, height} = this;
 
-    const radius = width < height*0.73 ? width*0.48 : height*0.35;
+    const radius = width < height*0.67 ? width*0.48 : height*0.325;
 
     const multiplication = []
     const letters = []
@@ -50,29 +47,30 @@ export class DrumEntity {
     // rgba(237, 114, 159, 1) - new pink
 
     // background
+    // console.log(document.fonts);
+
     context.fillStyle = 'rgba(109, 199, 243, 1)';
     context.fillRect(0, 0, width, height);
     
-    const randomLetter = 'MGMKJAJPULVIPFSDDRKMGPNRLNTDZTTBXVLVNLYZCUKWMGMKJAJPULVIPFSDDRKMGPNRLNTDZTTBXVLVNLYZCUKWMGMKJAJPULVIPFSDDRKMGPNRLNTDZTTBXVLVNLYZCUKW';
     for (let i = 0; i < 12; i++) {
       context.fillStyle = `rgba(109, 209, 255, 1)`;
       context.font = `bold ${height*0.14}px PequenaPro`;
-      context.fillText(randomLetter.slice(i*i), 0, height*0.12*i);
+      context.fillText((randomLetters).toString().slice(i*i), 0, height*0.12*i);
     }
 
     
-    //big
-    context.beginPath();
-    context.arc(width/2, height/2, radius, 0, 2 * Math.PI);
-    context.fillStyle = "rgba(222, 220, 0, 1)";
-    context.fill();
+    // //big
+    // context.beginPath();
+    // context.arc(width/2, height/2, radius, 0, 2 * Math.PI);
+    // context.fillStyle = "rgba(222, 220, 0, 1)";
+    // context.fill();
 
     //sectors
     for (let i = 0; i < 8; i++) {
       const sector = Math.PI * 0.25;
       const startAngle = sector * i;
       const endAngle = sector * (i+1); // 90 degree
-      const origin = {x: width/2, y: height/2};
+      const origin = {x: width/2, y: height* 0.45};
       context.beginPath();
       context.moveTo(origin.x, origin.y);
       context.arc(origin.x, origin.y, radius, startAngle, endAngle, false);
@@ -88,7 +86,7 @@ export class DrumEntity {
     }
 
     //letters
-    context.translate(width*0.495, height*0.525);
+    context.translate(width*0.495, height*0.475);
     context.textBaseline = "middle";
     context.textAlign = "center";
     for(let i = 0; i < 8; i++){
@@ -112,11 +110,11 @@ export class DrumEntity {
         context.rotate(-ang);
       }
     }
-    context.translate(-width*0.495, - height*0.525);
+    context.translate(-width*0.495, - height*0.475);
     
     //small
     context.beginPath();
-    context.arc(width/2, height/2, radius*0.3, 0, 2 * Math.PI);
+    context.arc(width/2, height * 0.45, radius*0.3, 0, 2 * Math.PI);
     if (multiplication[8] === 1){
       context.fillStyle = `rgba(222, 218, 0, 1)`;  // y
     } else if (multiplication[8] === 2){
@@ -127,15 +125,15 @@ export class DrumEntity {
     context.fill();
 
     if (enabled[8]) { 
-      context.translate(width*0.495, height*0.525);
+      context.translate(width*0.495, height*0.475);
       context.fillStyle = `rgba(20, 18, 13, 1)`;
       context.font = `bold ${radius * 0.425}px PequenaPro`;
       context.fillText(letters[8], 0, 0);
       if (amount[8] > 1) {
         context.font = `bold ${radius * 0.125}px PequenaPro`;
-        context.fillText((amount[8]).toString(), radius * 0.18, radius * 0.14);
+        context.fillText((amount[8]).toString(), radius * 0.205, radius * 0.15);
       }
-      context.translate(-width*0.495, - height*0.525);
+      context.translate(-width*0.495, - height*0.475);
     }
 
   }

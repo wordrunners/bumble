@@ -25,6 +25,8 @@ export class WordEntity {
 
     const {context, width, height} = this;
 
+    const radius = width < height*0.67 ? width*0.48 : height*0.325;
+
     const multiplication = []
     const letters = []
     const amount = []
@@ -60,12 +62,12 @@ export class WordEntity {
     
     context.fillStyle = `rgba(20, 19, 13, 1)`;
     // context.font = "40px Arial";
-    context.font = `bold ${height * 0.075}px PequenaPro`;
+    context.font = `bold ${radius * 0.225}px PequenaPro`;
     context.textAlign = 'center';
 
     // newWord = (score !== 0) ? `${score} – ${newWord} – ⮕` : '';
     newWord = (score !== 0) ? `${score} – ${newWord}` : '';
-    context?.fillText(newWord, width/2, height/12);
+    context?.fillText(newWord, width/2, height/14);
 
   }
 

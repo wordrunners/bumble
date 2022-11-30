@@ -23,6 +23,8 @@ export class TimerEntity {
 
     const {context, width, height} = this;
 
+    const radius = width < height*0.67 ? width*0.48 : height*0.325;
+
     // colors
     // rgba(109, 199, 243, 1) - new blue
     // rgba(222, 220, 0, 1) - new yellow
@@ -33,10 +35,10 @@ export class TimerEntity {
 
     context.fillStyle = `rgba(20, 19, 13, 1)`;
     // context.font = "40px Arial";
-    context.font = `bold ${height * 0.075}px PequenaPro`;
+    context.font = `bold ${radius * 0.225}px PequenaPro`;
     context.textAlign = 'center';
 
-    context?.fillText(`${timer}`, width/12, height/12);
+    context?.fillText(`${timer}`, width/12, height/14);
 
     // context.fillStyle = 'rgba(222, 219, 0, 1)';
     // context.fillRect(width*0.3, height*0.94, width*0.1, height);
