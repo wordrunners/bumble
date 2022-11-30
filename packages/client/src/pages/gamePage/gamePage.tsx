@@ -14,6 +14,7 @@ export function GamePage() {
   return (
     <div className="game-page">
       <Provider store={store}>
+        {/* <h1>123</h1> */}
         <Canvas />
       </Provider>
     </div>

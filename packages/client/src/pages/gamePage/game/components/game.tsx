@@ -4,60 +4,70 @@
 import { FC } from 'react'
 import { useCanvasContext } from '../hooks/useCanvas'
 import useResponsiveSize from '../hooks/useResponsiveSize'
-import DrumEntity from '../entity/DrumEntity'
-import WordEntity from '../entity/WordEntity'
-import HUDEntity from '../entity/HUDEntity'
-import SendEntity from '../entity/SendEntity'
-import EmptyEntity from '../entity/EmptyEntity'
-import cards from '../cards/cards.json'
+import {DrumEntity} from '../entity/DrumEntity'
+import {WordEntity} from '../entity/WordEntity'
+import {HUDEntity} from '../entity/HUDEntity'
+import {SendEntity} from '../entity/SendEntity'
+import {EmptyEntity} from '../entity/EmptyEntity'
+import {TimerEntity} from '../entity/TimerEntity'
+
 
 
 import { useAppSelector, useAppDispatch } from '../hooks/useStore';
 import {
   selectWord,
-  selectWidth,
-  selectHeight
+  selectCard,
+  selectTimer,
+  setTimer,
+  decrementTimer
 } from './gameSlice';
 
 export const Game = () => {
   const word = useAppSelector(selectWord);
+  const card = useAppSelector(selectCard);
+  const timer = useAppSelector(selectTimer);
+  const dispatch = useAppDispatch();
+
   
   const { context } = useCanvasContext()
-  // const width = useAppSelector(selectWidth);
-  // const height = useAppSelector(selectHeight);
+
   const { width, height } = useResponsiveSize()
-  // const { generateColor } = useColor()
-  let timer = 1
 
-  const emptyCanvas = new EmptyEntity(width, height)
-  const drumCanvas = new DrumEntity([0.0211, 0.028, 0.015], 'rgba(255,179,0,0.88)')
-  const wordCanvas = new WordEntity([0.0211, 0.028, 0.015], 'rgba(255,179,0,0.88)')
-  const HUDCanvas = new HUDEntity([0.0211, 0.028, 0.015], 'rgba(255,179,0,0.88)')
-  const SendCanvas = new SendEntity([0.0211, 0.028, 0.015], 'rgba(255,179,0,0.88)')
-  
+
+
+
+
+
   const render = () => {
-    emptyCanvas.draw(context!)
-    // context?.clearRect(0, 0, width, height)
+    // console.log('g')
+    if (context) {
+      const emptyCanvas = new EmptyEntity(width, height)
+      const drumCanvas = new DrumEntity(context, width, height,)
+      const wordCanvas = new WordEntity(context, width, height, )
+      const HUDCanvas = new HUDEntity(context, width, height)
+      const SendCanvas = new SendEntity(context, width, height)
+      const TimerCanvas = new TimerEntity(context, width, height)
 
-    if (timer === 500) {
-      timer = 1
+
+      emptyCanvas.draw(context)
+      // if (card) {
+      //   drumCanvas.draw(card)
+      //   wordCanvas.draw(word, card)
+      //   HUDCanvas.draw()
+      //   SendCanvas.draw()
+      //   TimerCanvas.draw(timer)
+
+
+      // }
     }
-    timer++
-    // requestAnimationFrame(render)
-
-    // const cardss = JSON.parse(JSON.stringify(cards));
-    // console.log('1');
-    const card = cards.cards.card1
-
-    drumCanvas.draw(context!, width, height, card)
-
-    wordCanvas.draw(context!, width, height, word, card)
-
-    HUDCanvas.draw(context!, width, height)
-    // SendCanvas.draw(context!, width, height)
-
   }
-  if (context) render()
+  if (context) {
+    // console.log('1');
+    render()
+  }
+
+
+
   return null
 }
 

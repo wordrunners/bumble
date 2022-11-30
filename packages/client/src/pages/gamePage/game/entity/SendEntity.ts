@@ -1,24 +1,23 @@
 // import useResponsiveData from '../hooks/useResponsiveData'
 
-class SendEntity {
-  private waveLength: number[]
-  private color: string
+export class SendEntity {
+  private context: CanvasRenderingContext2D
+  private width: number
+  private height: number
 
-  constructor(waveLength: number[], color: string) {
-    this.waveLength = waveLength
-    this.color = color
-  }
-
-  public set waveColor(color: string) {
-    this.color = color
-  }
-
-  public draw = (
+  constructor(
     context: CanvasRenderingContext2D,
     width: number,
     height: number,
-  ): void => {
+    ) {
+      this.context = context
+      this.width = width
+      this.height = height
+  }
 
+  public draw = (
+  ): void => {
+    const {context, width, height} = this;
 
     context.fillStyle = `rgba(20, 19, 13, 1)`;
     context.font = `bold ${height * 0.125}px Impact`;
@@ -28,5 +27,3 @@ class SendEntity {
   }
 
 }
-
-export default SendEntity

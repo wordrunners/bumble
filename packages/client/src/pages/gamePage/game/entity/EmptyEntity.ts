@@ -1,4 +1,4 @@
-class EmptyEntity {
+export class EmptyEntity {
   // private waveLength: number[]
   // private color: string
   private width: number
@@ -27,5 +27,3 @@ class EmptyEntity {
   }
 
 }
-
-export default EmptyEntity

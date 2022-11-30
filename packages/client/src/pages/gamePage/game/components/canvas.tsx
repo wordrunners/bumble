@@ -13,8 +13,17 @@ import {
   selectHeight,
   selectWidth,
   setWidth,
-  setHeight
+  setHeight,
+  setCard,
+  selectCanvas,
+  setCanvas,
+  setTimer,
+  selectTimer,
+  decrementTimer,
+  decrementIfTime
 } from './gameSlice';
+
+import cards from '../cards/cards.json'
 
 // interface CanvasProps {
 //   width: number;
@@ -31,33 +40,58 @@ export const Canvas = () => {
 
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
+
+  const timer = useAppSelector(selectTimer);
+
+  // const context = useAppSelector(selectCanvas);
+
   // const { width, height } = useResponsiveSize()
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
 
+  // let [timer, setTimer] = useState<number | undefined>(60)
+
   const dispatch = useAppDispatch();
 
+  // dispatch(setTimer(60))
+
+  //   setInterval(() => {
+  //   // const t = 
+  //   // dispatch(setTimer(useAppSelector(selectTimer)))
+  //   // timer--
+  //   // timer = timer - 1;
+  //   dispatch(decrementTimer())
+  //   console.log(timer);
+  // }, 1000);
+
+
+
   useEffect(() => {
+
     const context = canvasRef?.current?.getContext("2d",{willReadFrequently:true});
     if (context) {
       setContext(context)
-      dispatch(setWidth(window.outerWidth*3))
-      dispatch(setHeight(window.outerHeight*3))
+      // dispatch(setCanvas(context))
+
+      dispatch(setWidth(window.outerWidth))
+      dispatch(setHeight(window.outerHeight))
+      dispatch(setCard(cards[0]))
+      dispatch(setTimer(60))
+      // dispatch(decrementIfTime(timer))
+      
+
+      // setInterval(() => {
+      //   // const t = 
+      //   setTimer(timer--)
+  
+      //   console.log(timer);
+      // }, 1000);
+
     }
   }, [])
 
-
-  // const setSizes = useCallback(() => {
-  //   dispatch(setWidth(window.outerWidth))
-  //   dispatch(setHeight(window.outerHeight))
-  // }, [dispatch(setWidth(window.outerWidth)), dispatch(setHeight(window.outerHeight))])
-
-  // useEffect(() => {
-  //   window.addEventListener('resize', setSizes)
-  //   setSizes()
-  // }, [setSizes])
 
 
   const startPlay = useCallback((event: MouseEvent) => {
@@ -96,16 +130,13 @@ export const Canvas = () => {
       const context = canvas.getContext("2d",{willReadFrequently:true});
       const pixel = context?.getImageData(mousePos.x, mousePos.y, 1, 1).data;
       const colorInfo = `${pixel![1]}`;
-      const lastColorIndex = colorInfo.charAt(colorInfo.length-1)
-      let sector = ''
-      if (Number(lastColorIndex) < 9) {
-        sector = lastColorIndex;
-      } else if (Number(lastColorIndex) === 9) {
+      const sector = colorInfo.charAt(colorInfo.length-1)
+      if (Number(sector) < 9) {
+        dispatch(addLetter(sector))
+      } else if (Number(sector) === 9) {
         dispatch(deleteLetter())
       }
 
-      console.log(sector);
-      dispatch(addLetter(sector))
   };
 
 
@@ -118,15 +149,9 @@ export const Canvas = () => {
             width={width}
             height={height}
           ></canvas>
-          <Game />
+          {/* <Game /> */}
       </CanvasContext.Provider>
     </>
   )
 }
 
-// export default Canvas
-
-// Canvas.defaultProps = {
-//   width: window.innerWidth,
-//   height: window.innerHeight,
-// };

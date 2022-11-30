@@ -1,33 +1,29 @@
 // import useResponsiveData from '../hooks/useResponsiveData'
+import { cardType } from "../types/canvas"
 
-class WordEntity {
-  private waveLength: number[]
-  private color: string
+export class WordEntity {
+  private context: CanvasRenderingContext2D
+  private width: number
+  private height: number
 
-  constructor(waveLength: number[], color: string) {
-    this.waveLength = waveLength
-    this.color = color
-  }
-
-  public set waveColor(color: string) {
-    this.color = color
-  }
-
-  public draw = (
+  constructor(
     context: CanvasRenderingContext2D,
     width: number,
     height: number,
-    // // angel: number,
-    // multiplication: Array<number>,
-    // letters: Array<string>,
-    // amount: Array<number>,
+    ) {
+      this.context = context
+      this.width = width
+      this.height = height
+  }
+
+
+
+  public draw = (
     word: string,
-    card: [  
-      {"letter": string, "multiplication": number, "amount": number},  
-    ]
+    card: cardType
   ): void => {
 
-
+    const {context, width, height} = this;
 
     const multiplication = []
     const letters = []
@@ -73,5 +69,3 @@ class WordEntity {
   }
 
 }
-
-export default WordEntity
