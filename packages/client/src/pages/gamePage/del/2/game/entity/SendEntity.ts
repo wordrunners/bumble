@@ -1,3 +1,5 @@
+// import useResponsiveData from '../hooks/useResponsiveData'
+
 export class SendEntity {
   private context: CanvasRenderingContext2D
   private width: number
@@ -16,6 +18,7 @@ export class SendEntity {
   public draw = (
   ): void => {
     const {context, width, height} = this;
+
     const radius = width < height*0.67 ? width*0.48 : height*0.325;
 
     context.font = `bold ${radius * 0.285}px PequenaPro`;
@@ -26,5 +29,10 @@ export class SendEntity {
     context.strokeText('Bumble', width*0.5, height*0.875);
     context.fillStyle = `rgba(20, 29, 13, 1)`;
     context.fillText('Bumble', width*0.5, height*0.875);
+
+
+
+
   }
+
 }

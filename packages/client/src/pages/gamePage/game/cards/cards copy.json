@@ -1,0 +1,25 @@
+[
+  [  
+    {"letter": "Е", "multiplication": 2, "amount": 1, "enabled": true},  
+    {"letter": "Е", "multiplication": 1, "amount": 1, "enabled": true}, 
+    {"letter": "Ш", "multiplication": 3, "amount": 2, "enabled": true}, 
+    {"letter": "А", "multiplication": 1, "amount": 1, "enabled": true},
+    {"letter": "Л", "multiplication": 2, "amount": 1, "enabled": true}, 
+    {"letter": "Ц", "multiplication": 3, "amount": 2, "enabled": true}, 
+    {"letter": "Н", "multiplication": 1, "amount": 1, "enabled": true}, 
+    {"letter": "И", "multiplication": 3, "amount": 2, "enabled": true}, 
+    {"letter": "П", "multiplication": 2, "amount": 1, "enabled": true}
+  ],
+  [  
+    {"letter": "X", "multiplication": 2, "amount": 1, "enabled": true},  
+    {"letter": "Y", "multiplication": 1, "amount": 1, "enabled": true}, 
+    {"letter": "Z", "multiplication": 3, "amount": 2, "enabled": true}, 
+    {"letter": "А", "multiplication": 1, "amount": 1, "enabled": true},
+    {"letter": "Л", "multiplication": 2, "amount": 1, "enabled": true}, 
+    {"letter": "Ц", "multiplication": 3, "amount": 2, "enabled": true}, 
+    {"letter": "Н", "multiplication": 1, "amount": 1, "enabled": true}, 
+    {"letter": "И", "multiplication": 3, "amount": 2, "enabled": true}, 
+    {"letter": "П", "multiplication": 2, "amount": 1, "enabled": true}
+  ]
+]
+

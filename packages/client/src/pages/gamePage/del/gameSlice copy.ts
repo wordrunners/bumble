@@ -1,16 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../store/store';
-import { GameType, cardType, playersType, playerType } from "../types/canvas"
+import { cardType, playersType, playerType } from "../types/canvas"
 
+export type GameType = {
+  word: string;
+  status: 'idle' | 'loading' | 'failed';
+  width: number,
+  height: number,
+  card: cardType | undefined,
+  canvas: undefined,
+  timer: number,
+  setI: undefined,
+  players: playersType,
+}
 
 const initialState: GameType = {
   word: '',
-  points: 0,
   status: 'idle',
-  width: 0,
-  height: 0,
+  width: 300,
+  height: 300,
   card: undefined,
-  context: undefined,
+  canvas: undefined,
   timer: 0,
   setI: undefined,
   players: [],
@@ -34,18 +44,6 @@ export const gameSlice = createSlice({
         state.card[+action.payload].enabled = false;
       }
     },
-    setPoints: (state, action: PayloadAction<number>) => {
-      console.log(state.points);
-      state.points = action.payload;
-
-      // if ((state.card) && (state.card[+action.payload].enabled)) {
-      //   state.word += action.payload;
-      //   state.card[+action.payload].enabled = false;
-      // }
-    },
-    clearPoints: (state) => {
-      state.points = 0;
-    },
     deleteWord: (state) => {
       state.word = '';
     },
@@ -55,12 +53,11 @@ export const gameSlice = createSlice({
     setHeight: (state, action: PayloadAction<number>) => {
       state.height = action.payload;
     },
-
     setCard: (state, action: PayloadAction<cardType>) => {
       state.card = action.payload;
     },
-    setContext: (state, action: PayloadAction<CanvasRenderingContext2D>) => {
-      state.context = action.payload;
+    setCanvas: (state, action: PayloadAction<CanvasRenderingContext2D>) => {
+      state.canvas = action.payload;
     },
     setTimer: (state, action: PayloadAction<number>) => {
       state.timer = action.payload;
@@ -83,16 +80,20 @@ export const gameSlice = createSlice({
     setWord: (state, action: PayloadAction<playerType, string>) => {
       // action.payload.words.push(action.payload);
     },
+
+    // enablePlayers: (state, action: PayloadAction<playerType>) => {
+    //   state.players = action.payload;
+    // },
   },
 });
 
-export const { increment, deleteLetter, addLetter, deleteWord, setPoints, clearPoints } = gameSlice.actions;
+export const { increment, deleteLetter, addLetter, deleteWord } = gameSlice.actions;
 
 export const { setWidth, setHeight } = gameSlice.actions;
 
 export const { setCard } = gameSlice.actions;
 
-export const { setContext } = gameSlice.actions;
+export const { setCanvas } = gameSlice.actions;
 
 export const { setTimer, decrementTimer, setSetI } = gameSlice.actions;
 
@@ -100,15 +101,13 @@ export const { addPlayers, deletePlayers, addPlayer } = gameSlice.actions;
 
 export const selectWord = (state: RootState) => state.game.word;
 
-export const selectPoints = (state: RootState) => state.game.points;
-
 export const selectWidth = (state: RootState) => state.game.width;
 
 export const selectHeight = (state: RootState) => state.game.height;
 
 export const selectCard = (state: RootState) => state.game.card;
 
-export const selectContext = (state: RootState) => state.game.context;
+export const selectCanvas = (state: RootState) => state.game.canvas;
 
 export const selectTimer = (state: RootState) => state.game.timer;
 
@@ -120,6 +119,7 @@ export const decrementIfTime =
   (): AppThunk =>
   (dispatch, getState) => {
     const currentSetI = selectSetI(getState());
+    const currentTimer = selectTimer(getState());
 
     if (currentSetI) {
       clearInterval(currentSetI);
@@ -136,11 +136,42 @@ export const addWord =
   (player: number, word: string): AppThunk =>
   (dispatch, getState) => {
     const players = selectPlayers(getState());
-    const clonePlayers = JSON.parse(JSON.stringify(players));
-    clonePlayers[player].words.push(word);
 
+    const clonePlayers = JSON.parse(JSON.stringify(players));
+    const cloneWords = JSON.parse(JSON.stringify(players[player].words));
+
+    // cloneWords.push(word);
+    console.log(clonePlayers[player].words)
+    clonePlayers[player].words.push(word);
+    console.log(clonePlayers[player].words)
+
+    // const clone = players[player].words;
     dispatch(deletePlayers());
     dispatch(addPlayers(clonePlayers));
+    
+    // words.push('1s')
+    // players.map((player) => {
+    //   if (player.enabled) {
+        // console.log(clonePlayer)
+        // console.log(cloneWords)
+
+        // players[player].words.push(word);
+        // console.log(player.words)
+
+    //   }
+    // })
+    // if (players === '1') {
+    //   dispatch(addLetter(amount));
+    // }
+  };
+
+export const incrementIfOdd =
+  (amount: string): AppThunk =>
+  (dispatch, getState) => {
+    const currentWord = selectWord(getState());
+    if (currentWord === '1') {
+      dispatch(addLetter(amount));
+    }
   };
 
 export default gameSlice.reducer;

@@ -1,6 +1,5 @@
 export type GameType = {
   word: string;
-  points: number;
   status: 'idle' | 'loading' | 'failed';
   width: number,
   height: number,
@@ -17,8 +16,8 @@ export type cardType = Array<sectorType>
 
 export type sectorType = {
   letter: string;
-  set: number;
-  point: number;
+  multiplication: number;
+  amount: number;
   enabled: boolean;
 };
 

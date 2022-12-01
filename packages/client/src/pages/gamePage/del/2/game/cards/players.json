@@ -1,0 +1,14 @@
+[
+  {  
+    "login": "Игрок 1",
+    "words": [],
+    "score": 0,
+    "enabled": true
+  },
+  {  
+    "login": "Игрок 2",
+    "words": [],
+    "score": 0,
+    "enabled": false
+  }
+]

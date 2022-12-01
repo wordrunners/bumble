@@ -5,7 +5,6 @@ import { GameType, cardType, playersType, playerType } from "../types/canvas"
 
 const initialState: GameType = {
   word: '',
-  points: 0,
   status: 'idle',
   width: 0,
   height: 0,
@@ -34,18 +33,6 @@ export const gameSlice = createSlice({
         state.card[+action.payload].enabled = false;
       }
     },
-    setPoints: (state, action: PayloadAction<number>) => {
-      console.log(state.points);
-      state.points = action.payload;
-
-      // if ((state.card) && (state.card[+action.payload].enabled)) {
-      //   state.word += action.payload;
-      //   state.card[+action.payload].enabled = false;
-      // }
-    },
-    clearPoints: (state) => {
-      state.points = 0;
-    },
     deleteWord: (state) => {
       state.word = '';
     },
@@ -55,7 +42,6 @@ export const gameSlice = createSlice({
     setHeight: (state, action: PayloadAction<number>) => {
       state.height = action.payload;
     },
-
     setCard: (state, action: PayloadAction<cardType>) => {
       state.card = action.payload;
     },
@@ -86,7 +72,7 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { increment, deleteLetter, addLetter, deleteWord, setPoints, clearPoints } = gameSlice.actions;
+export const { increment, deleteLetter, addLetter, deleteWord } = gameSlice.actions;
 
 export const { setWidth, setHeight } = gameSlice.actions;
 
@@ -99,8 +85,6 @@ export const { setTimer, decrementTimer, setSetI } = gameSlice.actions;
 export const { addPlayers, deletePlayers, addPlayer } = gameSlice.actions;
 
 export const selectWord = (state: RootState) => state.game.word;
-
-export const selectPoints = (state: RootState) => state.game.points;
 
 export const selectWidth = (state: RootState) => state.game.width;
 

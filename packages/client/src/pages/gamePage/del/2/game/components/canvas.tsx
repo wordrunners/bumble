@@ -1,7 +1,9 @@
 import { useRef, FC, useEffect, useState, useCallback, Component } from 'react'
 
-import { CanvasContext, useCanvasContext } from '../hooks/useCanvas'
+import { CanvasContext } from '../hooks/useCanvas'
+import useResponsiveSize from '../hooks/useResponsiveSize'
 import { Game } from './game'
+import { useCanvasContext } from '../hooks/useCanvas'
 
 import { useAppSelector, useAppDispatch } from '../hooks/useStore';
 import {
@@ -15,6 +17,7 @@ import {
   setCard,
   setTimer,
   selectTimer,
+  decrementTimer,
   decrementIfTime,
   selectPlayers,
   addPlayer,
@@ -22,14 +25,9 @@ import {
   addWord,
   selectCard,
   deleteWord,
-  selectPoints,
-  setPoints,
-  clearPoints
+  selectContext,
+  setContext
 } from './gameSlice';
-import { cardToArrays } from "../helpers/cardToArrays"
-
-import { countPoints } from "../helpers/countPoints"
-
 
 import cardsData from '../cards/cards.json'
 import playersData from '../cards/players.json'
@@ -38,17 +36,18 @@ export const Canvas = () => {
 
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
+  const timer = useAppSelector(selectTimer);
   const players = useAppSelector(selectPlayers);
   const word = useAppSelector(selectWord);
-  const points = useAppSelector(selectPoints);
   const card = useAppSelector(selectCard);
   const dispatch = useAppDispatch();
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
+
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
 
   useEffect(() => {
-    const context = canvasRef.current?.getContext("2d",{willReadFrequently:true});
+    const context = canvasRef.current?.getContext("2d");
     if (context) {
       setContext(context)
 
@@ -91,31 +90,28 @@ export const Canvas = () => {
               }
               dispatch(addWord(i, data))
               dispatch(deleteWord())
-              dispatch(clearPoints())
             }
           })
         } else if (sector < 9) {
           dispatch(addLetter(`${sector}`))
-          const newWord = `${word}${sector}`
-          dispatch(setPoints(countPoints(newWord, card)))
         } else if ((sector === 9) && (word)) {
           dispatch(deleteLetter())
-          const newWord = word.slice(0, word.length-1)
-          dispatch(setPoints(countPoints(newWord, card)))
         }
       }
     }
   };
 
   return (
-    <CanvasContext.Provider value={{ context: context }}>
-      <canvas
-        ref={canvasRef}
-        width={width}
-        height={height}
-        onClick={handleCanvasClick}
-      ></canvas>
-      <Game />
-    </CanvasContext.Provider>
+    <>
+      <CanvasContext.Provider value={{ context: context }}>
+        <canvas
+            ref={canvasRef}
+            width={width}
+            height={height}
+            onClick={handleCanvasClick}
+          ></canvas>
+          <Game />
+      </CanvasContext.Provider>
+    </>
   )
 }
