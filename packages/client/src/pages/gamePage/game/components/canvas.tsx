@@ -56,7 +56,7 @@ export const Canvas = () => {
       window.addEventListener('resize', setSizes)
 
       dispatch(setCard(cardsData[0]))
-      dispatch(setTimer(600))
+      dispatch(setTimer(60))
       dispatch(decrementIfTime())
   
       dispatch(deletePlayers())

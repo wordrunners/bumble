@@ -35,12 +35,8 @@ export const gameSlice = createSlice({
       }
     },
     setPoints: (state, action: PayloadAction<number>) => {
-      console.log(state.points);
-      state.points = action.payload;
-
       // if ((state.card) && (state.card[+action.payload].enabled)) {
-      //   state.word += action.payload;
-      //   state.card[+action.payload].enabled = false;
+        state.points = action.payload;
       // }
     },
     clearPoints: (state) => {
@@ -139,8 +135,19 @@ export const addWord =
     const clonePlayers = JSON.parse(JSON.stringify(players));
     clonePlayers[player].words.push(word);
 
+    clonePlayers[player].enabled = false;
+    if (clonePlayers.length-1 !== player) {
+      clonePlayers[player+1].enabled = true;
+    } else {
+      clonePlayers[0].enabled = true;
+    }
+
+
+    dispatch(setTimer(60));
+
     dispatch(deletePlayers());
     dispatch(addPlayers(clonePlayers));
   };
+  
 
 export default gameSlice.reducer;
