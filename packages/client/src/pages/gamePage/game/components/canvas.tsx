@@ -24,7 +24,11 @@ import {
   deleteWord,
   selectPoints,
   setPoints,
-  clearPoints
+  clearPoints,
+  setTotalPlayers, 
+  setActivePlayer,
+  selectTotalPlayers,
+  selectActivePlayer
 } from './gameSlice';
 import { cardToArrays } from "../helpers/cardToArrays"
 
@@ -42,6 +46,8 @@ export const Canvas = () => {
   const word = useAppSelector(selectWord);
   const points = useAppSelector(selectPoints);
   const card = useAppSelector(selectCard);
+  const totalPlayers = useAppSelector(selectTotalPlayers);
+  const activePlayer = useAppSelector(selectActivePlayer);
   const dispatch = useAppDispatch();
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -52,6 +58,9 @@ export const Canvas = () => {
     if (context) {
       setContext(context)
 
+      dispatch(setTotalPlayers(playersData.length))
+      dispatch(setActivePlayer(0))
+
       setSizes()
       window.addEventListener('resize', setSizes)
 
@@ -60,9 +69,12 @@ export const Canvas = () => {
       dispatch(decrementIfTime())
   
       dispatch(deletePlayers())
+      // console.log('--',totalPlayers);
       playersData.map((player) => {
         dispatch(addPlayer(player))
       })
+      // console.log('--',totalPlayers);
+
     
     }
   }, [])
@@ -84,7 +96,7 @@ export const Canvas = () => {
     
         if (button === 29) {
           players.map((player, i) => {
-            if (player.enabled) {
+            if (i === activePlayer) {
               let data = '';
               for (let i = 0; i < word.length; i++) {
                 data += card[+word[i]].letter;

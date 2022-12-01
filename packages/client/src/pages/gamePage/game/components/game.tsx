@@ -9,6 +9,7 @@ import {WordEntity} from '../entity/WordEntity'
 import {HUDEntity} from '../entity/HUDEntity'
 import {SendEntity} from '../entity/SendEntity'
 import {PlayersEntity} from '../entity/PlayersEntity'
+import playersData from '../cards/players.json'
 
 
 import { useAppSelector, useAppDispatch } from '../hooks/useStore';
@@ -19,7 +20,13 @@ import {
   selectCard,
   selectTimer,
   selectPlayers,
-  selectPoints
+  selectPoints,
+  setTotalPlayers, 
+  setActivePlayer,
+  selectTotalPlayers,
+  selectActivePlayer,
+  addPlayer,
+  deletePlayers,
 } from './gameSlice';
 
 export const Game = () => {
@@ -30,15 +37,25 @@ export const Game = () => {
   const card = useAppSelector(selectCard);
   const timer = useAppSelector(selectTimer);
   const players = useAppSelector(selectPlayers);
+  const totalPlayers = useAppSelector(selectTotalPlayers);
+  const activePlayer = useAppSelector(selectActivePlayer);
 
   const dispatch = useAppDispatch();
-  
+
+  // dispatch(deletePlayers())
+  // console.log('--',totalPlayers);
+  // playersData.map((player) => {
+  //   dispatch(addPlayer(player))
+  // })
+  // console.log('--',activePlayer);
+
 
   const { context } = useCanvasContext()
 
   const render = () => {
 
     if (context) {
+      // console.log('-+-',totalPlayers, activePlayer, word, timer);
       const drumCanvas = new DrumEntity(context, width, height,)
       const wordCanvas = new WordEntity(context, width, height, )
       const HUDCanvas = new HUDEntity(context, width, height)
@@ -57,8 +74,9 @@ export const Game = () => {
             }
 
             if (players) {
-              playersCanvas.draw(players, timer)
+              playersCanvas.draw(players, timer, activePlayer)
             }
+
           });
       }
     }

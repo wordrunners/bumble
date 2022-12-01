@@ -4,6 +4,8 @@ import { GameType, cardType, playersType, playerType } from "../types/canvas"
 
 
 const initialState: GameType = {
+  totalPlayers: 0,
+  activePlayer: 0,
   word: '',
   points: 0,
   status: 'idle',
@@ -20,6 +22,19 @@ export const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
+    setTotalPlayers: (state, action: PayloadAction<number>) => {
+      state.totalPlayers = action.payload;
+    },
+    setActivePlayer: (state, action: PayloadAction<number>) => {
+      state.activePlayer = action.payload;
+    },
+    nextActivePlayer: (state,) => {
+      if (state.activePlayer === state.totalPlayers-1) {
+        state.activePlayer = 0;
+      } else {
+        state.activePlayer += 1;
+      }
+    },
     increment: (state) => {
       state.word += 1;
     },
@@ -82,6 +97,8 @@ export const gameSlice = createSlice({
   },
 });
 
+export const { setTotalPlayers, setActivePlayer, nextActivePlayer } = gameSlice.actions;
+
 export const { increment, deleteLetter, addLetter, deleteWord, setPoints, clearPoints } = gameSlice.actions;
 
 export const { setWidth, setHeight } = gameSlice.actions;
@@ -93,6 +110,10 @@ export const { setContext } = gameSlice.actions;
 export const { setTimer, decrementTimer, setSetI } = gameSlice.actions;
 
 export const { addPlayers, deletePlayers, addPlayer } = gameSlice.actions;
+
+export const selectTotalPlayers = (state: RootState) => state.game.totalPlayers;
+
+export const selectActivePlayer = (state: RootState) => state.game.activePlayer;
 
 export const selectWord = (state: RootState) => state.game.word;
 
@@ -123,6 +144,16 @@ export const decrementIfTime =
     }
 
     const newSetI = setInterval(() => {
+      const timer = selectTimer(getState());
+
+      if (timer === 1) {
+        dispatch(nextActivePlayer());
+        dispatch(setTimer(60));
+        dispatch(deleteWord());
+        dispatch(setPoints(0));
+
+      }
+
       dispatch(decrementTimer());
     }, 1000);
     dispatch(setSetI(newSetI));
@@ -132,15 +163,22 @@ export const addWord =
   (player: number, word: string): AppThunk =>
   (dispatch, getState) => {
     const players = selectPlayers(getState());
+    const activePlayer = selectActivePlayer(getState());
+    const points = selectPoints(getState());
+
+
     const clonePlayers = JSON.parse(JSON.stringify(players));
     clonePlayers[player].words.push(word);
+    clonePlayers[player].score += points;
 
-    clonePlayers[player].enabled = false;
-    if (clonePlayers.length-1 !== player) {
-      clonePlayers[player+1].enabled = true;
-    } else {
-      clonePlayers[0].enabled = true;
-    }
+    // clonePlayers[activePlayer] = false;
+    // if (clonePlayers.length-1 !== player) {
+    //   clonePlayers[activePlayer+1] = true;
+    // } else {
+    //   clonePlayers[0] = true;
+    // }
+
+    dispatch(nextActivePlayer());
 
 
     dispatch(setTimer(60));

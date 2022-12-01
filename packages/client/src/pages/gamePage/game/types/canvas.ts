@@ -1,4 +1,6 @@
 export type GameType = {
+  totalPlayers: number;
+  activePlayer: number;
   word: string;
   points: number;
   status: 'idle' | 'loading' | 'failed';
