@@ -1,6 +1,6 @@
-import { cardType } from "../types/canvas"
+import { Card } from "../types/canvas"
 
-export const cardToArrays = (card: cardType) => {
+export const cardToArrays = (card: Card) => {
   const letter = []
   const set = []
   const point = []

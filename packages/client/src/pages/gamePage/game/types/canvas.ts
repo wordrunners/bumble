@@ -1,41 +1,35 @@
-export type GameType = {
+export type Game = {
   totalPlayers: number;
   activePlayer: number;
   activeCard: number;
   word: string;
   points: number;
-  status: statusType;
+  status: Status;
   width: number,
   height: number,
-  card: cardType | undefined,
-  cards: cardsType | undefined,
+  card: Card | undefined,
+  cards: Cards | undefined,
   timer: number,
   setI: undefined,
-  players: playersType,
-  context: CanvasRenderingContext2D | undefined
+  players: Players,
 }
 
-export type statusType = 'start' | 'loading' | 'game' | 'over'
+export type Status = 'start' | 'loading' | 'game' | 'over'
 
-// export type gameCardsType = {
-//   completed: cardsType | undefined,
-//   new: cardsType | undefined
-// }
+export type Cards = Array<Card>
 
-export type cardsType = Array<cardType>
+export type Card = Array<Sector>
 
-export type cardType = Array<sectorType>
-
-export type sectorType = {
+export type Sector = {
   letter: string;
   set: number;
   point: number;
   enabled: boolean;
 };
 
-export type playersType = Array<playerType>
+export type Players = Array<Player>
 
-export type playerType = {
+export type Player = {
   login: string;
   words: Array<string>;
   score: number;

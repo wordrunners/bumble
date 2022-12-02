@@ -11,7 +11,7 @@ import {SendEntity} from '../game/entity/SendEntity'
 import {EmptyEntity} from '../game/entity/EmptyEntity'
 import {PlayersEntity} from '../game/entity/PlayersEntity'
 import {BackgroundEntity} from '../game/entity/BackgroundEntity'
-import { Game } from '../game/components/game'
+import { Game } from '../game/core/game'
 
 import { useAppSelector, useAppDispatch } from '../game/hooks/useStore';
 import {

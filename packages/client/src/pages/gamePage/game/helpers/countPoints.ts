@@ -1,7 +1,7 @@
 import { cardToArrays } from "./cardToArrays"
-import { cardType } from "../types/canvas";
+import { Card } from "../types/canvas";
 
-export const countPoints = (newWord: string, card: cardType) => {
+export const countPoints = (newWord: string, card: Card) => {
   const { set, point } = cardToArrays(card);
   let points = 0;
   let oneSet = 0, twoSet = 0, threeSet = 0;

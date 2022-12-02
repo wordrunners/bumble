@@ -1,9 +1,8 @@
-import { useRef, FC, useEffect, useState, useCallback, Component } from 'react'
+import { useRef, useEffect, useState} from 'react'
 import { useNavigate } from "react-router-dom";
 
-import { CanvasContext, useCanvasContext } from '../hooks/useCanvas'
-import { Game } from './game'
-import { Load } from '../../del/load'
+import { CanvasContext } from '../hooks/useCanvas'
+import { Game } from '../core/game'
 
 import { useAppSelector, useAppDispatch } from '../hooks/useStore';
 import {
@@ -12,11 +11,7 @@ import {
   selectWord,
   selectHeight,
   selectWidth,
-  setWidth,
-  setHeight,
-  setCard,
   setTimer,
-  selectTimer,
   decrementIfTime,
   selectPlayers,
   addPlayer,
@@ -24,66 +19,40 @@ import {
   addWord,
   selectCard,
   deleteWord,
-  selectPoints,
-  setPoints,
   clearPoints,
-  setTotalPlayers, 
   setActivePlayer,
   selectTotalPlayers,
   selectActivePlayer,
-  selectStatus,
   setStatus,
-  nextActivePlayer,
-  nextTotalPlayers,
-  addCards,
-  deleteCards,
   selectCards,
   setCards,
   setActiveCard,
   nextActiveCard,
   selectActiveCard,
   countPoints
-} from './gameSlice';
-import { cardToArrays } from "../helpers/cardToArrays"
-
-// import { countPoints } from "../helpers/countPoints"
-
+} from '../core/gameSlice';
 
 import cardsData from '../cards/cards.json'
 import playersData from '../cards/players.json'
 
 export const GamePlay = () => {
-
-
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const status = useAppSelector(selectStatus);
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
   const players = useAppSelector(selectPlayers);
   const word = useAppSelector(selectWord);
-  const points = useAppSelector(selectPoints);
   const card = useAppSelector(selectCard);
   const cards = useAppSelector(selectCards);
   const activeCard = useAppSelector(selectActiveCard);
-
-
   const totalPlayers = useAppSelector(selectTotalPlayers);
   const activePlayer = useAppSelector(selectActivePlayer);
-  const dispatch = useAppDispatch();
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
 
   if ((totalPlayers === -1)) throw new Error('Select total players!');
-
-  // const addPlayers = useCallback(() => {
-  //   console.log('--',totalPlayers);
-  //   // playersData.map((player) => {
-  //   //   dispatch(addPlayer(player))
-  //   // })
-  // }, [])
-
 
   useEffect(() => {
     const context = canvasRef.current?.getContext("2d",{willReadFrequently:true});
@@ -92,41 +61,16 @@ export const GamePlay = () => {
 
       dispatch(setStatus('game'))
 
-      // window.addEventListener('keydown', setPlayers)
-
-      // dispatch(setTotalPlayers(playersData.length))
-      // dispatch(setTotalPlayers(0))
-
       dispatch(setActivePlayer(0))
-
-      // setSizes()
-      // window.addEventListener('resize', setSizes)
-      
-
-
-      // dispatch(setGameCards(cardsData[0]))
-      // console.log('event', totalPlayers);
-
 
       dispatch(setTimer(60))
       dispatch(decrementIfTime())
   
       dispatch(deletePlayers())
 
-      // for (let i = 0; i <= totalPlayers; i++) {
-      //   dispatch(addPlayer(playersData[i]))
-      // }
-
-
       for (let i = 0; i <= totalPlayers; i++) {
-        // cards.push(cardsData[i])
         dispatch(addPlayer(playersData[i]))
-        // for (let j = 0; j < 3; j++) {
-          // dispatch(addCards(cardsData[i]))
-        // }
       }
-
-      // dispatch(setCard(cardsData[0]))
 
       const newCards = []
       for (let i = 0; i <= ((totalPlayers + 1)*3 - 1); i++) {
@@ -134,49 +78,9 @@ export const GamePlay = () => {
       }
       dispatch(setCards(newCards))
       dispatch(setActiveCard(0))
-
-
-
-      // dispatch(deleteCards())
-      // console.log('--', card, cards);
-      // playersData.map((player) => {
-      //   dispatch(addPlayer(player))
-      // })
-      // console.log('--',totalPlayers);
-
     
     }
   }, [])
-
-  // const setPlayers = (event: KeyboardEvent) => {
-  //           // console.log(event.key);
-
-  //   // dispatch(nextActivePlayer())
-
-  //   switch (event.key) {
-  //     case 'ArrowRight':
-  //       console.log('1', totalPlayers, activePlayer);
-  //       dispatch(nextTotalPlayers())
-  //       break;
-  //     case 'Enter':
-  //       // dispatch(nextActivePlayer())
-  //       window.removeEventListener('keydown', setPlayers)
-  //       // window.addEventListener('keydown', addPlayers)
-  //       // addPlayers()
-  //       // console.log('--',totalPlayers);
-  //       dispatch(setStatus('loading'))
-  //       break;
-  //     default:
-  //       console.log(`Sorry`);
-  //   }
-  // }
-
-
-
-  // const setSizes = useCallback(() => {
-  //   dispatch(setWidth(window.innerWidth))
-  //   dispatch(setHeight(window.innerHeight))
-  // }, [dispatch(setWidth), dispatch(setHeight)])
 
   const handleCanvasClick=(event: React.MouseEvent<HTMLElement>)=>{
     if ((context) && (card) && (cards)) {
@@ -200,33 +104,20 @@ export const GamePlay = () => {
               dispatch(deleteWord())
               dispatch(clearPoints())
 
-              // console.log(cards)
-              // dispatch(setCard(cards[0]))
-              // console.log(activeCard, (totalPlayers+1)*3);
-
               dispatch(nextActiveCard())
 
               if (activeCard === ((totalPlayers+1)*3 -1)) {
                 navigate("/game-over");
               }
-
-              // dispatch(setCards(newCards))
-              // dispatch(setActiveCard(activeCard))
             }
           })
         } else if (sector < 9) {
-          // console.log(card);
           dispatch(addLetter(`${sector}`))
-          // const newWord = `${word}${sector}`
-          // dispatch(setPoints(countPoints(newWord, card)))
           dispatch(countPoints())
 
         } else if ((sector === 9) && (word)) {
           dispatch(deleteLetter())
-          // const newWord = word.slice(0, word.length-1)
-          // dispatch(setPoints(countPoints(newWord, card)))
           dispatch(countPoints())
-
         }
       }
     }
