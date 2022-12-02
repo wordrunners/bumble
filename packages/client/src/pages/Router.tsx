@@ -5,7 +5,9 @@ import {
 import { MapPage } from '@/pages/mapPage';
 import { StartPage } from '@/pages/startPage';
 import { ErrorPage } from '@/pages/errorPage';
-import { GamePage } from '@/pages/gamePage';
+import { GamePlayPage } from '@/pages/gamePage';
+import { GameStartPage } from '@/pages/gamePage';
+
 
 export const Router = createBrowserRouter([
   {
@@ -16,7 +18,13 @@ export const Router = createBrowserRouter([
   },
   {
     path: '/game',
-    element: <GamePage />,
+    element: <GameStartPage />,
+    errorElement: <ErrorPage />,
+    children: [],
+  },
+  {
+    path: '/game-play',
+    element: <GamePlayPage />,
     errorElement: <ErrorPage />,
     children: [],
   },

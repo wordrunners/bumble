@@ -1,14 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../store/store';
-import { GameType, cardType, playersType, playerType } from "../types/canvas"
+import { RootState, AppThunk } from '../../../../store/store';
+import { GameType, cardType, playersType, playerType, gameCardsType, cardsType,
+  statusType } from "../types/canvas"
 
 
 const initialState: GameType = {
   totalPlayers: 0,
   activePlayer: 0,
+  gameCards: undefined,
   word: '',
   points: 0,
-  status: 'idle',
+  status: 'start',
   width: 0,
   height: 0,
   card: undefined,
@@ -22,14 +24,27 @@ export const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
+    setStatus: (state, action: PayloadAction<statusType>) => {
+      state.status = action.payload;
+    },
+    setGameCards: (state, action: PayloadAction<gameCardsType>) => {
+      state.gameCards = action.payload;
+    },
     setTotalPlayers: (state, action: PayloadAction<number>) => {
       state.totalPlayers = action.payload;
+    },
+    nextTotalPlayers: (state,) => {
+      if (state.totalPlayers === 3) {
+        state.totalPlayers = 0;
+      } else {
+        state.totalPlayers += 1;
+      }
     },
     setActivePlayer: (state, action: PayloadAction<number>) => {
       state.activePlayer = action.payload;
     },
     nextActivePlayer: (state,) => {
-      if (state.activePlayer === state.totalPlayers-1) {
+      if (state.activePlayer === state.totalPlayers) {
         state.activePlayer = 0;
       } else {
         state.activePlayer += 1;
@@ -97,7 +112,11 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { setTotalPlayers, setActivePlayer, nextActivePlayer } = gameSlice.actions;
+export const { setStatus } = gameSlice.actions;
+
+export const { setGameCards } = gameSlice.actions;
+
+export const { setTotalPlayers, setActivePlayer, nextActivePlayer, nextTotalPlayers } = gameSlice.actions;
 
 export const { increment, deleteLetter, addLetter, deleteWord, setPoints, clearPoints } = gameSlice.actions;
 
@@ -110,6 +129,10 @@ export const { setContext } = gameSlice.actions;
 export const { setTimer, decrementTimer, setSetI } = gameSlice.actions;
 
 export const { addPlayers, deletePlayers, addPlayer } = gameSlice.actions;
+
+export const selectStatus = (state: RootState) => state.game.status;
+
+export const selectGameCards = (state: RootState) => state.game.gameCards;
 
 export const selectTotalPlayers = (state: RootState) => state.game.totalPlayers;
 

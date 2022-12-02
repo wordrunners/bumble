@@ -3,6 +3,8 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { Router } from '@/pages';
+import { store } from '@/store/store';
+import { Provider } from 'react-redux';
 
 export function App() {
   useEffect(() => {
@@ -16,6 +18,8 @@ export function App() {
     fetchServerData()
   }, [])
   return <div className="app">
-    <RouterProvider router={Router} />
+    <Provider store={store}>
+      <RouterProvider router={Router} />
+    </Provider>
   </div>
 }
