@@ -71,10 +71,9 @@ export const gameSlice = createSlice({
     },
     nextActiveCard: (state,) => {
       if (state.activeCard === ((state.totalPlayers + 1)*3 - 1)) {
-        // state.activeCard = 100;
-        state.activePlayer = -1;
+        state.activeCard = 0;
         // state.card = state.cards[0];
-        // state.status = 'over'
+        state.status = 'over'
         // state.setI = undefined;
 
       } else {
@@ -222,33 +221,28 @@ export const decrementIfTime =
   (): AppThunk =>
   (dispatch, getState) => {
     const currentSetI = selectSetI(getState());
-    const activePlayer = selectActivePlayer(getState());
-
 
     if (currentSetI) {
       clearInterval(currentSetI);
       dispatch(setSetI(undefined));
     }
 
-    if (activePlayer !== -1) {
-      const newSetI = setTimeout(() => {
-        const timer = selectTimer(getState());
-  
-        if (timer === 1) {
-          dispatch(nextActivePlayer());
-          dispatch(nextActiveCard());
-  
-          dispatch(setTimer(60));
-          dispatch(deleteWord());
-          dispatch(setPoints(0));
-  
-        }
-        dispatch(decrementTimer());
-        dispatch(decrementIfTime());
+    const newSetI = setInterval(() => {
+      const timer = selectTimer(getState());
 
-      }, 1000);
-      dispatch(setSetI(newSetI));
-    }
+      if (timer === 1) {
+        dispatch(nextActivePlayer());
+        dispatch(nextActiveCard());
+
+        dispatch(setTimer(60));
+        dispatch(deleteWord());
+        dispatch(setPoints(0));
+
+      }
+
+      dispatch(decrementTimer());
+    }, 1000);
+    dispatch(setSetI(newSetI));
   };
 
 export const addWord =
@@ -257,6 +251,7 @@ export const addWord =
     const players = selectPlayers(getState());
     const activePlayer = selectActivePlayer(getState());
     const points = selectPoints(getState());
+
 
     const clonePlayers = JSON.parse(JSON.stringify(players));
     clonePlayers[player].words.push(word);

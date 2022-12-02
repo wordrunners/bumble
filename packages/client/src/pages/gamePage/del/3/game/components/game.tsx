@@ -55,6 +55,7 @@ export const Game = () => {
   const card = useAppSelector(selectCard);
   const cards = useAppSelector(selectCards);
   const activeCard = useAppSelector(selectActiveCard);
+  // const card = cards[activeCard];
 
   const timer = useAppSelector(selectTimer);
   const players = useAppSelector(selectPlayers);
@@ -64,12 +65,31 @@ export const Game = () => {
 
   const dispatch = useAppDispatch();
 
+  // dispatch(deletePlayers())
+  // console.log('--',totalPlayers);
+  // playersData.map((player) => {
+  //   dispatch(addPlayer(player))
+  // })
+  // console.log('--',activePlayer);
+
+  // useEffect(() => {
+  //   if (context) {
+  //     dispatch(deletePlayers())
+  //     console.log('--', totalPlayers);
+  //     playersData.map((player) => {
+  //       dispatch(addPlayer(player))
+  //     })
+  //   }
+  // }, [])
+
+
+
   const { context } = useCanvasContext()
 
   const render = () => {
 
     if (context) {
-
+      // console.log('-+-',totalPlayers, activePlayer, word, timer);
       const drumCanvas = new DrumEntity(context, width, height,)
       const wordCanvas = new WordEntity(context, width, height, )
       const HUDCanvas = new HUDEntity(context, width, height)
@@ -80,6 +100,9 @@ export const Game = () => {
       const emptyCanvas = new SendEntity(context, width, height)
       const startCanvas = new StartEntity(context, width, height, )
       const overCanvas = new OverEntity(context, width, height, )
+
+
+
 
 
     
@@ -98,6 +121,8 @@ export const Game = () => {
               if (card) {
                 drumCanvas.draw(card)
                 wordCanvas.draw(word, card, points)
+                // drumCanvas.draw(cards[activeCard])
+                // wordCanvas.draw(word, cards[activeCard], points)
                 HUDCanvas.draw()
     
                 if (word) {
@@ -113,11 +138,9 @@ export const Game = () => {
               overCanvas.draw(players, totalPlayers)
               // navigate("/game-over");
 
-              if (players) {
+              // if (players) {
                 leadersCanvas.draw(players, timer, activePlayer)
-                playersCanvas.draw(players, timer, activePlayer)
-
-              }
+              // }
 
               break;
             default:

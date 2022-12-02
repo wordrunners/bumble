@@ -49,7 +49,7 @@ export class OverEntity {
     context.font = `bold ${radius * 0.185}px PequenaPro`;
     context.textAlign = 'center'
     context.fillStyle = `rgba(20, 29, 13, 1)`;
-    context.fillText('Победитель:', width*0.5, height*0.575);
+    context.fillText('Победили:', width*0.5, height*0.575);
 
 
     // for (let i = 0; i <= totalPlayers; i++) {

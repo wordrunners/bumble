@@ -35,25 +35,17 @@ import {
   setStatus,
   nextActivePlayer,
   nextTotalPlayers,
-  addCards,
-  deleteCards,
-  selectCards,
-  setCards,
-  setActiveCard,
-  nextActiveCard,
-  selectActiveCard,
-  countPoints
+  selectCards
 } from './gameSlice';
 import { cardToArrays } from "../helpers/cardToArrays"
 
-// import { countPoints } from "../helpers/countPoints"
+import { countPoints } from "../helpers/countPoints"
 
 
 import cardsData from '../cards/cards.json'
 import playersData from '../cards/players.json'
 
-export const GamePlay = () => {
-
+export const GameOver = () => {
 
   const navigate = useNavigate();
 
@@ -65,8 +57,6 @@ export const GamePlay = () => {
   const points = useAppSelector(selectPoints);
   const card = useAppSelector(selectCard);
   const cards = useAppSelector(selectCards);
-  const activeCard = useAppSelector(selectActiveCard);
-
 
   const totalPlayers = useAppSelector(selectTotalPlayers);
   const activePlayer = useAppSelector(selectActivePlayer);
@@ -75,7 +65,6 @@ export const GamePlay = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
 
-  if ((totalPlayers === -1)) throw new Error('Select total players!');
 
   // const addPlayers = useCallback(() => {
   //   console.log('--',totalPlayers);
@@ -90,14 +79,16 @@ export const GamePlay = () => {
     if (context) {
       setContext(context)
 
-      dispatch(setStatus('game'))
+      console.log('==end===')
+
+      // dispatch(setStatus('start'))
 
       // window.addEventListener('keydown', setPlayers)
 
-      // dispatch(setTotalPlayers(playersData.length))
+      // // dispatch(setTotalPlayers(playersData.length))
       // dispatch(setTotalPlayers(0))
 
-      dispatch(setActivePlayer(0))
+      // // dispatch(setActivePlayer(0))
 
       // setSizes()
       // window.addEventListener('resize', setSizes)
@@ -105,40 +96,15 @@ export const GamePlay = () => {
 
 
       // dispatch(setGameCards(cardsData[0]))
-      // console.log('event', totalPlayers);
+      // console.log('event');
 
-
-      dispatch(setTimer(60))
-      dispatch(decrementIfTime())
-  
-      dispatch(deletePlayers())
-
-      // for (let i = 0; i <= totalPlayers; i++) {
-      //   dispatch(addPlayer(playersData[i]))
-      // }
-
-
-      for (let i = 0; i <= totalPlayers; i++) {
-        // cards.push(cardsData[i])
-        dispatch(addPlayer(playersData[i]))
-        // for (let j = 0; j < 3; j++) {
-          // dispatch(addCards(cardsData[i]))
-        // }
-      }
 
       // dispatch(setCard(cardsData[0]))
-
-      const newCards = []
-      for (let i = 0; i <= ((totalPlayers + 1)*3 - 1); i++) {
-        newCards.push(cardsData[i])
-      }
-      dispatch(setCards(newCards))
-      dispatch(setActiveCard(0))
-
-
-
-      // dispatch(deleteCards())
-      // console.log('--', card, cards);
+      // dispatch(setTimer(60))
+      // dispatch(decrementIfTime())
+  
+      // dispatch(deletePlayers())
+      // console.log('--',totalPlayers);
       // playersData.map((player) => {
       //   dispatch(addPlayer(player))
       // })
@@ -161,6 +127,8 @@ export const GamePlay = () => {
   //     case 'Enter':
   //       // dispatch(nextActivePlayer())
   //       window.removeEventListener('keydown', setPlayers)
+  //       navigate("/game-play");
+
   //       // window.addEventListener('keydown', addPlayers)
   //       // addPlayers()
   //       // console.log('--',totalPlayers);
@@ -171,66 +139,45 @@ export const GamePlay = () => {
   //   }
   // }
 
-
-
   // const setSizes = useCallback(() => {
   //   dispatch(setWidth(window.innerWidth))
   //   dispatch(setHeight(window.innerHeight))
   // }, [dispatch(setWidth), dispatch(setHeight)])
 
-  const handleCanvasClick=(event: React.MouseEvent<HTMLElement>)=>{
-    if ((context) && (card) && (cards)) {
-      const card = cards[activeCard];
-      const mousePos = { x: event.clientX, y: event.clientY };
-      const pixel = context.getImageData(mousePos.x, mousePos.y, 1, 1).data;
-      if (pixel) {
-        const colorInfo = `${pixel[1]}`;
+  // const handleCanvasClick=(event: React.MouseEvent<HTMLElement>)=>{
+  //   if ((context) && (card)) {
+  //     const mousePos = { x: event.clientX, y: event.clientY };
+  //     const pixel = context.getImageData(mousePos.x, mousePos.y, 1, 1).data;
+  //     if (pixel) {
+  //       const colorInfo = `${pixel[1]}`;
   
-        const sector = +colorInfo.slice(colorInfo.length-1)
-        const button = +colorInfo.slice(colorInfo.length-2, colorInfo.length)
+  //       const sector = +colorInfo.slice(colorInfo.length-1)
+  //       const button = +colorInfo.slice(colorInfo.length-2, colorInfo.length)
     
-        if (button === 29) {
-          players.map((player, i) => {
-            if (i === activePlayer) {
-              let data = '';
-              for (let i = 0; i < word.length; i++) {
-                data += card[+word[i]].letter;
-              }
-              dispatch(addWord(i, data))
-              dispatch(deleteWord())
-              dispatch(clearPoints())
-
-              // console.log(cards)
-              // dispatch(setCard(cards[0]))
-              // console.log(activeCard, (totalPlayers+1)*3);
-
-              dispatch(nextActiveCard())
-
-              if (activeCard === ((totalPlayers+1)*3 -1)) {
-                navigate("/game-over");
-              }
-
-              // dispatch(setCards(newCards))
-              // dispatch(setActiveCard(activeCard))
-            }
-          })
-        } else if (sector < 9) {
-          // console.log(card);
-          dispatch(addLetter(`${sector}`))
-          // const newWord = `${word}${sector}`
-          // dispatch(setPoints(countPoints(newWord, card)))
-          dispatch(countPoints())
-
-        } else if ((sector === 9) && (word)) {
-          dispatch(deleteLetter())
-          // const newWord = word.slice(0, word.length-1)
-          // dispatch(setPoints(countPoints(newWord, card)))
-          dispatch(countPoints())
-
-        }
-      }
-    }
-  };
+  //       if (button === 29) {
+  //         players.map((player, i) => {
+  //           if (i === activePlayer) {
+  //             let data = '';
+  //             for (let i = 0; i < word.length; i++) {
+  //               data += card[+word[i]].letter;
+  //             }
+  //             dispatch(addWord(i, data))
+  //             dispatch(deleteWord())
+  //             dispatch(clearPoints())
+  //           }
+  //         })
+  //       } else if (sector < 9) {
+  //         dispatch(addLetter(`${sector}`))
+  //         const newWord = `${word}${sector}`
+  //         dispatch(setPoints(countPoints(newWord, card)))
+  //       } else if ((sector === 9) && (word)) {
+  //         dispatch(deleteLetter())
+  //         const newWord = word.slice(0, word.length-1)
+  //         dispatch(setPoints(countPoints(newWord, card)))
+  //       }
+  //     }
+  //   }
+  // };
 
   return (
     <CanvasContext.Provider value={{ context: context }}>
@@ -238,7 +185,7 @@ export const GamePlay = () => {
         ref={canvasRef}
         width={width}
         height={height}
-        onClick={handleCanvasClick}
+        // onClick={handleCanvasClick}
       ></canvas>
       <Game />
     </CanvasContext.Provider>

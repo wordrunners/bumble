@@ -45,7 +45,7 @@ import { countPoints } from "../helpers/countPoints"
 import cardsData from '../cards/cards.json'
 import playersData from '../cards/players.json'
 
-export const GameOver = () => {
+export const GameStart = () => {
 
   const navigate = useNavigate();
 
@@ -65,7 +65,7 @@ export const GameOver = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
 
-  if ((totalPlayers === -1)) throw new Error('Select total players!');
+
   // const addPlayers = useCallback(() => {
   //   console.log('--',totalPlayers);
   //   // playersData.map((player) => {
@@ -79,22 +79,17 @@ export const GameOver = () => {
     if (context) {
       setContext(context)
 
-      dispatch(setStatus('over'))
+      dispatch(setStatus('start'))
 
+      window.addEventListener('keydown', setPlayers)
 
-      console.log('==end===')
+      // dispatch(setTotalPlayers(playersData.length))
+      dispatch(setTotalPlayers(0))
 
-      // dispatch(setStatus('start'))
+      // dispatch(setActivePlayer(0))
 
-      // window.addEventListener('keydown', setPlayers)
-
-      // // dispatch(setTotalPlayers(playersData.length))
-      // dispatch(setTotalPlayers(0))
-
-      // // dispatch(setActivePlayer(0))
-
-      // setSizes()
-      // window.addEventListener('resize', setSizes)
+      setSizes()
+      window.addEventListener('resize', setSizes)
       
 
 
@@ -117,35 +112,35 @@ export const GameOver = () => {
     }
   }, [])
 
-  // const setPlayers = (event: KeyboardEvent) => {
-  //           // console.log(event.key);
+  const setPlayers = (event: KeyboardEvent) => {
+            // console.log(event.key);
 
-  //   // dispatch(nextActivePlayer())
+    // dispatch(nextActivePlayer())
 
-  //   switch (event.key) {
-  //     case 'ArrowRight':
-  //       console.log('1', totalPlayers, activePlayer);
-  //       dispatch(nextTotalPlayers())
-  //       break;
-  //     case 'Enter':
-  //       // dispatch(nextActivePlayer())
-  //       window.removeEventListener('keydown', setPlayers)
-  //       navigate("/game-play");
+    switch (event.key) {
+      case 'ArrowRight':
+        console.log('1', totalPlayers, activePlayer);
+        dispatch(nextTotalPlayers())
+        break;
+      case 'Enter':
+        // dispatch(nextActivePlayer())
+        window.removeEventListener('keydown', setPlayers)
+        navigate("/game-play");
 
-  //       // window.addEventListener('keydown', addPlayers)
-  //       // addPlayers()
-  //       // console.log('--',totalPlayers);
-  //       dispatch(setStatus('loading'))
-  //       break;
-  //     default:
-  //       console.log(`Sorry`);
-  //   }
-  // }
+        // window.addEventListener('keydown', addPlayers)
+        // addPlayers()
+        // console.log('--',totalPlayers);
+        dispatch(setStatus('loading'))
+        break;
+      default:
+        console.log(`Sorry`);
+    }
+  }
 
-  // const setSizes = useCallback(() => {
-  //   dispatch(setWidth(window.innerWidth))
-  //   dispatch(setHeight(window.innerHeight))
-  // }, [dispatch(setWidth), dispatch(setHeight)])
+  const setSizes = useCallback(() => {
+    dispatch(setWidth(window.innerWidth))
+    dispatch(setHeight(window.innerHeight))
+  }, [dispatch(setWidth), dispatch(setHeight)])
 
   // const handleCanvasClick=(event: React.MouseEvent<HTMLElement>)=>{
   //   if ((context) && (card)) {

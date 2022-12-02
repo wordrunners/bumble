@@ -1,5 +1,4 @@
 import { useRef, FC, useEffect, useState, useCallback, Component } from 'react'
-import { useNavigate } from "react-router-dom";
 
 import { CanvasContext, useCanvasContext } from '../hooks/useCanvas'
 import { Game } from './game'
@@ -53,9 +52,6 @@ import cardsData from '../cards/cards.json'
 import playersData from '../cards/players.json'
 
 export const GamePlay = () => {
-
-
-  const navigate = useNavigate();
 
   const status = useAppSelector(selectStatus);
   const width = useAppSelector(selectWidth);
@@ -202,20 +198,13 @@ export const GamePlay = () => {
 
               // console.log(cards)
               // dispatch(setCard(cards[0]))
-              // console.log(activeCard, (totalPlayers+1)*3);
-
               dispatch(nextActiveCard())
-
-              if (activeCard === ((totalPlayers+1)*3 -1)) {
-                navigate("/game-over");
-              }
-
               // dispatch(setCards(newCards))
               // dispatch(setActiveCard(activeCard))
             }
           })
         } else if (sector < 9) {
-          // console.log(card);
+          console.log(card);
           dispatch(addLetter(`${sector}`))
           // const newWord = `${word}${sector}`
           // dispatch(setPoints(countPoints(newWord, card)))

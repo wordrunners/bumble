@@ -2,7 +2,7 @@ import { cardType } from "../types/canvas"
 import background from '../cards/background.json'
 import { playersType } from "../types/canvas"
 
-export class OverEntity {
+export class BackgroundEntity {
   private context: CanvasRenderingContext2D
   private width: number
   private height: number
@@ -49,7 +49,7 @@ export class OverEntity {
     context.font = `bold ${radius * 0.185}px PequenaPro`;
     context.textAlign = 'center'
     context.fillStyle = `rgba(20, 29, 13, 1)`;
-    context.fillText('Победитель:', width*0.5, height*0.575);
+    context.fillText('Загрузка...', width*0.5, height*0.575);
 
 
     // for (let i = 0; i <= totalPlayers; i++) {

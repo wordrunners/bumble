@@ -65,16 +65,29 @@ export class LeadersEntity {
     })
     console.log(maxScore)
 
+    // players.map((player, i)=> {
+    // console.log(players)
+
+    
+    // numberArray.sort(compareNumbers); // [1, 5, 40, 200]
+
+
     players.map((player, i)=> {
       if (maxScore === player.score) {
         const name = `${player.login} = ${player.score}`;
-        const color = `rgba(255, 229, 255, 255)`;
+        const color = `rgba(0, 89, 135, 1)`;
         context.fillStyle = color;
         context.font = `bold ${radius * 0.12}px PequenaPro`;
         context.fillText(`${name}`, coordinates[winners].x, coordinates[winners].y);
         winners++;
       }
 
+
+      // context.font = `${radius * 0.1}px PequenaPro`;
+      // context.fillStyle = `rgba(39, 159, 217, 1)`;
+      // player.words.map((word, j)=> {
+      //   context.fillText(`${word}`, coordinates[i].x, coordinates[i].y + ((j+1) * radius*0.175));
+      // })
     })
   }
 }
