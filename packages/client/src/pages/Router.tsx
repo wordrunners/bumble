@@ -7,6 +7,7 @@ import { StartPage } from '@/pages/startPage';
 import { ErrorPage } from '@/pages/errorPage';
 import { GamePlayPage } from '@/pages/gamePage';
 import { GameStartPage } from '@/pages/gamePage';
+import { GameOverPage } from '@/pages/gamePage';
 
 
 export const Router = createBrowserRouter([
@@ -25,7 +26,13 @@ export const Router = createBrowserRouter([
   {
     path: '/game-play',
     element: <GamePlayPage />,
-    errorElement: <ErrorPage />,
+    errorElement: <GameStartPage />,
+    children: [],
+  },
+  {
+    path: '/game-over',
+    element: <GameOverPage />,
+    errorElement: <GameStartPage />,
     children: [],
   },
 ])

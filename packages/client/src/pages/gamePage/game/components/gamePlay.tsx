@@ -30,16 +30,22 @@ import {
   setActivePlayer,
   selectTotalPlayers,
   selectActivePlayer,
-  selectGameCards,
-  setGameCards,
   selectStatus,
   setStatus,
   nextActivePlayer,
-  nextTotalPlayers
+  nextTotalPlayers,
+  addCards,
+  deleteCards,
+  selectCards,
+  setCards,
+  setActiveCard,
+  nextActiveCard,
+  selectActiveCard,
+  countPoints
 } from './gameSlice';
 import { cardToArrays } from "../helpers/cardToArrays"
 
-import { countPoints } from "../helpers/countPoints"
+// import { countPoints } from "../helpers/countPoints"
 
 
 import cardsData from '../cards/cards.json'
@@ -54,7 +60,9 @@ export const GamePlay = () => {
   const word = useAppSelector(selectWord);
   const points = useAppSelector(selectPoints);
   const card = useAppSelector(selectCard);
-  const gameCards = useAppSelector(selectGameCards);
+  const cards = useAppSelector(selectCards);
+  const activeCard = useAppSelector(selectActiveCard);
+
 
   const totalPlayers = useAppSelector(selectTotalPlayers);
   const activePlayer = useAppSelector(selectActivePlayer);
@@ -63,6 +71,7 @@ export const GamePlay = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
 
+  if ((totalPlayers === -1)) throw new Error('Select total players!');
 
   // const addPlayers = useCallback(() => {
   //   console.log('--',totalPlayers);
@@ -95,16 +104,38 @@ export const GamePlay = () => {
       // console.log('event', totalPlayers);
 
 
-      // dispatch(setCard(cardsData[0]))
       dispatch(setTimer(60))
       dispatch(decrementIfTime())
   
       dispatch(deletePlayers())
 
+      // for (let i = 0; i <= totalPlayers; i++) {
+      //   dispatch(addPlayer(playersData[i]))
+      // }
+
+
       for (let i = 0; i <= totalPlayers; i++) {
+        // cards.push(cardsData[i])
         dispatch(addPlayer(playersData[i]))
+        // for (let j = 0; j < 3; j++) {
+          // dispatch(addCards(cardsData[i]))
+        // }
       }
-      // console.log('--',totalPlayers);
+
+      // dispatch(setCard(cardsData[0]))
+
+      console.log('-+-', totalPlayers);
+      const newCards = []
+      for (let i = 0; i <= ((totalPlayers + 1)*3 - 1); i++) {
+        newCards.push(cardsData[i])
+      }
+      dispatch(setCards(newCards))
+      dispatch(setActiveCard(0))
+
+
+
+      // dispatch(deleteCards())
+      // console.log('--', card, cards);
       // playersData.map((player) => {
       //   dispatch(addPlayer(player))
       // })
@@ -145,7 +176,8 @@ export const GamePlay = () => {
   // }, [dispatch(setWidth), dispatch(setHeight)])
 
   const handleCanvasClick=(event: React.MouseEvent<HTMLElement>)=>{
-    if ((context) && (card)) {
+    if ((context) && (card) && (cards)) {
+      const card = cards[activeCard];
       const mousePos = { x: event.clientX, y: event.clientY };
       const pixel = context.getImageData(mousePos.x, mousePos.y, 1, 1).data;
       if (pixel) {
@@ -164,16 +196,27 @@ export const GamePlay = () => {
               dispatch(addWord(i, data))
               dispatch(deleteWord())
               dispatch(clearPoints())
+
+              // console.log(cards)
+              // dispatch(setCard(cards[0]))
+              dispatch(nextActiveCard())
+              // dispatch(setCards(newCards))
+              // dispatch(setActiveCard(activeCard))
             }
           })
         } else if (sector < 9) {
+          console.log(card);
           dispatch(addLetter(`${sector}`))
-          const newWord = `${word}${sector}`
-          dispatch(setPoints(countPoints(newWord, card)))
+          // const newWord = `${word}${sector}`
+          // dispatch(setPoints(countPoints(newWord, card)))
+          dispatch(countPoints())
+
         } else if ((sector === 9) && (word)) {
           dispatch(deleteLetter())
-          const newWord = word.slice(0, word.length-1)
-          dispatch(setPoints(countPoints(newWord, card)))
+          // const newWord = word.slice(0, word.length-1)
+          // dispatch(setPoints(countPoints(newWord, card)))
+          dispatch(countPoints())
+
         }
       }
     }

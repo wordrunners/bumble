@@ -45,7 +45,7 @@ import { countPoints } from "../helpers/countPoints"
 import cardsData from '../cards/cards.json'
 import playersData from '../cards/players.json'
 
-export const GameStart = () => {
+export const GameOver = () => {
 
   const navigate = useNavigate();
 
@@ -79,17 +79,19 @@ export const GameStart = () => {
     if (context) {
       setContext(context)
 
-      dispatch(setStatus('start'))
+      console.log('==end===')
 
-      window.addEventListener('keydown', setPlayers)
+      // dispatch(setStatus('start'))
 
-      // dispatch(setTotalPlayers(playersData.length))
-      dispatch(setTotalPlayers(0))
+      // window.addEventListener('keydown', setPlayers)
 
-      // dispatch(setActivePlayer(0))
+      // // dispatch(setTotalPlayers(playersData.length))
+      // dispatch(setTotalPlayers(0))
 
-      setSizes()
-      window.addEventListener('resize', setSizes)
+      // // dispatch(setActivePlayer(0))
+
+      // setSizes()
+      // window.addEventListener('resize', setSizes)
       
 
 
@@ -112,35 +114,35 @@ export const GameStart = () => {
     }
   }, [])
 
-  const setPlayers = (event: KeyboardEvent) => {
-            // console.log(event.key);
+  // const setPlayers = (event: KeyboardEvent) => {
+  //           // console.log(event.key);
 
-    // dispatch(nextActivePlayer())
+  //   // dispatch(nextActivePlayer())
 
-    switch (event.key) {
-      case 'ArrowRight':
-        console.log('1', totalPlayers, activePlayer);
-        dispatch(nextTotalPlayers())
-        break;
-      case 'Enter':
-        // dispatch(nextActivePlayer())
-        window.removeEventListener('keydown', setPlayers)
-        navigate("/game-play");
+  //   switch (event.key) {
+  //     case 'ArrowRight':
+  //       console.log('1', totalPlayers, activePlayer);
+  //       dispatch(nextTotalPlayers())
+  //       break;
+  //     case 'Enter':
+  //       // dispatch(nextActivePlayer())
+  //       window.removeEventListener('keydown', setPlayers)
+  //       navigate("/game-play");
 
-        // window.addEventListener('keydown', addPlayers)
-        // addPlayers()
-        // console.log('--',totalPlayers);
-        dispatch(setStatus('loading'))
-        break;
-      default:
-        console.log(`Sorry`);
-    }
-  }
+  //       // window.addEventListener('keydown', addPlayers)
+  //       // addPlayers()
+  //       // console.log('--',totalPlayers);
+  //       dispatch(setStatus('loading'))
+  //       break;
+  //     default:
+  //       console.log(`Sorry`);
+  //   }
+  // }
 
-  const setSizes = useCallback(() => {
-    dispatch(setWidth(window.innerWidth))
-    dispatch(setHeight(window.innerHeight))
-  }, [dispatch(setWidth), dispatch(setHeight)])
+  // const setSizes = useCallback(() => {
+  //   dispatch(setWidth(window.innerWidth))
+  //   dispatch(setHeight(window.innerHeight))
+  // }, [dispatch(setWidth), dispatch(setHeight)])
 
   // const handleCanvasClick=(event: React.MouseEvent<HTMLElement>)=>{
   //   if ((context) && (card)) {

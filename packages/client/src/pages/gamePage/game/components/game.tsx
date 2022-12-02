@@ -3,6 +3,7 @@
 
 import { useCanvasContext } from '../hooks/useCanvas'
 import { useRef, FC, useEffect, useState, useCallback, Component } from 'react'
+import { useNavigate } from "react-router-dom";
 
 import {DrumEntity} from '../entity/DrumEntity'
 import {WordEntity} from '../entity/WordEntity'
@@ -10,7 +11,9 @@ import {HUDEntity} from '../entity/HUDEntity'
 import {SendEntity} from '../entity/SendEntity'
 import {EmptyEntity} from '../entity/EmptyEntity'
 import {PlayersEntity} from '../entity/PlayersEntity'
+import {LeadersEntity} from '../entity/LeadersEntity'
 import {BackgroundEntity} from '../entity/BackgroundEntity'
+import {OverEntity} from '../entity/OverEntity'
 import {StartEntity} from '../entity/StartEntity'
 
 
@@ -31,17 +34,28 @@ import {
   selectActivePlayer,
   addPlayer,
   deletePlayers,
-  selectStatus
+  selectStatus,
+  setActiveCard,
+  nextActiveCard,
+  selectActiveCard,
+  selectCards
 } from './gameSlice';
 
 import playersData from '../cards/players.json'
 
 export const Game = () => {
+
+  const navigate = useNavigate();
+
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
   const word = useAppSelector(selectWord);
   const points = useAppSelector(selectPoints);
   const card = useAppSelector(selectCard);
+  const cards = useAppSelector(selectCards);
+  const activeCard = useAppSelector(selectActiveCard);
+  // const card = cards[activeCard];
+
   const timer = useAppSelector(selectTimer);
   const players = useAppSelector(selectPlayers);
   const totalPlayers = useAppSelector(selectTotalPlayers);
@@ -80,28 +94,34 @@ export const Game = () => {
       const HUDCanvas = new HUDEntity(context, width, height)
       const sendCanvas = new SendEntity(context, width, height)
       const playersCanvas = new PlayersEntity(context, width, height, )
+      const leadersCanvas = new LeadersEntity(context, width, height, )
       const backgroundCanvas = new BackgroundEntity(context, width, height, )
       const emptyCanvas = new SendEntity(context, width, height)
       const startCanvas = new StartEntity(context, width, height, )
+      const overCanvas = new OverEntity(context, width, height, )
 
 
-      
 
-      if (card) {
-        document.fonts.load("16px 'PequenaPro'")
-          .then(() => {
 
-            switch (status) {
-              case 'start':
-                startCanvas.draw(players, totalPlayers)
-                break;
-              case 'loading':
-                backgroundCanvas.draw(players, totalPlayers)
-                break;
-              case 'game':
-                // EmptyCanvas.draw()
+
+    
+      document.fonts.load("16px 'PequenaPro'")
+        .then(() => {
+
+          switch (status) {
+            case 'start':
+              startCanvas.draw(players, totalPlayers)
+              break;
+            case 'loading':
+              backgroundCanvas.draw(players, totalPlayers)
+              break;
+            case 'game':
+              // EmptyCanvas.draw()
+              if (card) {
                 drumCanvas.draw(card)
                 wordCanvas.draw(word, card, points)
+                // drumCanvas.draw(cards[activeCard])
+                // wordCanvas.draw(word, cards[activeCard], points)
                 HUDCanvas.draw()
     
                 if (word) {
@@ -111,17 +131,24 @@ export const Game = () => {
                 if (players) {
                   playersCanvas.draw(players, timer, activePlayer)
                 }
-                break;
-              case 'end':
-                break;
-              default:
-                console.log(`Sorry`);
-            }
+              }
+              break;
+            case 'over':
+              overCanvas.draw(players, totalPlayers)
+              // navigate("/game-over");
+
+              // if (players) {
+                leadersCanvas.draw(players, timer, activePlayer)
+              // }
+
+              break;
+            default:
+              console.log(`Sorry`);
+          }
 
 
 
-          });
-      }
+        });
     }
   }
 
