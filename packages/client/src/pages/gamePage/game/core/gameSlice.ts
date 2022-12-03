@@ -144,7 +144,7 @@ export const decrementIfTime =
         }
         dispatch(decrementTimer());
         dispatch(decrementIfTime());
-      }, 100);
+      }, 1000);
       dispatch(setTimeou(newTimeou));
     }
   };
