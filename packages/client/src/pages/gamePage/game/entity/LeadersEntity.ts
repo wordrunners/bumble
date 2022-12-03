@@ -25,7 +25,7 @@ export const LeadersEntity = (
     }
   })
 
-  players.map((player, i)=> {
+  players.map((player)=> {
     if (maxScore === player.score) {
       const name = `${player.login} = ${player.score}`;
       const color = `rgba(20, 29, 13, 1)`;

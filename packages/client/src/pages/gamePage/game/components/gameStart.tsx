@@ -45,17 +45,16 @@ export const GameStart = () => {
   const setPlayers = (event: KeyboardEvent) => {
     switch (event.key) {
       case 'ArrowRight':
-        console.log('1', totalPlayers, activePlayer);
         dispatch(nextTotalPlayers())
         break;
-      case 'Enter':
+      case 'Enter' && ' ' :
         window.removeEventListener('keydown', setPlayers)
         navigate("/game-play");
 
         dispatch(setStatus('loading'))
         break;
       default:
-        console.log(`Sorry`);
+        console.log(`Кнопкой ${event.key} игру не запустить`);
     }
   }
 

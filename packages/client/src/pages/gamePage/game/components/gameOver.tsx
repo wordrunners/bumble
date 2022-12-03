@@ -1,9 +1,7 @@
 import { useRef, useEffect, useState, } from 'react'
 import { useNavigate } from "react-router-dom";
-
 import { CanvasContext } from '../hooks/useCanvas'
 import { Game } from '../core/game'
-
 import { useAppSelector, useAppDispatch } from '../hooks/useStore';
 import {
   selectHeight,

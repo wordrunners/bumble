@@ -1,4 +1,4 @@
-import background from '../cards/background.json'
+import background from '@/data/background.json'
 
 export const StartEntity = (
   context: CanvasRenderingContext2D,

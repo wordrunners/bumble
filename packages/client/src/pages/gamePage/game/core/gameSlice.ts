@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '@/store/store';
-import { cardToArrays } from "../helpers/cardToArrays"
+import {counterPoints } from "../helpers"
 import { 
   Game, 
   Card, 
@@ -15,7 +15,7 @@ const initialState: Game = {
   totalPlayers: -1,
   activePlayer: 0,
   activeCard: 0,
-  cards: undefined,
+  cards: [],
   word: '',
   points: 0,
   status: 'start',
@@ -23,7 +23,7 @@ const initialState: Game = {
   height: 0,
   card: undefined,
   timer: 0,
-  setI: undefined,
+  timeou: undefined,
   players: [],
 };
 
@@ -71,14 +71,15 @@ export const gameSlice = createSlice({
     },
     setActiveCard: (state, action: PayloadAction<number>) => {
       state.activeCard = action.payload;
-      state.card = state.cards![action.payload];
+      state.card = state.cards[action.payload];
     },
     nextActiveCard: (state,) => {
       if (state.activeCard === ((state.totalPlayers + 1)*3 - 1)) {
         state.activePlayer = -1;
+        state.status = 'over'
       } else {
         state.activeCard += 1;
-        state.card = state.cards![state.activeCard];
+        state.card = state.cards[state.activeCard];
       }
     },
     increment: (state) => {
@@ -97,28 +98,7 @@ export const gameSlice = createSlice({
     },
     countPoints: (state) => {
       if (state.card) {
-        const { set, point } = cardToArrays(state.card);
-        let points = 0;
-        let oneSet = 0, twoSet = 0, threeSet = 0;
-        for (let i = 0; i < state.word.length; i++) {
-          points += point[+state.word[i]] 
-          if (set[+state.word[i]] === 1) {
-            oneSet++;
-          } else if (set[+state.word[i]] === 2) {
-            twoSet++;
-          } else if (set[+state.word[i]] === 3) {
-            threeSet++;
-          } 
-        }
-      
-        if (oneSet === 3) {
-          points += 1;
-        } else if (twoSet === 3) {
-          points += 2;
-        } else if (threeSet === 3) {
-          points += 3;
-        } 
-        state.points = points;
+        state.points = counterPoints(state.word, state.card)
       }
     },
     setPoints: (state, action: PayloadAction<number>) => {
@@ -136,15 +116,14 @@ export const gameSlice = createSlice({
     setHeight: (state, action: PayloadAction<number>) => {
       state.height = action.payload;
     },
-
     setCard: (state, action: PayloadAction<Card>) => {
       state.card = action.payload;
     },
     setTimer: (state, action: PayloadAction<number>) => {
       state.timer = action.payload;
     },
-    setSetI: (state, action: PayloadAction<any>) => {
-      state.setI = action.payload;
+    setTimeou: (state, action: PayloadAction<any>) => {
+      state.timeou = action.payload;
     },
     decrementTimer: (state) => {
       state.timer -= 1;
@@ -158,25 +137,23 @@ export const gameSlice = createSlice({
     addPlayer: (state, action: PayloadAction<Player>) => {
       state.players.push(action.payload);
     },
-    setWord: (state, action: PayloadAction<Player, string>) => {
-      // action.payload.words.push(action.payload);
-    },
   },
 });
 
 export const decrementIfTime =
   (): AppThunk =>
   (dispatch, getState) => {
-    const currentSetI = selectSetI(getState());
+    const currentTimeou = selectTimeou(getState());
     const activePlayer = selectActivePlayer(getState());
 
-    if (currentSetI) {
-      clearInterval(currentSetI);
-      dispatch(setSetI(undefined));
+    if (currentTimeou) {
+      clearInterval(currentTimeou);
+      dispatch(setTimeou(undefined));
     }
 
     if (activePlayer !== -1) {
-      const newSetI = setTimeout(() => {
+      const newTimeou = setTimeout(() => {
+        console.log('tick')
         const timer = selectTimer(getState());
         if (timer === 1) {
           dispatch(nextActivePlayer());
@@ -187,8 +164,8 @@ export const decrementIfTime =
         }
         dispatch(decrementTimer());
         dispatch(decrementIfTime());
-      }, 1000);
-      dispatch(setSetI(newSetI));
+      }, 100);
+      dispatch(setTimeou(newTimeou));
     }
   };
 
@@ -216,7 +193,7 @@ export const {
   increment, deleteLetter, addLetter, deleteWord, setPoints, clearPoints, countPoints,
   setWidth, setHeight,
   setCard,
-  setTimer, decrementTimer, setSetI,
+  setTimer, decrementTimer, setTimeou,
   addPlayers, deletePlayers, addPlayer
 } = gameSlice.actions;
 
@@ -231,7 +208,7 @@ export const selectWidth = (state: RootState) => state.game.width;
 export const selectHeight = (state: RootState) => state.game.height;
 export const selectCard = (state: RootState) => state.game.card;
 export const selectTimer = (state: RootState) => state.game.timer;
-export const selectSetI = (state: RootState) => state.game.setI;
+export const selectTimeou = (state: RootState) => state.game.timeou;
 export const selectPlayers = (state: RootState) => state.game.players;
 
 export default gameSlice.reducer;

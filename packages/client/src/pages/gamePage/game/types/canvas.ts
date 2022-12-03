@@ -8,9 +8,9 @@ export type Game = {
   width: number,
   height: number,
   card: Card | undefined,
-  cards: Cards | undefined,
+  cards: Cards,
   timer: number,
-  setI: undefined,
+  timeou: undefined,
   players: Players,
 }
 

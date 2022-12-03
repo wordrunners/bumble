@@ -32,8 +32,8 @@ import {
   countPoints
 } from '../core/gameSlice';
 
-import cardsData from '../cards/cards.json'
-import playersData from '../cards/players.json'
+import cardsData from '@/data/cards.json'
+import playersData from '@/data/players.json'
 
 export const GamePlay = () => {
   const navigate = useNavigate();

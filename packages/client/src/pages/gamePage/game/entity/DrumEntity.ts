@@ -1,5 +1,5 @@
 import { Card } from "../types/canvas"
-import background from '../cards/background.json'
+import background from '@/data/background.json'
 
 export const DrumEntity = (
   context: CanvasRenderingContext2D,
@@ -67,11 +67,11 @@ export const DrumEntity = (
       context.rotate(-ang);
 
       context.fillStyle = `rgba(20, 1${i}, 13, 1)`;
-      context.font = `bold ${radius * 0.425}px PequenaPro`;
+      context.font = `bold ${radius * 0.405}px PequenaPro`;
       context.fillText(letter[i], 0, 0);
       if (point[i] > 1) {
         context.font = `bold ${radius * 0.125}px PequenaPro`;
-        context.fillText((point[i]).toString(), radius * 0.205, radius * 0.15);
+        context.fillText((point[i]).toString(), radius * 0.195, radius * 0.095);
       }
 
       context.rotate(ang);
@@ -96,11 +96,11 @@ export const DrumEntity = (
   if (enabled[8]) { 
     context.translate(width*0.495, height*0.475);
     context.fillStyle = `rgba(20, 18, 13, 1)`;
-    context.font = `bold ${radius * 0.425}px PequenaPro`;
+    context.font = `bold ${radius * 0.405}px PequenaPro`;
     context.fillText(letter[8], 0, 0);
     if (point[8] > 1) {
       context.font = `bold ${radius * 0.125}px PequenaPro`;
-      context.fillText((point[8]).toString(), radius * 0.205, radius * 0.15);
+      context.fillText((point[8]).toString(), radius * 0.195, radius * 0.095);
     }
     context.translate(-width*0.495, - height*0.475);
   }
