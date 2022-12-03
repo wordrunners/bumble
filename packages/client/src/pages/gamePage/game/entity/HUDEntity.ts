@@ -2,7 +2,7 @@ export const HUDEntity = (
   context: CanvasRenderingContext2D,
   width: number,
   height: number,
-): void => {
+) => {
   context.fillStyle = 'rgba(222, 219, 0, 1)';
   context.fillRect(width*0.3, height*0.94, width*0.1, height);
 

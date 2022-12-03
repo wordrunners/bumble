@@ -1,4 +1,4 @@
-import { Card } from "../types/canvas"
+import { Card } from "@/types/game"
 
 export const cardToArrays = (card: Card) => {
   const letter = []

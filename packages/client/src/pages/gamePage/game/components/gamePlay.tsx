@@ -1,10 +1,10 @@
 import { useRef, useEffect, useState} from 'react'
 import { useNavigate } from "react-router-dom";
-
-import { CanvasContext } from '../hooks/useCanvas'
-import { Game } from '../core/game'
-
-import { useAppSelector, useAppDispatch } from '../hooks/useStore';
+import { 
+  CanvasContext, 
+  useAppSelector, 
+  useAppDispatch 
+} from '@/hooks'
 import {
   deleteLetter,
   addLetter,
@@ -31,6 +31,7 @@ import {
   selectActiveCard,
   countPoints
 } from '../core/gameSlice';
+import { Game } from '../core/game'
 
 import cardsData from '@/data/cards.json'
 import playersData from '@/data/players.json'
@@ -60,12 +61,9 @@ export const GamePlay = () => {
       setContext(context)
 
       dispatch(setStatus('game'))
-
       dispatch(setActivePlayer(0))
-
       dispatch(setTimer(60))
       dispatch(decrementIfTime())
-  
       dispatch(deletePlayers())
 
       for (let i = 0; i <= totalPlayers; i++) {
@@ -73,12 +71,11 @@ export const GamePlay = () => {
       }
 
       const newCards = []
-      for (let i = 0; i <= ((totalPlayers + 1)*3 - 1); i++) {
+      for (let i = 0; i <= ((totalPlayers + 1) * 3 - 1); i++) {
         newCards.push(cardsData[i])
       }
       dispatch(setCards(newCards))
       dispatch(setActiveCard(0))
-    
     }
   }, [])
 
@@ -103,10 +100,9 @@ export const GamePlay = () => {
               dispatch(addWord(i, data))
               dispatch(deleteWord())
               dispatch(clearPoints())
-
               dispatch(nextActiveCard())
 
-              if (activeCard === ((totalPlayers+1)*3 -1)) {
+              if (activeCard === ((totalPlayers + 1) * 3 -1)) {
                 navigate("/game-over");
               }
             }
@@ -114,7 +110,6 @@ export const GamePlay = () => {
         } else if (sector < 9) {
           dispatch(addLetter(`${sector}`))
           dispatch(countPoints())
-
         } else if ((sector === 9) && (word)) {
           dispatch(deleteLetter())
           dispatch(countPoints())
@@ -126,10 +121,10 @@ export const GamePlay = () => {
   return (
     <CanvasContext.Provider value={{ context: context }}>
       <canvas
-        ref={canvasRef}
-        width={width}
-        height={height}
-        onClick={handleCanvasClick}
+        ref={ canvasRef }
+        width={ width }
+        height={ height }
+        onClick={ handleCanvasClick }
       ></canvas>
       <Game />
     </CanvasContext.Provider>

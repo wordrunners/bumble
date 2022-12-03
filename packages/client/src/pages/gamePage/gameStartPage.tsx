@@ -1,5 +1,5 @@
-import './gamePage.scss';
 import { GameStart } from './game/components/gameStart'
+import './gamePage.scss';
 
 export function GameStartPage() {
   return (

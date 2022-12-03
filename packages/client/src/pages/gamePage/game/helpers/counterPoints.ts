@@ -1,5 +1,5 @@
+import { Card } from "@/types/game";
 import { cardToArrays } from "./cardToArrays"
-import { Card } from "../types/canvas";
 
 export const counterPoints = (newWord: string, card: Card) => {
   const { set, point } = cardToArrays(card);

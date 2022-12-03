@@ -1,4 +1,4 @@
-import { Card } from "../types/canvas"
+import { Card } from "@/types/game"
 import { cardToArrays } from "../helpers/cardToArrays"
 
 export const WordEntity = (
@@ -8,9 +8,9 @@ export const WordEntity = (
   word: string,
   card: Card,
   points: number,
-): void => {
+) => {
   const radius = width < height*0.67 ? width*0.48 : height*0.325;
-  const { letter, set, point } = cardToArrays(card);
+  const { letter } = cardToArrays(card);
 
   let newWord = '';
   for (let i = 0; i < word.length; i++) {

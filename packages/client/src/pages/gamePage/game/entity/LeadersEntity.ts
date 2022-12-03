@@ -1,11 +1,11 @@
-import { Players } from "../types/canvas"
+import { Players } from "@/types/game"
 
 export const LeadersEntity = (
   context: CanvasRenderingContext2D,
   width: number,
   height: number,
   players: Players,
-): void => {
+) => {
   const radius = width < height*0.97 ? width*0.2 : height*0.325;
   const coordinates = [
     {x: width*0.5, y: height*0.52},

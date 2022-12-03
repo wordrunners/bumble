@@ -1,4 +1,4 @@
-import { Card } from "../types/canvas"
+import { Card } from "@/types/game"
 import background from '@/data/background.json'
 
 export const DrumEntity = (
@@ -6,7 +6,7 @@ export const DrumEntity = (
   width: number,
   height: number,
   card: Card
-): void => {
+) => {
   const radius = width < height*0.67 ? width*0.48 : height*0.325;
 
   const set = []
@@ -21,12 +21,7 @@ export const DrumEntity = (
     enabled.push(card[i].enabled);
   }
 
-  // colors
-  // rgba(109, 199, 243, 1) - new blue
-  // rgba(222, 220, 0, 1) - new yellow
-  // rgba(47, 172, 102, 1) - new green
-  // rgba(237, 114, 159, 1) - new pink
-
+  //background
   context.fillStyle = 'rgba(109, 199, 243, 1)';
   context.fillRect(0, 0, width, height);
   
@@ -81,15 +76,15 @@ export const DrumEntity = (
   }
   context.translate(-width*0.495, - height*0.475);
   
-  //small
+  //center
   context.beginPath();
   context.arc(width/2, height * 0.45, radius*0.3, 0, 2 * Math.PI);
   if (set[8] === 1){
-    context.fillStyle = `rgba(222, 228, 0, 1)`;  // y
+    context.fillStyle = `rgba(222, 228, 0, 1)`; 
   } else if (set[8] === 2){
-    context.fillStyle = `rgba(47, 178, 102, 1)`; // g
+    context.fillStyle = `rgba(47, 178, 102, 1)`;
   } else if (set[8] === 3){
-    context.fillStyle = `rgba(208, 128, 151, 1)`;  // p
+    context.fillStyle = `rgba(208, 128, 151, 1)`; 
   }
   context.fill();
 

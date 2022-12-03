@@ -1,9 +1,7 @@
-
-
-
-import { useCanvasContext } from '../hooks/useCanvas'
-import { useAppSelector } from '../hooks/useStore';
-
+import { 
+  useCanvasContext, 
+  useAppSelector 
+} from '@/hooks'
 import { 
   DrumEntity,
   WordEntity,
@@ -15,7 +13,6 @@ import {
   OverEntity,
   StartEntity
 } from '../entity'
-
 import {
   selectHeight,
   selectWidth,
@@ -28,7 +25,6 @@ import {
   selectActivePlayer,
   selectStatus,
 } from './gameSlice';
-
 
 export const Game = () => {
   const width = useAppSelector(selectWidth);

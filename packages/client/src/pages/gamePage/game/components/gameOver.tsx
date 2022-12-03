@@ -1,8 +1,10 @@
 import { useRef, useEffect, useState, } from 'react'
 import { useNavigate } from "react-router-dom";
-import { CanvasContext } from '../hooks/useCanvas'
-import { Game } from '../core/game'
-import { useAppSelector, useAppDispatch } from '../hooks/useStore';
+import { 
+  CanvasContext, 
+  useAppSelector, 
+  useAppDispatch
+ } from '@/hooks'
 import {
   selectHeight,
   selectWidth,
@@ -10,6 +12,7 @@ import {
   selectTotalPlayers,
   setStatus,
 } from '../core/gameSlice';
+import { Game } from '../core/game'
 
 export const GameOver = () => {
   const navigate = useNavigate();
@@ -51,10 +54,10 @@ export const GameOver = () => {
   return (
     <CanvasContext.Provider value={{ context: context }}>
       <canvas
-        ref={canvasRef}
-        width={width}
-        height={height}
-        onClick={handleCanvasClick}
+        ref={ canvasRef }
+        width={ width }
+        height={ height }
+        onClick={ handleCanvasClick }
       ></canvas>
       <Game />
     </CanvasContext.Provider>

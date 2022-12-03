@@ -1,15 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '@/store/store';
-import {counterPoints } from "../helpers"
+import { counterPoints } from "../helpers"
 import { 
   Game, 
-  Card, 
   Players, 
   Player, 
   Cards,
   Status 
-} from "../types/canvas"
-
+} from "@/types/game"
 
 const initialState: Game = {
   totalPlayers: -1,
@@ -34,40 +32,14 @@ export const gameSlice = createSlice({
     setStatus: (state, action: PayloadAction<Status>) => {
       state.status = action.payload;
     },
+    setWidth: (state, action: PayloadAction<number>) => {
+      state.width = action.payload;
+    },
+    setHeight: (state, action: PayloadAction<number>) => {
+      state.height = action.payload;
+    },
     setCards: (state, action: PayloadAction<Cards>) => {
       state.cards = action.payload;
-    },
-    addCards: (state, action: PayloadAction<Card>) => {
-      state.cards?.push(action.payload);
-    },
-    deleteCards: (state, action: PayloadAction<Card>) => {
-      const newCards: Cards = []
-      state.cards?.map((card) => {
-        if (card !== action.payload) {
-          newCards.push(card);
-        }
-      })
-      state.cards = newCards;
-    },
-    setTotalPlayers: (state, action: PayloadAction<number>) => {
-      state.totalPlayers = action.payload;
-    },
-    nextTotalPlayers: (state,) => {
-      if (state.totalPlayers === 3) {
-        state.totalPlayers = 0;
-      } else {
-        state.totalPlayers += 1;
-      }
-    },
-    setActivePlayer: (state, action: PayloadAction<number>) => {
-      state.activePlayer = action.payload;
-    },
-    nextActivePlayer: (state,) => {
-      if (state.activePlayer === state.totalPlayers) {
-        state.activePlayer = 0;
-      } else {
-        state.activePlayer += 1;
-      }
     },
     setActiveCard: (state, action: PayloadAction<number>) => {
       state.activeCard = action.payload;
@@ -82,13 +54,34 @@ export const gameSlice = createSlice({
         state.card = state.cards[state.activeCard];
       }
     },
-    increment: (state) => {
-      state.word += 1;
+    setTotalPlayers: (state, action: PayloadAction<number>) => {
+      state.totalPlayers = action.payload;
     },
-    deleteLetter: (state) => {
-      const lastLetter = +state.word.charAt(state.word.length-1);
-      if (state.card) state.card[lastLetter].enabled = true;
-      state.word = state.word.slice(0, -1);
+    nextTotalPlayers: (state,) => {
+      if (state.totalPlayers === 3) {
+        state.totalPlayers = 0;
+      } else {
+        state.totalPlayers += 1;
+      }
+    },
+    addPlayers: (state, action: PayloadAction<Players>) => {
+      state.players = action.payload;
+    },
+    deletePlayers: (state) => {
+      state.players = [];
+    },
+    setActivePlayer: (state, action: PayloadAction<number>) => {
+      state.activePlayer = action.payload;
+    },
+    nextActivePlayer: (state,) => {
+      if (state.activePlayer === state.totalPlayers) {
+        state.activePlayer = 0;
+      } else {
+        state.activePlayer += 1;
+      }
+    },
+    addPlayer: (state, action: PayloadAction<Player>) => {
+      state.players.push(action.payload);
     },
     addLetter: (state, action: PayloadAction<string>) => {
       if ((state.card) && (state.card[+action.payload].enabled)) {
@@ -96,10 +89,13 @@ export const gameSlice = createSlice({
         state.card[+action.payload].enabled = false;
       }
     },
-    countPoints: (state) => {
-      if (state.card) {
-        state.points = counterPoints(state.word, state.card)
-      }
+    deleteLetter: (state) => {
+      const lastLetter = +state.word.charAt(state.word.length-1);
+      if (state.card) state.card[lastLetter].enabled = true;
+      state.word = state.word.slice(0, -1);
+    },
+    deleteWord: (state) => {
+      state.word = '';
     },
     setPoints: (state, action: PayloadAction<number>) => {
       state.points = action.payload;
@@ -107,35 +103,19 @@ export const gameSlice = createSlice({
     clearPoints: (state) => {
       state.points = 0;
     },
-    deleteWord: (state) => {
-      state.word = '';
-    },
-    setWidth: (state, action: PayloadAction<number>) => {
-      state.width = action.payload;
-    },
-    setHeight: (state, action: PayloadAction<number>) => {
-      state.height = action.payload;
-    },
-    setCard: (state, action: PayloadAction<Card>) => {
-      state.card = action.payload;
-    },
-    setTimer: (state, action: PayloadAction<number>) => {
-      state.timer = action.payload;
+    countPoints: (state) => {
+      if (state.card) {
+        state.points = counterPoints(state.word, state.card)
+      }
     },
     setTimeou: (state, action: PayloadAction<any>) => {
       state.timeou = action.payload;
     },
+    setTimer: (state, action: PayloadAction<number>) => {
+      state.timer = action.payload;
+    },
     decrementTimer: (state) => {
       state.timer -= 1;
-    },
-    deletePlayers: (state) => {
-      state.players = [];
-    },
-    addPlayers: (state, action: PayloadAction<Players>) => {
-      state.players = action.payload;
-    },
-    addPlayer: (state, action: PayloadAction<Player>) => {
-      state.players.push(action.payload);
     },
   },
 });
@@ -186,15 +166,14 @@ export const addWord =
   };
 
 export const { 
-  setActiveCard, nextActiveCard,
   setStatus,
-  setCards, addCards, deleteCards,
-  setTotalPlayers, setActivePlayer, nextActivePlayer, nextTotalPlayers,
-  increment, deleteLetter, addLetter, deleteWord, setPoints, clearPoints, countPoints,
   setWidth, setHeight,
-  setCard,
-  setTimer, decrementTimer, setTimeou,
-  addPlayers, deletePlayers, addPlayer
+  setCards, setActiveCard, nextActiveCard,
+  setTotalPlayers, nextTotalPlayers, addPlayers, deletePlayers, 
+  setActivePlayer, nextActivePlayer, addPlayer,
+  addLetter, deleteLetter, deleteWord,
+  setPoints, clearPoints, countPoints,
+  setTimeou, setTimer, decrementTimer,
 } = gameSlice.actions;
 
 export const selectActiveCard = (state: RootState) => state.game.activeCard;

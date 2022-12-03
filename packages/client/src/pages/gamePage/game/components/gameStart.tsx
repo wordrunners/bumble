@@ -1,30 +1,25 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
 import { useNavigate } from "react-router-dom";
-
-import { CanvasContext } from '../hooks/useCanvas'
-import { Game } from '../core/game'
-
-import { useAppSelector, useAppDispatch } from '../hooks/useStore';
+import { 
+  CanvasContext, 
+  useAppSelector, 
+  useAppDispatch } from '@/hooks'
 import {
   selectHeight,
   selectWidth,
   setWidth,
   setHeight,
   setTotalPlayers, 
-  selectTotalPlayers,
-  selectActivePlayer,
   setStatus,
   nextTotalPlayers,
 } from '../core/gameSlice';
+import { Game } from '../core/game'
 
 export const GameStart = () => {
-
   const navigate = useNavigate();
 
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
-  const totalPlayers = useAppSelector(selectTotalPlayers);
-  const activePlayer = useAppSelector(selectActivePlayer);
   const dispatch = useAppDispatch();
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -66,9 +61,9 @@ export const GameStart = () => {
   return (
     <CanvasContext.Provider value={{ context: context }}>
       <canvas
-        ref={canvasRef}
-        width={width}
-        height={height}
+        ref={ canvasRef }
+        width={ width }
+        height={ height }
       ></canvas>
       <Game />
     </CanvasContext.Provider>

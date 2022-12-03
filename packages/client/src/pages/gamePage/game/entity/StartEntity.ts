@@ -5,7 +5,7 @@ export const StartEntity = (
   width: number,
   height: number,
   totalPlayers: number
-): void => {
+) => {
   const radius = width < height*0.67 ? width*0.48 : height*0.325;
 
   context.fillStyle = 'rgba(109, 199, 243, 1)';
