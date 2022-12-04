@@ -1,5 +1,44 @@
 .leaderboard-row {
-    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    display: grid;
+    grid-template-columns: 50px repeat(3, 1fr);
     align-items: center;
-    flex-direction: row;
+    background: var(--background);
+    padding: 8px 40px 8px 15px;
+    margin-bottom: 10px;
+    width: 100%;
+    justify-items: center;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &__place {
+        min-width: 15px;
+    }
+
+    &__name {
+        margin: 0;
+    }
+
+    &__score {
+        background: var(--text);
+        color: var(--background);
+        border-radius: 50%;
+        height: 35px;
+        width: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        justify-self: end;
+    }
+
+    &__avatar {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        border: none;
+        background: var(--background4);
+    }
+
 }

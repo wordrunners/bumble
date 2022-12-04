@@ -19,9 +19,11 @@ export const LeaderboardRow: FC<Props> = ({ leader }): JSX.Element => {
     return (
         <div className='leaderboard-row'>
             <div className='leaderboard-row__place'>{place}</div>
-            <img className='leaderboard-row__avatar' src={avatar} />
+            <div className='leaderboard-row__avatar' style={{ backgroundImage: `url(${avatar})` }}></div>
             <p className='leaderboard-row__name'>{name}</p>
-            <p className='leaderboard-row__score'>{score}</p>
+            <div className='leaderboard-row__score'>
+                <p className='leaderboard-row__text'>{score}</p>
+            </div>
         </div>
     );
 };
