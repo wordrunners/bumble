@@ -2,10 +2,11 @@ import {
   createBrowserRouter,
 } from 'react-router-dom';
 
-import { MapPage } from '@/pages/mapPage';
 import { StartPage } from '@/pages/startPage';
-import { ErrorPage } from '@/pages/errorPage';
-import { GamePage } from '@/pages/gamePage';
+import { ErrorPage } from '@/pages';
+import { GameStartPage } from '@/pages';
+import { GamePlayPage } from '@/pages';
+import { GameOverPage } from '@/pages';
 import { SigninPage } from './signinPage';
 import { SignupPage } from './signupPage';
 
@@ -18,8 +19,20 @@ export const Router = createBrowserRouter([
   },
   {
     path: '/game',
-    element: <GamePage />,
+    element: <GameStartPage />,
     errorElement: <ErrorPage />,
+    children: [],
+  },
+  {
+    path: '/game-play',
+    element: <GamePlayPage />,
+    errorElement: <GameStartPage />,
+    children: [],
+  },
+  {
+    path: '/game-over',
+    element: <GameOverPage />,
+    errorElement: <GameStartPage />,
     children: [],
   },
   {
