@@ -4,6 +4,9 @@ node_modules/
 .vscode
 dist
 tmp
+.yarnrc
+yarn
+yarn-1.22.19.cjs
 
 # Logs
 logs
