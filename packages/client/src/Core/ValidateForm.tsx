@@ -4,8 +4,8 @@
 type FormProps = {
   login: string;
   password: string;
-  firstName: string;
-  secondName: string;
+  first_name: string;
+  second_name: string;
   phone: string;
   email: string;
 }
@@ -28,13 +28,13 @@ export default function ValidateForm(values: any) {
   
   if (first_name) {
     if (!/^[A-ZА-Я][a-zA-Zа-яА-Я\-]*$/.test(first_name)) {
-      errors.firstName = "Первая букава должна быть заглавная. Не допустимы цифры и спецсимволы, кроме дефиса"
+      errors.first_name = "Первая букава должна быть заглавная. Не допустимы цифры и спецсимволы, кроме дефиса"
     }
   }
   
   if (second_name) {
     if (!/^[A-ZА-Я][a-zA-Zа-яА-Я\-]*$/.test(second_name)) {
-      errors.secondName = "Первая букава должна быть заглавная. Не допустимы цифры и спецсимволы, кроме дефиса"
+      errors.second_name = "Первая букава должна быть заглавная. Не допустимы цифры и спецсимволы, кроме дефиса"
     }
   }
   if (email) {

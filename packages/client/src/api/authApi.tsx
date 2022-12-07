@@ -23,12 +23,12 @@ type SignupResponseData = {} | APIError;
 
 export const authAPI = {
   signin: (data: SigninRequestData) =>
-    request.post<SigninResponseData>('auth/signin', data),
+    request.post<SigninResponseData>('/auth/signin', data),
 
   signup: (data: SignupRequestData) =>
-    request.post<SignupResponseData>('auth/signup', data),
+    request.post<SignupResponseData>('/auth/signup', data),
 
-  getUser: () => request.get<UserDTO | APIError>('auth/user'),
+  getUser: () => request.get<UserDTO | APIError>('/auth/user'),
 
-  logout: () => request.post('auth/logout'),
+  logout: () => request.post('/auth/logout'),
 }
