@@ -1,41 +1,9 @@
 import './leaderboardPage.scss';
 import { LeaderboardRow } from './leaderboardRow';
-import { Leader } from './leaderboardRow/leaderboardRow';
 import Bag from '@/assets/images/pic-08.png';
 import Rule from '@/assets/images/pic-07.png';
 import { useEffect, useState } from 'react';
-
-const mockLeaders: Leader[] = [
-    {
-        id: '1',
-        place: 1,
-        name: 'Евгения',
-        avatar: '',
-        score: 35,
-    },
-    {
-        id: '2',
-        place: 2,
-        name: 'Данил',
-        avatar: '',
-        score: 33,
-    },
-    {
-        id: '3',
-        place: 3,
-        name: 'Андрей',
-        avatar: '',
-        score: 30,
-    },
-    {
-        id: '4',
-        place: 4,
-        name: 'Ирина',
-        avatar: '',
-        score: 25,
-    },
-    
-];
+import { Leader, mockLeaders } from './constants';
 
 export const LeaderboardPage = (): JSX.Element => {
     const [leaders, setLeaders] = useState<Leader[]>([] as Leader[]);

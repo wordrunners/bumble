@@ -9,6 +9,7 @@ import { SigninPage } from './signinPage'
 import { SignupPage } from './signupPage'
 import { ProfilePage } from './profilePage'
 import { ChangePasswordPage } from '@/pages/changePasswordPage'
+import { LeaderboardPage } from './leaderboardPage'
 
 export const Router = createBrowserRouter([
   {
@@ -56,6 +57,12 @@ export const Router = createBrowserRouter([
   {
     path: '/change-password',
     element: <ChangePasswordPage />,
+    errorElement: <ErrorPage />,
+    children: [],
+  },
+  {
+    path: '/leaderboard',
+    element: <LeaderboardPage />,
     errorElement: <ErrorPage />,
     children: [],
   },

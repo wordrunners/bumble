@@ -1,13 +1,6 @@
 import { FC } from 'react';
+import { Leader } from '../constants';
 import './leaderboardRow.scss';
-
-export interface Leader {
-    id: string;
-    place: number;
-    name: string;
-    avatar: string;
-    score: number;
-}
 
 interface Props {
     leader: Leader;
