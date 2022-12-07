@@ -2,14 +2,11 @@
   margin: auto;
   text-align: center;
   color: var(--background5);
-}
-
-.game-page a {
-  color: inherit;
-}
-
-.game-page a:hover {
-  color: var(--text);
+  overflow: hidden;
+  font-family: PequenaPro, Arial, Helvetica, sans-serif;
+  background-image: none;
+  background-color: var(--secondary);
+  background-image: none;
 }
 
 .game-page:before {

@@ -1,11 +1,7 @@
-import { request } from '../Core/apiRequest'
+import { request } from '@/Core/apiRequest'
 import { APIError } from './types'
 
-export type AvatarRequestData = {
-  avatar: FormData
-}
-
-type AvatarResponseData =
+export type AvatarResponseData =
   | {
       id: number
       login: string
@@ -19,8 +15,11 @@ type AvatarResponseData =
   | APIError
 
 export const avatarAPI = {
-  avatarUp: (requestData: AvatarRequestData) =>
-    request.put<AvatarResponseData>('/user/profile/avatar', {
-      data: requestData,
-    }),
+  avatarUp: (requestData: any) =>
+    request.put<AvatarResponseData>(
+      '/user/profile/avatar',
+      requestData,
+      null,
+      true
+    ),
 }

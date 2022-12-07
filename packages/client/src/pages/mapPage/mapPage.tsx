@@ -1,20 +1,16 @@
-import {
-  NavLink,
-} from "react-router-dom";
-import './mapPage.scss';
+import { NavLink } from 'react-router-dom'
+import './mapPage.scss'
 
 export function MapPage() {
   return (
     <div className="map-page">
       Pages:
-      <br/>
+      <br />
       <nav>
-        <NavLink
-          to={`game`}
-        >
+        <NavLink to={`game`}>
           {<p>Механика игры на Canvas API - game-page</p>}
         </NavLink>
       </nav>
     </div>
-  );
+  )
 }
