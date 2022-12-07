@@ -1,20 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react';
 
-
-export type FormProps = {
-  login?: string;
-  password?: string;
-  firstName?: string;
-  secondName?: string;
-  phone?: string;
-  email?: string;
-}
-
-export const useForm = (callback: () => void, validate: any) => {
-  const [values, setValues] = useState<FormProps>({});
-  const [errors, setErrors] = useState<FormProps>({});
+export const useForm = (submitForm: () => void, initialValue: Record<string, string | number>,  validate: any): any => {
+  const [values, setValues] = useState(initialValue);
+  const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (Object.keys(errors).length === 0 && isSubmitting) {
+      submitForm();
+    }
+  }, [errors]);
 
   const handleChange = (e: any) => {
     const {name, value} = e.target;
@@ -25,20 +21,10 @@ export const useForm = (callback: () => void, validate: any) => {
   }
 
   const handleSubmit = (e: any) => {
-    e.preventDefault();
-
+    e.preventDefault()
     setErrors(validate(values));
     setIsSubmitting(true);
   }
-
-  useEffect(
-    () => {
-      if (Object.keys(errors).length === 0 && isSubmitting) {
-        callback();
-      }
-    },
-    [errors]
-  );
 
   return {handleChange, handleSubmit, values, errors}
 }
