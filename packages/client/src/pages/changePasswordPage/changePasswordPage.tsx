@@ -7,7 +7,7 @@ import avatar from '@/assets/images/avatar.png'
 import './changePasswordPage.scss'
 import { AppContext } from '@/Core'
 
-export const ChangePasswordPage: FC<User> = (props: User) => {
+export const ChangePasswordPage: FC<User> = () => {
   const user = useContext(AppContext)
   const avatarUser = user.avatar
     ? `${__API_ENDPOINT__}/resources${user.avatar}`

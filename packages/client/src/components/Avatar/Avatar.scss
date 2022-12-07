@@ -4,7 +4,7 @@
 }
 
 .avatar {
-  margin: 2rem auto 1rem;
+  margin: 1rem auto;
   width: 12rem;
   height: 12rem;
   & img {
@@ -16,16 +16,15 @@
 .change__avatar {
   min-width: 32rem;
   max-width: 50rem;
-  margin: 1rem auto;
+  margin: 0rem auto;
   & p {
     text-align: center;
-    font-size: 1.4rem;
+    font-size: 1rem;
     color: var(--word2);
   }
   &-file {
     display: flex;
     justify-content: center;
-    padding-top: 1rem;
     & input[type='file'] {
       outline: 0;
       opacity: 0;
@@ -35,12 +34,12 @@
   }
   & .label {
     width: 3rem;
-    height: 3rem;
+    height: 2rem;
     margin-right: 1rem;
     cursor: pointer;
     & img {
       width: 3rem;
-      height: 3rem;
+      height: 2rem;
     }
   }
 }
