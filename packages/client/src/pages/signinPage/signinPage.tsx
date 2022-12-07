@@ -1,18 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Form } from "@/components/Form";
 import { FormField } from "@/components/FormField";
 import { Button } from "@/components/Button";
 import { useForm } from "@/hooks/useForm";
 import validate from "@/Core/ValidateForm";
+import { authAPI } from "@/api/authApi";
 
 import "./signinPage.scss";
 
-export const SigninPage: FC = ({ submitForm }: any) => {
-  const {handleChange, handleSubmit, values, errors} = useForm(submitForm, validate);
-  
+export const SigninPage: FC = () => {
+  const {handleChange, handleSubmit, values, errors} = useForm(submitForm, {login: "", password: ""}, validate);
+  const navigate = useNavigate();
+
+   function submitForm() {
+    authAPI.signin(values)
+      .then(() => navigate('/game'))
+      .catch((error: any) => {
+        console.log(error);
+      });
+  }
+
   return (
     <div className="auth">
       <Form onSubmit={handleSubmit}>

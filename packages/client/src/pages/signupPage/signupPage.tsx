@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 
 import { Form } from "@/components/Form";
@@ -8,20 +8,37 @@ import { FormField } from "@/components/FormField";
 import { Button } from "@/components/Button";
 import { useForm } from "@/hooks/useForm";
 import validate from "@/Core/ValidateForm";
+import { authAPI } from "@/api/authApi";
 
 import "@/pages/signinPage/signinPage.scss";
 
-export const SignupPage: FC = ({ submitForm }: any) => {
-  const {handleChange, handleSubmit, values, errors} = useForm(submitForm, validate);
+export const SignupPage: FC = () => {
+  const {handleChange, handleSubmit, values, errors} = useForm(submitForm, {
+    first_name: "",
+    second_name: "",
+    phone: "",
+    email: "",
+    login: "",
+    password: "",
+  }, validate);
+  const navigate = useNavigate();
+
+  function submitForm() {
+    authAPI.signup(values)
+      .then(() => navigate('/signin'))
+      .catch((error: any) => {
+        console.log(error);
+      });
+  }
 
   return (
     <div className={cn('auth')}>
       <Form onSubmit={handleSubmit}>
         <h1 className="auth__title">Регистрация</h1>
-        <FormField type="text" name="first_name" value={values.firstName} label="Имя" onChange={handleChange} />
-        {errors.firstName && <p className="auth__error">{errors.firstName}</p>}
-        <FormField type="text" name="second_name" value={values.secondName} label="Фамилия" onChange={handleChange} />
-        {errors.secondName && <p className="auth__error">{errors.secondName}</p>}
+        <FormField type="text" name="first_name" value={values.first_name} label="Имя" onChange={handleChange} />
+        {errors.firstName && <p className="auth__error">{errors.first_name}</p>}
+        <FormField type="text" name="second_name" value={values.second_name} label="Фамилия" onChange={handleChange} />
+        {errors.secondName && <p className="auth__error">{errors.second_name}</p>}
         <FormField type="text" name="login" value={values.login} label="Логин" onChange={handleChange} />
         {errors.login && <p className="auth__error">{errors.login}</p>}
         <FormField type="text" name="email" value={values.email} label="Email" onChange={handleChange} />
