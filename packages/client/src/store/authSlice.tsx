@@ -3,7 +3,7 @@ import { UserDTO } from '@/api/types';
 import { RootState } from '@/store/store';
 import { authAPI } from '@/api/authApi';
 import { SigninRequestData,  SignupRequestData} from '@/api/authApi';
-import { transformUser} from '@/utils';
+import { transformUserDTOtoUser} from '@/utils';
 
 type AuthState = {
   isAuth: boolean;
@@ -35,7 +35,7 @@ export const authSlice = createSlice({
         state.loading = false;
         state.isAuth = true;
         state.user = action.payload;
-        localStorage.setItem('user', JSON.stringify(transformUser(action.payload)));
+        localStorage.setItem('user', JSON.stringify(transformUserDTOtoUser(action.payload)));
       }
     );
     buider.addCase(fetchUser.rejected, state => {
