@@ -11,11 +11,12 @@ export function App() {
       const url = `http://localhost:${__SERVER_PORT__}`
       const response = await fetch(url)
       const data = await response.json()
-      console.log(data)
+      console.log(data);
     }
 
     fetchServerData()
   }, [])
+  console.log(store)
   return (
     <div className="app">
       <Provider store={store}>

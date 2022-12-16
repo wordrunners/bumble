@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import cn from 'classnames';
 
 import { Form } from "@/components/Form";
@@ -8,7 +8,9 @@ import { FormField } from "@/components/FormField";
 import { Button } from "@/components/Button";
 import { useForm } from "@/hooks/useForm";
 import validate from "@/Core/ValidateForm";
-import { authAPI } from "@/api/authApi";
+import { signup } from "@/store/authSlice";
+import { useAppDispatch } from "@/hooks";
+import { useAuth } from "@/hooks/useAuth";
 
 import "@/pages/signinPage/signinPage.scss";
 
@@ -21,17 +23,15 @@ export const SignupPage: FC = () => {
     login: "",
     password: "",
   }, validate);
-  const navigate = useNavigate();
+
+  const dispath = useAppDispatch();
+  const { isAuth } = useAuth();
 
   function submitForm() {
-    authAPI.signup(values)
-      .then(() => navigate('/signin'))
-      .catch((error: any) => {
-        console.log(error);
-      });
-  }
+   dispath(signup(values));
+ }
 
-  return (
+  return isAuth ? <Navigate to="/signin" /> : (
     <div className={cn('auth')}>
       <Form onSubmit={handleSubmit}>
         <h1 className="auth__title">Регистрация</h1>
