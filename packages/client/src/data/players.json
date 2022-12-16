@@ -1,24 +1,24 @@
 [
   {  
-    "login": "Данил",
+    "login": "Первый",
     "words": [],
     "score": 0,
     "enabled": true
   },
   {  
-    "login": "Женя",
+    "login": "Второй",
     "words": [],
     "score": 0,
     "enabled": false
   },
   {  
-    "login": "Ирина",
+    "login": "Третий",
     "words": [],
     "score": 0,
     "enabled": false
   },
   {  
-    "login": "Андрей",
+    "login": "Четвертый",
     "words": [],
     "score": 0,
     "enabled": false

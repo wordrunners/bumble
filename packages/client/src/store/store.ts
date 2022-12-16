@@ -1,9 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import gameReducer from '@/pages/gamePage/game/core/gameSlice';
+import gameUserReducer from '@/store/gameUserSlice';
+import leaderBoardReducer from '@/store/leaderBoardSlice';
 
 export const store = configureStore({
   reducer: {
     game: gameReducer,
+    gameUser: gameUserReducer,
+    leaderBoard: leaderBoardReducer,
   },
 });
 

@@ -1,5 +1,15 @@
-import { Card } from "@/types/game"
-import background from '@/data/background.json'
+import { Card } from '@/types'
+import { cardToArrays } from '../helpers'
+import {
+  YELLOW,
+  GREEN,
+  PINK,
+  BLACK,
+  BLUE_DARK,
+  BLUE_LIGHT,
+  FONT
+} from '@/data/consts'
+import { colorFromSector } from '../helpers'
 
 export const DrumEntity = (
   context: CanvasRenderingContext2D,
@@ -7,96 +17,141 @@ export const DrumEntity = (
   height: number,
   card: Card
 ) => {
-  const radius = width < height*0.67 ? width*0.48 : height*0.325;
+  const radius = width < height*0.67 ? width*0.48 : height*0.325
+  const { set, point, letter, enabled, selected } = cardToArrays(card)
 
-  const set = []
-  const letter = []
-  const point = []
-  const enabled = []
-
-  for (let i = 0; i<card.length; i++) {
-    set.push(card[i].set);
-    letter.push(card[i].letter);
-    point.push(card[i].point);
-    enabled.push(card[i].enabled);
-  }
-
-  //background
-  context.fillStyle = 'rgba(109, 199, 243, 1)';
-  context.fillRect(0, 0, width, height);
-  
-  for (let i = 0; i < 12; i++) {
-    context.fillStyle = `rgba(109, 209, 255, 1)`;
-    context.font = `bold ${height*0.14}px PequenaPro`;
-    context.fillText((background).toString().slice(i*i), 0, height*0.12*i);
+  const checkSet = (i: number) => {
+    if (set[i] === 1){
+      context.fillStyle = colorFromSector(YELLOW, i) 
+    } else if (set[i] === 2){
+      context.fillStyle = colorFromSector(GREEN, i)
+    } else if (set[i] === 3){
+      context.fillStyle = colorFromSector(PINK, i) 
+    }
   }
 
   //sectors
+  context.beginPath()
+  context.fillStyle = BLUE_LIGHT 
+  context.arc(width/2, height * 0.45, radius, 0, 2 * Math.PI)
+  context.fill()
+
+  const sector = Math.PI * 0.25
+  const origin = {x: width/2, y: height* 0.45}
+  let selectedSector = -1
+  let selectedSectorColor = ''
   for (let i = 0; i < 8; i++) {
-    const sector = Math.PI * 0.25;
-    const startAngle = sector * i;
-    const endAngle = sector * (i+1); // 90 degree
-    const origin = {x: width/2, y: height* 0.45};
-    context.beginPath();
-    context.moveTo(origin.x, origin.y);
-    context.arc(origin.x, origin.y, radius, startAngle, endAngle, false);
-    if (set[i] === 1){
-      context.fillStyle = `rgba(222, 22${i}, 0, 1)`;  // y
-    } else if (set[i] === 2){
-      context.fillStyle = `rgba(47, 17${i}, 102, 1)`; // g
-    } else if (set[i] === 3){
-      context.fillStyle = `rgba(208, 12${i}, 151, 1)`;  // p
+    const startAngle = sector * i
+    const endAngle = sector * (i + 1) // 90 degree
+    if (enabled[i]) { 
+      context.beginPath()
+      context.moveTo(origin.x, origin.y)
+      context.arc(origin.x, origin.y, radius, startAngle, endAngle, false)
+      if (selected[i]) {
+        selectedSector = i
+        if (set[i] === 1){
+          selectedSectorColor = colorFromSector(YELLOW, i) 
+        } else if (set[i] === 2){
+          selectedSectorColor = colorFromSector(GREEN, i)
+        } else if (set[i] === 3){
+          selectedSectorColor = colorFromSector(PINK, i) 
+        }
+      } 
+      checkSet(i)
+      context.fill()
     }
-    context.fill();
+  }
+  if (selectedSector >= 0) {
+    context.shadowBlur = 4
+    context.shadowOffsetX = 0
+    context.shadowOffsetY = 0
+    context.shadowColor = "black"
+    context.beginPath()
+    context.moveTo(origin.x, origin.y)
+    context.arc(origin.x, origin.y, radius*1.1, sector * selectedSector, sector * (selectedSector+1), false)
+    context.fillStyle = selectedSectorColor  // p
+    context.fill()
+    context.shadowBlur = 0
+    context.shadowOffsetX = 0
+    context.shadowOffsetY = 0
+    selectedSector = -1
   }
 
-  //letter
-  context.translate(width*0.495, height*0.475);
-  context.textBaseline = "middle";
-  context.textAlign = "center";
+  //letters
+  context.translate(width*0.495, height*0.495)
+  context.textAlign = "center"
   for(let i = 0; i < 8; i++){
     if (enabled[i]) { 
-      const ang = i * Math.PI / 4 + Math.PI / 8 * 5;
-      context.rotate(ang);
-      context.translate(0, -radius * 0.7125);
-      context.rotate(-ang);
+      const ang = i * Math.PI / 4 + Math.PI / 8 * 5
+      context.rotate(ang)
+      context.translate(0, -radius * 0.7125)
+      context.rotate(-ang)
+      context.fillStyle = colorFromSector(BLACK, i)
 
-      context.fillStyle = `rgba(20, 1${i}, 13, 1)`;
-      context.font = `bold ${radius * 0.405}px PequenaPro`;
-      context.fillText(letter[i], 0, 0);
-      if (point[i] > 1) {
-        context.font = `bold ${radius * 0.125}px PequenaPro`;
-        context.fillText((point[i]).toString(), radius * 0.195, radius * 0.095);
+      if (selected[i]) {
+        context.font = `bold ${radius * 0.405}px ${FONT}`
+      } else {
+        context.font = `bold ${radius * 0.385}px ${FONT}`
       }
 
-      context.rotate(ang);
-      context.translate(0, radius * 0.7125);
-      context.rotate(-ang);
+      context.fillText(letter[i], 0, 0)
+      if (point[i] > 1) {
+        context.font = `bold ${radius * 0.115}px ${FONT}`
+        if (selected[i]) {
+          context.fillText((point[i]).toString(), radius * 0.22, radius * 0.021)
+        } else {
+          context.fillText((point[i]).toString(), radius * 0.21, radius * 0.021)
+        }
+      }
+
+      context.rotate(ang)
+      context.translate(0, radius * 0.7125)
+      context.rotate(-ang)
     }
   }
-  context.translate(-width*0.495, - height*0.475);
-  
+  context.translate(-width*0.495, -height*0.495)
+
   //center
-  context.beginPath();
-  context.arc(width/2, height * 0.45, radius*0.3, 0, 2 * Math.PI);
-  if (set[8] === 1){
-    context.fillStyle = `rgba(222, 228, 0, 1)`; 
-  } else if (set[8] === 2){
-    context.fillStyle = `rgba(47, 178, 102, 1)`;
-  } else if (set[8] === 3){
-    context.fillStyle = `rgba(208, 128, 151, 1)`; 
-  }
-  context.fill();
+  context.beginPath()
+  context.fillStyle = BLUE_DARK 
+  context.arc(width/2, height * 0.45, radius*0.3, 0, 2 * Math.PI)
+  context.fill()
 
   if (enabled[8]) { 
-    context.translate(width*0.495, height*0.475);
-    context.fillStyle = `rgba(20, 18, 13, 1)`;
-    context.font = `bold ${radius * 0.405}px PequenaPro`;
-    context.fillText(letter[8], 0, 0);
-    if (point[8] > 1) {
-      context.font = `bold ${radius * 0.125}px PequenaPro`;
-      context.fillText((point[8]).toString(), radius * 0.195, radius * 0.095);
+    context.beginPath()
+    if (selected[8]) {
+      context.shadowBlur = 4
+      context.shadowOffsetX = 0
+      context.shadowOffsetY = 0
+      context.shadowColor = "black"
+      context.arc(width/2, height * 0.45, radius*0.3*1.05, 0, 2 * Math.PI)
+      context.fill()
+      context.shadowBlur = 0
+      context.shadowOffsetX = 0
+      context.shadowOffsetY = 0
+    } else {
+      context.arc(width/2, height * 0.45, radius*0.3, 0, 2 * Math.PI)
     }
-    context.translate(-width*0.495, - height*0.475);
+
+    checkSet(8)
+    context.fill()
+    context.translate(width*0.495, height*0.495)
+    context.fillStyle = colorFromSector(BLACK, 8)
+    if (selected[8]) {
+      context.font = `bold ${radius * 0.405}px ${FONT}`
+    } else {
+      context.font = `bold ${radius * 0.385}px ${FONT}`
+    }
+
+    context.fillText(letter[8], 0, 0)
+    if (point[8] > 1) {
+      context.font = `bold ${radius * 0.115}px ${FONT}`
+      if (selected[8]) {
+        context.fillText((point[8]).toString(), radius * 0.22, radius * 0.021)
+      } else {
+        context.fillText((point[8]).toString(), radius * 0.21, radius * 0.021)
+      }
+    }
+    context.translate(-width*0.495, - height*0.495)
   }
 }
