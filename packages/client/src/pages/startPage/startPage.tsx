@@ -22,7 +22,7 @@ export const StartPage = (): JSX.Element => {
   useEffect(() => {
     if (leaders.length === 0) {
       const newLeaders: Leaders = []
-      leadersData.map((leader, i) => {
+      leadersData.map((leader) => {
         newLeaders.push(leader)
       })
       dispatch(setLeaders(newLeaders))
