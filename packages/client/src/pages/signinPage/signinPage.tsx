@@ -19,7 +19,7 @@ export const SigninPage: FC = () => {
    function submitForm() {
     dispatch(signin(values));
   }
-  console.log(isAuth)
+  
   useEffect(() => {
     dispatch(fetchUser());
     if (isAuth) {
