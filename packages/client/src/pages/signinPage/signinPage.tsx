@@ -14,12 +14,12 @@ export const SigninPage: FC = () => {
   const {handleChange, handleSubmit, values, errors} = useForm(submitForm, {login: "", password: ""}, validate);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isAuth = useAuth();
+  const { isAuth } = useAuth();
     
    function submitForm() {
     dispatch(signin(values));
   }
-
+  console.log(isAuth)
   useEffect(() => {
     dispatch(fetchUser());
     if (isAuth) {
