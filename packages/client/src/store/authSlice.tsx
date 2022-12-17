@@ -131,11 +131,6 @@ export const selectCheckAuth = createSelector(
   auth => auth.isAuth
 );
 
-export const selectUserLogin = createSelector(
-  (state: RootState) => state.auth,
-  auth => auth.user?.login
-);
-
 export const selectUser = createSelector(
   (state: RootState) => state.auth,
   auth => auth.user as UserDTO

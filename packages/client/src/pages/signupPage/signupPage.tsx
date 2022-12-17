@@ -1,16 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from "react";
-import { Link, Navigate } from 'react-router-dom';
+import React, { FC, useEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 
 import { Form } from "@/components/Form";
 import { FormField } from "@/components/FormField";
 import { Button } from "@/components/Button";
-import { useForm } from "@/hooks/useForm";
+import { useForm, useAuth, useAppDispatch } from "@/hooks";
 import validate from "@/Core/ValidateForm";
-import { signup } from "@/store/authSlice";
-import { useAppDispatch } from "@/hooks";
-import { useAuth } from "@/hooks/useAuth";
+import { signup, fetchUser } from "@/store/authSlice";
 
 import "@/pages/signinPage/signinPage.scss";
 
@@ -24,14 +22,22 @@ export const SignupPage: FC = () => {
     password: "",
   }, validate);
 
-  const dispath = useAppDispatch();
-  const { isAuth } = useAuth();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const isAuth = useAuth();
 
   function submitForm() {
-   dispath(signup(values));
+   dispatch(signup(values));
  }
 
-  return isAuth ? <Navigate to="/signin" /> : (
+ useEffect(() => {
+  dispatch(fetchUser());
+  if (isAuth) {
+    navigate('/signin')
+  }
+}, [isAuth]);
+
+  return (
     <div className={cn('auth')}>
       <Form onSubmit={handleSubmit}>
         <h1 className="auth__title">Регистрация</h1>

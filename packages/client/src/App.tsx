@@ -16,7 +16,6 @@ export function App() {
 
     fetchServerData()
   }, [])
-  console.log(store)
   return (
     <div className="app">
       <Provider store={store}>
