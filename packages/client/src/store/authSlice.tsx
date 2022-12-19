@@ -12,7 +12,7 @@ type AuthState = {
 }
 
 const initialState: AuthState = {
-  isAuth: true,
+  isAuth: false,
   user: null,
   loading: false
 };
