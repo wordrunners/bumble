@@ -2,7 +2,6 @@ import {
   Leaders
 } from '@/types'
 import {
-  BLACK,
   BLUE_BLACK,
   FONT
 } from '@/data/consts'
