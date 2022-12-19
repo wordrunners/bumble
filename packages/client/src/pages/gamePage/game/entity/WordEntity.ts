@@ -1,5 +1,10 @@
-import { Card } from "@/types/game"
-import { cardToArrays } from "../helpers/cardToArrays"
+import { Card } from '@/types'
+import { cardToArrays } from '../helpers/cardToArrays'
+import {
+  BLACK,
+  FONT
+} from '@/data/consts'
+import { colorFromSector } from '../helpers/colorFromSector'
 
 export const WordEntity = (
   context: CanvasRenderingContext2D,
@@ -9,19 +14,19 @@ export const WordEntity = (
   card: Card,
   points: number,
 ) => {
-  const radius = width < height*0.67 ? width*0.48 : height*0.325;
-  const { letter } = cardToArrays(card);
+  const radius = width < height*0.67 ? width*0.48 : height*0.325
+  const { letter } = cardToArrays(card)
 
-  let newWord = '';
+  let newWord = ''
   for (let i = 0; i < word.length; i++) {
     newWord += letter[+word[i]]
   }
   
-  context.fillStyle = `rgba(20, 19, 13, 1)`;
-  context.font = `bold ${radius * 0.225}px PequenaPro`;
-  context.textAlign = 'center';
+  context.fillStyle = colorFromSector(BLACK)
+  context.font = `bold ${radius * 0.225}px ${FONT}`
+  context.textAlign = 'center'
 
-  newWord = (points !== 0) ? `${points} – ${newWord}` : '';
+  newWord = (points !== 0) ? `${points} – ${newWord}` : ''
 
-  context?.fillText(newWord, width/2, height/14);
+  context?.fillText(newWord, width/2, height*0.1)
 }

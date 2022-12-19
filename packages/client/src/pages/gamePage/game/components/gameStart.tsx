@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 import { 
   CanvasContext, 
   useAppSelector, 
@@ -12,26 +12,46 @@ import {
   setTotalPlayers, 
   setStatus,
   nextTotalPlayers,
-} from '../core/gameSlice';
+  setSettings,
+  setActiveSettings,
+} from '../core/gameSlice'
+import {
+  selectCheckAuth
+} from '@/store/authSlice'
+import {
+  setActiveLeader
+} from '@/store/leaderBoardSlice'
 import { Game } from '../core/game'
+import { toggleFullscreen } from '../helpers'
+import { Settings } from '@/types'
 
 export const GameStart = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
-  const width = useAppSelector(selectWidth);
-  const height = useAppSelector(selectHeight);
-  const dispatch = useAppDispatch();
+  const width = useAppSelector(selectWidth)
+  const height = useAppSelector(selectHeight)
+
+  const authorized = useAppSelector(selectCheckAuth)
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
 
+  let settingsLines: Settings = 'default'
+  
+  if (!authorized) {
+    settingsLines = 'local'
+    dispatch(setActiveSettings('local'))
+  } 
+
   useEffect(() => {
-    const context = canvasRef.current?.getContext("2d",{willReadFrequently:true});
+    const context = canvasRef.current?.getContext('2d',{willReadFrequently:true})
     if (context) {
       setContext(context)
       dispatch(setStatus('start'))
       window.addEventListener('keydown', setPlayers)
       dispatch(setTotalPlayers(0))
+      dispatch(setActiveLeader(-1))
       setSizes()
       window.addEventListener('resize', setSizes)
     }
@@ -39,17 +59,52 @@ export const GameStart = () => {
 
   const setPlayers = (event: KeyboardEvent) => {
     switch (event.key) {
+      case 'ArrowLeft':
+        dispatch(setSettings('default'))
+        settingsLines = 'default'
+        break
+      case 'ArrowDown':
+        if (authorized) {
+          settingsLines = 'online'
+          dispatch(setActiveSettings('online'))
+        }
+        break
+      case 'ArrowUp':
+        settingsLines = 'local'
+        dispatch(setActiveSettings('local'))
+        break
       case 'ArrowRight':
-        dispatch(nextTotalPlayers())
-        break;
-      case 'Enter' && ' ' :
-        window.removeEventListener('keydown', setPlayers)
-        navigate("/game-play");
-
-        dispatch(setStatus('loading'))
-        break;
+        if ((settingsLines === 'players') || (settingsLines === 'ready'))  {
+          settingsLines = 'ready'
+          dispatch(nextTotalPlayers())
+        }
+        break
+      case 'Enter':
+      case ' ' :
+        if ((settingsLines === 'players') || (settingsLines === 'ready'))  {
+          window.removeEventListener('keydown', setPlayers)
+          navigate('/game-play')
+          dispatch(setStatus('loading'))
+          dispatch(setSettings('local'))
+          settingsLines = 'default'
+          dispatch(setActiveSettings('default'))
+        } else if ((settingsLines === 'local'))  {
+          dispatch(setSettings(settingsLines))
+          settingsLines = 'players'
+        } else if ((settingsLines === 'online'))  {
+          window.removeEventListener('keydown', setPlayers)
+          navigate('/game-play')
+          dispatch(setStatus('loading'))
+          dispatch(setSettings(settingsLines))
+          settingsLines = 'default'
+          dispatch(setActiveSettings('default'))
+        }
+        break
+      case 'f':
+        toggleFullscreen()
+        break
       default:
-        console.log(`Кнопкой ${event.key} игру не запустить`);
+        console.log(`Кнопкой ${event.key} игру не запустить`)
     }
   }
 
