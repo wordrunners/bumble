@@ -1,7 +1,6 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createSelector, createAsyncThunk } from '@reduxjs/toolkit';
 import { User, ProfileState } from '@/types/user'
 import { RootState } from '@/store/store';
-import { UserDTO } from '@/api/types';
 import { transformUserDTOtoUser, transformUsertoUserDTO} from '@/utils'
 
 export const changeProfile = createAsyncThunk(
@@ -35,7 +34,7 @@ export const changeProfile = createAsyncThunk(
 
 const initialState: ProfileState = {
   profile: {
-    avatar:  localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).avatar : '/46f3061f-ca1f-4a29-8f0e-a921109bdc10/24b0e54b-9e9f-4e8e-94d7-dfd129a4d58a_round-avatar.png',
+    avatar:  localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).avatar : null,
     email: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).email :'test@test.ru',
     login: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).login :'Semen',
     firstName: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).firstName :'Семен',
@@ -47,6 +46,9 @@ const initialState: ProfileState = {
   error: null,
 }
 
+console.log('initialState=', initialState);
+
+
 export const userSlice = createSlice({
   name: 'profile',
   initialState,
@@ -54,6 +56,9 @@ export const userSlice = createSlice({
     profileLoading(state) {
       state.status = 'loading'
     },
+    changePass(state, action) {
+      state.profile.password = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(changeProfile.pending, (state) => {
@@ -77,9 +82,14 @@ export const userSlice = createSlice({
   
 })
 
+export const selectUser = createSelector(
+  (state: RootState) => state.user,
+  user => user.profile
+);
+
 export default userSlice.reducer
 
 export const userSelector = (state: RootState) => state.user;
 
-export const { profileLoading } = userSlice.actions;
+export const { profileLoading, changePass } = userSlice.actions;
 

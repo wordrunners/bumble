@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import type { User, ProfileState } from '@/types/user'
 import { Avatar } from '@/components/Avatar'
 import { Button } from '@/components/Button'
@@ -9,15 +10,24 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userSelector, changeProfile, profileLoading } from './core/userSlice'
 import { useInput } from '@/hooks'
 import { AppDispatch } from '@/store/store'
+import avatar from '@/assets/images/avatar.png'
 
-export const ProfilePage: FC<ProfileState> = () => {
+export const ProfilePage: FC = () => {
+
+  const navigate = useNavigate();
+  const isAuth = localStorage.getItem('user'); 
+  console.log('isAuth', isAuth);
+  
+    
+  useEffect(() => {
+    if (!isAuth) {
+      navigate('/signin')
+    }
+  }, []);
 
   const userState = useSelector(userSelector);
-  const user = userState.profile;
+  const user = userState.profile!;
 
-  
-  useEffect( () => {console.log('user=', user);}, [user])
-  
   const dispatch = useDispatch<AppDispatch>();
 
   const email = useInput(user.email, {isEmail: true});
