@@ -1,0 +1,33 @@
+.data-list {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  color: var(--text);
+  border-bottom: 0.1rem solid var(--word2);
+  line-height: 1.5rem;
+  padding-top: 1rem;
+  & span {
+    padding-bottom: 0.5rem;
+  }
+  & .change input {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0 0 0 auto;
+    cursor: pointer;
+    width: 10rem;
+    &::-webkit-input-placeholder {
+      color: var(--background5);
+      text-align: right;
+    }
+    &::-moz-placeholder {
+      color: var(--background5);
+    } /* Firefox 19+ */
+    &:-moz-placeholder {
+      color: var(--background5);
+    } /* Firefox 18- */
+    &:-ms-input-placeholder {
+      color: var(--background5);
+    }
+  }
+}
