@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, } from 'react'
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 import { 
   CanvasContext, 
   useAppSelector, 
@@ -33,7 +33,7 @@ export const GameOver = () => {
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
 
   useEffect(() => {
-    const context = canvasRef.current?.getContext("2d",{willReadFrequently:true})
+    const context = canvasRef.current?.getContext('2d',{willReadFrequently:true})
     if (context) {
       setContext(context)
       dispatch(setStatus('over'))
@@ -49,8 +49,8 @@ export const GameOver = () => {
         const button = +colorInfo.slice(colorInfo.length-2, colorInfo.length)
     
         if (button === BUMBLE) {
-          navigate("/")
-          dispatch(setSettings(undefined))
+          navigate('/')
+          dispatch(setSettings('default'))
         }
       }
     }

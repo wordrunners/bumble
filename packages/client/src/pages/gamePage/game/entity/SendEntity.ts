@@ -21,12 +21,12 @@ export const SendEntity = (
 
   context.strokeStyle = colorToButton(WHITE, BUMBLE)
 
-  if (bumble === "send") {
+  if (bumble === 'send') {
     context.font = `bold ${radius * 0.335}px ${FONT}`
-  } else if (bumble === "error") {
+  } else if (bumble === 'error') {
     context.font = `bold ${radius * 0.310}px ${FONT}`
     context.strokeStyle = colorFromSector(ERROR)
-  } else {
+  } else if (bumble === 'default'){
     context.font = `bold ${radius * 0.285}px ${FONT}`
   }
 

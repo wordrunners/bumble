@@ -31,8 +31,8 @@ import {
   selectBumble,
 } from './gameSlice'
 import {
-  selectAuthorized,
-} from '@/store/gameUserSlice'
+  selectCheckAuth
+} from '@/store/authSlice'
 import {
   selectLeaders,
 } from '@/store/leaderBoardSlice'
@@ -52,17 +52,17 @@ export const Game = () => {
   const activeSettings = useAppSelector(selectActiveSettings)
   const bumble = useAppSelector(selectBumble)
 
-  const authorized = useAppSelector(selectAuthorized)
+  const authorized = useAppSelector(selectCheckAuth)
   const leaders = useAppSelector(selectLeaders)
 
   const { context } = useCanvasContext()
 
   const render = () => {
     if (context) {
-      document.fonts.load("16px 'PequenaPro'")
+      document.fonts.load('16px "PequenaPro"')
         .then(() => {
           BackgroundEntity(context, width, height)
-          if (settings === "online") {
+          if (settings === 'online') {
             HighScoresEntity(context, width, height, leaders)
           }
           switch (status) {

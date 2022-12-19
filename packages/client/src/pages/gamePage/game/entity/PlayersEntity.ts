@@ -1,4 +1,4 @@
-import { Players } from "@/types"
+import { Players } from '@/types'
 import {
   WHITE,
   BLUE_BLACK,

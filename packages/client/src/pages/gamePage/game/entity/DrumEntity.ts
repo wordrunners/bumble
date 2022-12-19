@@ -65,7 +65,7 @@ export const DrumEntity = (
     context.shadowBlur = 4
     context.shadowOffsetX = 0
     context.shadowOffsetY = 0
-    context.shadowColor = "black"
+    context.shadowColor = 'black'
     context.beginPath()
     context.moveTo(origin.x, origin.y)
     context.arc(origin.x, origin.y, radius*1.1, sector * selectedSector, sector * (selectedSector+1), false)
@@ -79,7 +79,7 @@ export const DrumEntity = (
 
   //letters
   context.translate(width*0.495, height*0.495)
-  context.textAlign = "center"
+  context.textAlign = 'center'
   for(let i = 0; i < 8; i++){
     if (enabled[i]) { 
       const ang = i * Math.PI / 4 + Math.PI / 8 * 5
@@ -123,7 +123,7 @@ export const DrumEntity = (
       context.shadowBlur = 4
       context.shadowOffsetX = 0
       context.shadowOffsetY = 0
-      context.shadowColor = "black"
+      context.shadowColor = 'black'
       context.arc(width/2, height * 0.45, radius*0.3*1.05, 0, 2 * Math.PI)
       context.fill()
       context.shadowBlur = 0

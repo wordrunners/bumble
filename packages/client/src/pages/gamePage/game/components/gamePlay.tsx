@@ -37,8 +37,9 @@ import {
   setBumble
 } from '../core/gameSlice'
 import {
-  selectLogin,
-} from '@/store/gameUserSlice'
+  userSelector
+} from '@/pages/profilePage/core/userSlice'
+
 import { Game } from '../core/game'
 import { 
   toggleFullscreen,
@@ -54,7 +55,7 @@ import {
 
 import cardsData from '@/data/cards.json'
 import playersData from '@/data/players.json'
-import { dictionary } from "@/data/dictionary"
+import { dictionary } from '@/data/dictionary'
 
 export const GamePlay = () => {
   const navigate = useNavigate()
@@ -71,7 +72,8 @@ export const GamePlay = () => {
   const activePlayer = useAppSelector(selectActivePlayer)
   const settings = useAppSelector(selectSettings)
 
-  const login = useAppSelector(selectLogin)
+  const user = useAppSelector(userSelector)
+  const login = user.profile.login;
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
@@ -79,7 +81,7 @@ export const GamePlay = () => {
   if ((totalPlayers === -1)) throw new Error('Select total players!')
 
   useEffect(() => {
-    const context = canvasRef.current?.getContext("2d",{willReadFrequently:true})
+    const context = canvasRef.current?.getContext('2d',{willReadFrequently:true})
     if (context) {
       setContext(context)
 
@@ -91,19 +93,19 @@ export const GamePlay = () => {
 
       const newCards = []
 
-      if (settings === "local") {
+      if (settings === 'local') {
         for (let i = 0; i <= totalPlayers; i++) {
           dispatch(addPlayer(playersData[i]))
         }
         for (let i = 0; i <= ((totalPlayers + 1) * ROUNDS - 1); i++) {
           newCards.push(cardsData[i])
         }
-      } else if (settings === "online") {
+      } else if (settings === 'online') {
         dispatch(addPlayer({  
-          "login": login,
-          "words": [],
-          "score": 0,
-          "enabled": true
+          'login': login,
+          'words': [],
+          'score': 0,
+          'enabled': true
         }))
 
         for (let i = 0; i < ROUNDS; i++) {
@@ -124,12 +126,12 @@ export const GamePlay = () => {
       if (pixels) {
         const { sector, button } = correctPixels(pixels)
         if (button === BUMBLE) {
-          dispatch(setBumble("send"))
+          dispatch(setBumble('send'))
         } else if (sector < 9) {
-          dispatch(setBumble(undefined))
+          dispatch(setBumble('default'))
           dispatch(setSelectedSector(`${sector}`))
         } else if (sector === 9) {
-          dispatch(setBumble(undefined))
+          dispatch(setBumble('default'))
           dispatch(deleteSelectedSectors())
         }
       }
@@ -160,12 +162,12 @@ export const GamePlay = () => {
                 dispatch(setEnabledSectors())
   
                 if (activeCard === ((totalPlayers + 1) * ROUNDS -1)) {
-                  navigate("/game-over")
+                  navigate('/game-over')
                 }
               } else {
-                dispatch(setBumble("error"))
+                dispatch(setBumble('error'))
                 setTimeout(() => {
-                  dispatch(setBumble(undefined))
+                  dispatch(setBumble('default'))
                 }, 200)
               }
             }

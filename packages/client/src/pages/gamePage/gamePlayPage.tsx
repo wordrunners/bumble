@@ -4,7 +4,7 @@ import './gamePage.scss'
 
 export function GamePlayPage() {
   return (
-    <div className="game-page">
+    <div className='game-page'>
       <GamePlay />
     </div>
   )

@@ -3,6 +3,7 @@ import {
 } from '@/types'
 import {
   BLACK,
+  BLUE_BLACK,
   FONT
 } from '@/data/consts'
 import { 
@@ -27,12 +28,11 @@ export const HighScoresEntity = (
     {x: width*0.65, y: height*0.04},
     {x: width*0.75, y: height*0.04},
   ]
-
-  context.fillStyle = colorFromSector(BLACK)
-  context.font = `bold ${width * 0.012  }px ${FONT}`
-  context.fillText(`РЕКОРДЫ:`, coordinates[0].x, coordinates[0].y)
   
   if (leaders.length !== 0) {
+    context.fillStyle = colorFromSector(BLUE_BLACK)
+    context.font = `bold ${width * 0.012  }px ${FONT}`
+    context.fillText(`РЕКОРДЫ:`, coordinates[0].x, coordinates[0].y)
     const length = leaders.length < 3 ? leaders.length : 3
     for (let i = 0; i < length; i++) {
       const name = `${leaders[i].login} = ${leaders[i].score}`

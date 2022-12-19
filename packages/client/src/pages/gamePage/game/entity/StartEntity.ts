@@ -17,7 +17,7 @@ export const StartEntity = (
   totalPlayers: number,
   settings: Settings,
   activeSettings: Settings,
-  authorized: boolean | undefined
+  authorized: boolean
 ) => {
   const radius = width < height*0.67 ? width*0.48 : height*0.325
 
@@ -33,7 +33,7 @@ export const StartEntity = (
   context.font = `bold ${radius * 0.055}px ${FONT}`
   context.fillText('Нажмите ПРОБЕЛ чтобы начать', width*0.5, height*0.900)
 
-  if (settings === undefined) {
+  if (settings === 'default') {
     context.font = `bold ${radius * 0.185}px ${FONT}`
     context.textAlign = 'center'
 
@@ -53,15 +53,15 @@ export const StartEntity = (
       }
     }
 
-    if (activeSettings === "online") {
+    if (activeSettings === 'online') {
       checkSettings(BLACK, WHITE)
-    } else if (activeSettings === "local") {
+    } else if (activeSettings === 'local') {
       checkSettings(WHITE, BLACK)
     } else {
       checkSettings(BLACK, BLACK)
     }
   }
-  if (settings === "local") {
+  if (settings === 'local') {
     context.font = `bold ${radius * 0.185}px ${FONT}`
     context.textAlign = 'center'
     context.fillStyle = colorFromSector(BLACK)
@@ -74,7 +74,7 @@ export const StartEntity = (
       context.fillStyle = color
       context.fillText(`${i + 1}`, width*0.5 + (i - 1.5) * radius * 0.135, height*0.675)
     }
-  } else if (settings === "online") {
+  } else if (settings === 'online') {
     context.font = `bold ${radius * 0.185}px ${FONT}`
     context.textAlign = 'center'
     context.fillStyle = colorFromSector(BLACK)

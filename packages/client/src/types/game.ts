@@ -7,10 +7,10 @@ export type Game = {
   status: Status
   width: number,
   height: number,
-  card: Card | undefined,
+  card: Card | null,
   cards: Cards,
   timer: number,
-  timeou: undefined,
+  timeou: null,
   players: Players,
   settings: Settings,
   activeSettings: Settings,
@@ -27,8 +27,8 @@ export type Sector = {
   letter: string
   set: number
   point: number
-  selected?: boolean | undefined
-  enabled?: boolean | undefined
+  selected?: boolean | null
+  enabled?: boolean | null
 }
 
 export type Players = Array<Player>
@@ -40,12 +40,6 @@ export type Player = {
   enabled: boolean
 }
 
-export type Settings = "local" | "online" | "players" | "ready" | undefined
+export type Settings = 'local' | 'online' | 'players' | 'ready' | 'default'
 
-export type Bumble = "send" | "error" | undefined
-
-export type GameUser = {
-  authorized: boolean | undefined
-  login: string
-}
-
+export type Bumble = 'send' | 'error' | 'default'

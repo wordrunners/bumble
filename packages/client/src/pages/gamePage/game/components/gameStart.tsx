@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 import { 
   CanvasContext, 
   useAppSelector, 
@@ -16,14 +16,14 @@ import {
   setActiveSettings,
 } from '../core/gameSlice'
 import {
-  selectAuthorized,
-} from '@/store/gameUserSlice'
+  selectCheckAuth
+} from '@/store/authSlice'
 import {
   setActiveLeader
 } from '@/store/leaderBoardSlice'
 import { Game } from '../core/game'
 import { toggleFullscreen } from '../helpers'
-import { Settings } from "@/types"
+import { Settings } from '@/types'
 
 export const GameStart = () => {
   const navigate = useNavigate()
@@ -32,20 +32,20 @@ export const GameStart = () => {
   const width = useAppSelector(selectWidth)
   const height = useAppSelector(selectHeight)
 
-  const authorized = useAppSelector(selectAuthorized)
+  const authorized = useAppSelector(selectCheckAuth)
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
 
-  let settingsLines: Settings = undefined
+  let settingsLines: Settings = 'default'
   
   if (!authorized) {
-    settingsLines = "local"
-    dispatch(setActiveSettings("local"))
+    settingsLines = 'local'
+    dispatch(setActiveSettings('local'))
   } 
 
   useEffect(() => {
-    const context = canvasRef.current?.getContext("2d",{willReadFrequently:true})
+    const context = canvasRef.current?.getContext('2d',{willReadFrequently:true})
     if (context) {
       setContext(context)
       dispatch(setStatus('start'))
@@ -60,44 +60,44 @@ export const GameStart = () => {
   const setPlayers = (event: KeyboardEvent) => {
     switch (event.key) {
       case 'ArrowLeft':
-        dispatch(setSettings(undefined))
-        settingsLines = undefined
+        dispatch(setSettings('default'))
+        settingsLines = 'default'
         break
       case 'ArrowDown':
         if (authorized) {
-          settingsLines = "online"
-          dispatch(setActiveSettings("online"))
+          settingsLines = 'online'
+          dispatch(setActiveSettings('online'))
         }
         break
       case 'ArrowUp':
-        settingsLines = "local"
-        dispatch(setActiveSettings("local"))
+        settingsLines = 'local'
+        dispatch(setActiveSettings('local'))
         break
       case 'ArrowRight':
-        if ((settingsLines === "players") || (settingsLines === "ready"))  {
-          settingsLines = "ready"
+        if ((settingsLines === 'players') || (settingsLines === 'ready'))  {
+          settingsLines = 'ready'
           dispatch(nextTotalPlayers())
         }
         break
       case 'Enter':
       case ' ' :
-        if ((settingsLines === "players") || (settingsLines === "ready"))  {
+        if ((settingsLines === 'players') || (settingsLines === 'ready'))  {
           window.removeEventListener('keydown', setPlayers)
-          navigate("/game-play")
+          navigate('/game-play')
           dispatch(setStatus('loading'))
-          dispatch(setSettings("local"))
-          settingsLines = undefined
-          dispatch(setActiveSettings(undefined))
-        } else if ((settingsLines === "local"))  {
+          dispatch(setSettings('local'))
+          settingsLines = 'default'
+          dispatch(setActiveSettings('default'))
+        } else if ((settingsLines === 'local'))  {
           dispatch(setSettings(settingsLines))
-          settingsLines = "players"
-        } else if ((settingsLines === "online"))  {
+          settingsLines = 'players'
+        } else if ((settingsLines === 'online'))  {
           window.removeEventListener('keydown', setPlayers)
-          navigate("/game-play")
+          navigate('/game-play')
           dispatch(setStatus('loading'))
           dispatch(setSettings(settingsLines))
-          settingsLines = undefined
-          dispatch(setActiveSettings(undefined))
+          settingsLines = 'default'
+          dispatch(setActiveSettings('default'))
         }
         break
       case 'f':

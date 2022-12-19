@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState, AppThunk } from '@/store/store'
-import { counterPoints } from "../helpers"
+import { counterPoints } from '../helpers'
 import { 
   Game, 
   Players, 
@@ -26,13 +26,13 @@ const initialState: Game = {
   status: 'start',
   width: 0,
   height: 0,
-  card: undefined,
+  card: null,
   timer: 0,
-  timeou: undefined,
+  timeou: null,
   players: [],
-  settings: undefined,
-  activeSettings: undefined,
-  bumble: undefined
+  settings: 'default',
+  activeSettings: 'default',
+  bumble: 'default'
 }
 
 export const gameSlice = createSlice({
@@ -174,7 +174,7 @@ export const decrementIfTime =
 
     if (currentTimeou) {
       clearInterval(currentTimeou)
-      dispatch(setTimeou(undefined))
+      dispatch(setTimeou(null))
     }
 
     if (activePlayer !== -1) {
@@ -212,13 +212,13 @@ export const addWord =
     dispatch(deletePlayers())
     dispatch(addPlayers(clonePlayers))
 
-    if (settings === "online") {
+    if (settings === 'online') {
       const candidate: Leader = {
-        "id": 2,
-        "place": 2,
-        "login": clonePlayers[player].login,
-        "avatar": "",
-        "score": clonePlayers[player].score
+        'id': 2,
+        'place': 2,
+        'login': clonePlayers[player].login,
+        'avatar': '',
+        'score': clonePlayers[player].score
       }
       dispatch(checkLeaders(candidate))
     }

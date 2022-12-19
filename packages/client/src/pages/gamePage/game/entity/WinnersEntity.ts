@@ -5,6 +5,7 @@ import {
 } from '@/data/consts'
 import { 
   colorFromSector,
+
  } from '../helpers'
 
 export const WinnersEntity = (

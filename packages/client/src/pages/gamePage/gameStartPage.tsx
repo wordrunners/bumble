@@ -3,7 +3,7 @@ import './gamePage.scss'
 
 export function GameStartPage() {
   return (
-    <div className="game-page">
+    <div className='game-page'>
       <GameStart />
     </div>
   )
