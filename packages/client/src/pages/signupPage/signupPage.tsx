@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 
 import { Form } from "@/components/Form";
 import { FormField } from "@/components/FormField";
 import { Button } from "@/components/Button";
-import { useForm } from "@/hooks/useForm";
+import { useForm, useAuth, useAppDispatch } from "@/hooks";
 import validate from "@/Core/ValidateForm";
-import { authAPI } from "@/api/authApi";
+import { signup, fetchUser } from "@/store/authSlice";
 
 import "@/pages/signinPage/signinPage.scss";
 
@@ -21,15 +21,21 @@ export const SignupPage: FC = () => {
     login: "",
     password: "",
   }, validate);
+
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const isAuth = useAuth();
 
   function submitForm() {
-    authAPI.signup(values)
-      .then(() => navigate('/signin'))
-      .catch((error: any) => {
-        console.log(error);
-      });
+   dispatch(signup(values));
+ }
+
+ useEffect(() => {
+  dispatch(fetchUser());
+  if (isAuth) {
+    navigate('/signin')
   }
+}, [isAuth]);
 
   return (
     <div className={cn('auth')}>

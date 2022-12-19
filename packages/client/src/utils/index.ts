@@ -1,2 +1,2 @@
 export { hasError as apiHasError } from './apiHasError'
-export { transformUser } from './apiTransformers'
+export { transformUsertoUserDTO, transformUserDTOtoUser } from './apiTransformers'

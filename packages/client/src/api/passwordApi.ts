@@ -1,5 +1,5 @@
-import { request } from '../Core/apiRequest'
-import { hasError } from '../utils/apiHasError'
+import { request } from '@/Core/apiRequest'
+import { hasError } from '@/utils/apiHasError'
 
 type PasswordRequestData = {
   oldPassword: string

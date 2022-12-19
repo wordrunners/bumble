@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export const useForm = (submitForm: () => void, initialValue: Record<string, string | number>,  validate: any): any => {
   const [values, setValues] = useState(initialValue);
@@ -12,19 +12,19 @@ export const useForm = (submitForm: () => void, initialValue: Record<string, str
     }
   }, [errors]);
 
-  const handleChange = (e: any) => {
+  const handleChange = useCallback((e: any) => {
     const {name, value} = e.target;
     setValues({
       ...values,
       [name]: value
     })
-  }
+  }, [values])
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = useCallback((e: any) => {
     e.preventDefault()
     setErrors(validate(values));
     setIsSubmitting(true);
-  }
+  }, [values])
 
   return {handleChange, handleSubmit, values, errors}
 }

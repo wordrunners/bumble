@@ -1,27 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-
 import { Form } from "@/components/Form";
 import { FormField } from "@/components/FormField";
 import { Button } from "@/components/Button";
-import { useForm } from "@/hooks/useForm";
+import { useForm, useAuth, useAppDispatch } from "@/hooks";
 import validate from "@/Core/ValidateForm";
-import { authAPI } from "@/api/authApi";
+import { signin, fetchUser } from "@/store/authSlice";
 
 import "./signinPage.scss";
 
 export const SigninPage: FC = () => {
   const {handleChange, handleSubmit, values, errors} = useForm(submitForm, {login: "", password: ""}, validate);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
+  const { isAuth } = useAuth();
+    
    function submitForm() {
-    authAPI.signin(values)
-      .then(() => navigate('/game'))
-      .catch((error: any) => {
-        console.log(error);
-      });
+    dispatch(signin(values));
   }
+  
+  useEffect(() => {
+    dispatch(fetchUser());
+    if (isAuth) {
+      navigate('/game')
+    }
+  }, [isAuth]);
 
   return (
     <div className="auth">

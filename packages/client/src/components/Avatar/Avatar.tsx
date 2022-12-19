@@ -1,9 +1,11 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { avatarAPI } from '@/api/avatarApi'
 import './Avatar.scss'
 import avatar from '@/assets/images/avatar.png'
 import clip from '@/assets/images/clip.svg'
 import send from '@/assets/images/send.svg'
+import { hasError } from '@/utils/apiHasError'
+import {transformUserDTOtoUser} from '@/utils'
 
 export type User = {
   id?: number
@@ -33,14 +35,22 @@ export const Avatar: FC<User> = props => {
     setFileSelected(fileList[0])
   }
 
-  const onAvatarUp = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+  useEffect(() => {console.log('аватарка изменена');}, [props.avatar])
+
+  const onAvatarUp = async (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.preventDefault()
 
     if (fileSelected) {
       const formData = new FormData()
       formData.append('avatar', fileSelected)
-
-      avatarAPI.avatarUp(formData)
+      
+      const response = await avatarAPI.avatarUp(formData)
+      console.log('response=', response);
+      
+      
+      if (!hasError(response)) {
+        localStorage.setItem('user', JSON.stringify(transformUserDTOtoUser(response)))
+      }
     }
   }
 
