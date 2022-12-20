@@ -8,7 +8,7 @@ import { FormField } from "@/components/FormField";
 import { Button } from "@/components/Button";
 import { useForm, useAuth, useAppDispatch } from "@/hooks";
 import validate from "@/Core/ValidateForm";
-import { signup, fetchUser } from "@/store/authSlice";
+import { signup } from "@/store/authSlice";
 
 import "@/pages/signinPage/signinPage.scss";
 
@@ -24,18 +24,17 @@ export const SignupPage: FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isAuth = useAuth();
+  const { user } = useAuth();
 
   function submitForm() {
    dispatch(signup(values));
  }
 
  useEffect(() => {
-  dispatch(fetchUser());
-  if (isAuth) {
-    navigate('/signin')
+  if (user) {
+    navigate('/')
   }
-}, [isAuth]);
+  }, [user]);
 
   return (
     <div className={cn('auth')}>

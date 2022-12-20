@@ -17,13 +17,13 @@
   font-size: 24px;
   line-height: 30px;
   padding-top: 18px;
-}
-
-.exit-btn {
-  background-color: var(--word2);
   &:hover {
     background-color: var(--word3);
     text-decoration: underline;
     color: var(--background);
   } 
+}
+
+.exit-btn {
+  background-color: var(--word2);
 }
