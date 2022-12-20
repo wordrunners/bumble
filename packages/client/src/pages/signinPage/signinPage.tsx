@@ -6,7 +6,7 @@ import { FormField } from "@/components/FormField";
 import { Button } from "@/components/Button";
 import { useForm, useAuth, useAppDispatch } from "@/hooks";
 import validate from "@/Core/ValidateForm";
-import { signin, fetchUser } from "@/store/authSlice";
+import { signin } from "@/store/authSlice";
 
 import "./signinPage.scss";
 
@@ -14,19 +14,18 @@ export const SigninPage: FC = () => {
   const {handleChange, handleSubmit, values, errors} = useForm(submitForm, {login: "", password: ""}, validate);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { isAuth } = useAuth();
+  const { user } = useAuth();
     
    function submitForm() {
     dispatch(signin(values));
   }
   
   useEffect(() => {
-    dispatch(fetchUser());
-    if (isAuth) {
-      navigate('/game')
+    if (user) {
+      navigate('/')
     }
-  }, [isAuth]);
-
+  }, [user]);
+  
   return (
     <div className="auth">
       <Form onSubmit={handleSubmit}>
