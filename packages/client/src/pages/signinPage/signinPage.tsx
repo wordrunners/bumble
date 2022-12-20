@@ -23,7 +23,7 @@ export const SigninPage: FC = () => {
   useEffect(() => {
     dispatch(fetchUser());
     if (isAuth) {
-      navigate('/game')
+      navigate('/')
     }
   }, [isAuth]);
 
