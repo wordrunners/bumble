@@ -1,5 +1,4 @@
 node_modules/
-.env
 .idea
 .vscode
 dist
@@ -16,3 +15,5 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+
+__snapshots__/
