@@ -20,7 +20,8 @@ self.addEventListener("install", event => {
     );
 });
 
-self.addEventListener('fetch', event => { 
+self.addEventListener('fetch', event => {
+    if (!(event.request.url.indexOf('http') === 0)) return
     event.respondWith( 
         caches.match(event.request) 
             .then(response => { 
@@ -50,7 +51,7 @@ self.addEventListener('activate', function(event) {
     event.waitUntil( 
         caches.keys().then(cacheNames => { 
             return Promise.all( 
-                cacheNames.map(name => caches.delete(name))  
+                cacheNames.filter(name => name !== CACHE_NAME).map(name => caches.delete(name))  
             )
         })
     ); 
