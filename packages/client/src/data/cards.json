@@ -22,6 +22,50 @@
     {"letter": "Р", "set": 2, "point": 1}
   ],
   [  
+    {"letter": "В", "set": 2, "point": 2},  
+    {"letter": "Н", "set": 1, "point": 1}, 
+    {"letter": "Т", "set": 3, "point": 2}, 
+    {"letter": "А", "set": 2, "point": 1},
+    {"letter": "К", "set": 1, "point": 1}, 
+    {"letter": "Л", "set": 3, "point": 1}, 
+    {"letter": "Г", "set": 1, "point": 3}, 
+    {"letter": "А", "set": 3, "point": 1}, 
+    {"letter": "А", "set": 2, "point": 1}
+  ],
+  [  
+    {"letter": "Ф", "set": 2, "point": 2},  
+    {"letter": "Ш", "set": 1, "point": 2}, 
+    {"letter": "С", "set": 3, "point": 1}, 
+    {"letter": "Т", "set": 1, "point": 1},
+    {"letter": "Р", "set": 3, "point": 1}, 
+    {"letter": "И", "set": 2, "point": 1}, 
+    {"letter": "А", "set": 1, "point": 1}, 
+    {"letter": "К", "set": 3, "point": 2}, 
+    {"letter": "А", "set": 2, "point": 1}
+  ],
+  [  
+    {"letter": "Р", "set": 2, "point": 1},  
+    {"letter": "О", "set": 1, "point": 1}, 
+    {"letter": "Д", "set": 3, "point": 2}, 
+    {"letter": "Г", "set": 2, "point": 1},
+    {"letter": "Н", "set": 1, "point": 1}, 
+    {"letter": "Е", "set": 2, "point": 1}, 
+    {"letter": "О", "set": 1, "point": 1}, 
+    {"letter": "А", "set": 3, "point": 1}, 
+    {"letter": "И", "set": 3, "point": 1}
+  ],
+  [  
+    {"letter": "В", "set": 2, "point": 1},  
+    {"letter": "И", "set": 1, "point": 1}, 
+    {"letter": "Д", "set": 2, "point": 1}, 
+    {"letter": "Н", "set": 1, "point": 1},
+    {"letter": "Е", "set": 3, "point": 1}, 
+    {"letter": "И", "set": 2, "point": 1}, 
+    {"letter": "Е", "set": 1, "point": 1}, 
+    {"letter": "И", "set": 3, "point": 1}, 
+    {"letter": "Ж", "set": 3, "point": 1}
+  ],
+  [  
     {"letter": "Щ", "set": 2, "point": 8},  
     {"letter": "Щ", "set": 1, "point": 8}, 
     {"letter": "Щ", "set": 3, "point": 8}, 
