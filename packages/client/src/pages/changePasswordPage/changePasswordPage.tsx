@@ -1,14 +1,19 @@
-import React, { FC, useState, useEffect, useContext } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { passwordAPI } from '@/api/passwordApi'
 import type { User } from '@/components/Avatar'
 import { Button } from '@/components/Button'
 import { LinkButton } from '@/components/LinkButton'
 import avatar from '@/assets/images/avatar.png'
 import './changePasswordPage.scss'
-import { AppContext } from '@/Core'
+import { useDispatch, useSelector } from 'react-redux'
+import {selectUser, changePass}  from '@/pages/profilePage/core/userSlice'
+import { AppDispatch } from '@/store/store'
+
 
 export const ChangePasswordPage: FC<User> = () => {
-  const user = useContext(AppContext)
+
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch<AppDispatch>();
   const avatarUser = user.avatar
     ? `${__API_ENDPOINT__}/resources${user.avatar}`
     : avatar
@@ -83,6 +88,7 @@ export const ChangePasswordPage: FC<User> = () => {
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>
   ) => {
     e.preventDefault()
+    dispatch(changePass(newPassword))
     const responseText = await passwordAPI({
       oldPassword: oldPassword,
       newPassword: newPassword,
