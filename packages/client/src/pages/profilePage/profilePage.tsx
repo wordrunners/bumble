@@ -1,17 +1,17 @@
 import React, { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import type { User, ProfileState } from '@/types/user'
+import type { User  } from '@/types/user'
 import { Avatar } from '@/components/Avatar'
 import { Button } from '@/components/Button'
 import { LinkButton } from '@/components/LinkButton'
 import './profilePage.scss'
 import { ChangeData } from '@/components/ChangeData'
 import { useDispatch, useSelector } from 'react-redux'
-import { userSelector, changeProfile, profileLoading } from './core/userSlice'
+import { changeProfile, profileLoading } from './core/userSlice'
 import { useInput } from '@/hooks'
 import { AppDispatch } from '@/store/store'
-import avatar from '@/assets/images/avatar.png'
-
+import { selectUser } from '@/store/authSlice';
+import { transformUserDTOtoUser } from '@/utils';
 export const ProfilePage: FC = () => {
 
   const navigate = useNavigate();
@@ -25,8 +25,8 @@ export const ProfilePage: FC = () => {
     }
   }, []);
 
-  const userState = useSelector(userSelector);
-  const user = userState.profile!;
+  const userState = useSelector(selectUser);
+  const user = transformUserDTOtoUser(userState);
 
   const dispatch = useDispatch<AppDispatch>();
 
