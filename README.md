@@ -1,3 +1,24 @@
+### Как запускать SSR в dev?
+По умолчанию запуститься на localhost:3001
+```
+cd packages/client
+yarn build:ssr
+yarn build
+cd ../server
+yarn dev
+```
+
+### Как запускать SSR в prod?
+По умолчанию запуститься на localhost:3001
+```
+cd packages/client
+yarn build:ssr
+yarn build
+cd ../server
+yarn build
+node dist/index.js
+```
+
 ### Как запускать?
 
 1. Убедитесь что у вас установлен `node` и `docker`
