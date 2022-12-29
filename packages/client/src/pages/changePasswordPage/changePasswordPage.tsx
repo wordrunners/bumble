@@ -6,7 +6,7 @@ import { LinkButton } from '@/components/LinkButton'
 import avatar from '@/assets/images/avatar.png'
 import './changePasswordPage.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import {selectUser, changePass}  from '@/pages/profilePage/core/userSlice'
+import {selectUser, changePass}  from '@/store/userSlice'
 import { AppDispatch } from '@/store/store'
 
 
