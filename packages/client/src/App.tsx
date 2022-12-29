@@ -5,36 +5,35 @@ import { store } from '@/store/store'
 import { Provider } from 'react-redux'
 
 export function App() {
-    useEffect(() => {
-        const fetchServerData = async () => {
-            const url = `http://localhost:${__SERVER_PORT__}`
-            const response = await fetch(url)
-            const data = await response.json()
-            console.log(data)
-        }
-      fetchServerData()
-    }, []);
+  useEffect(() => {
+      const fetchServerData = async () => {
+        const url = `http://localhost:${__SERVER_PORT__}/api`
+        const response = await fetch(url)
+        const data = await response.json()
+        console.log(data)
+      }
+    fetchServerData()
+  }, []);
 
-    function startServiceWorker() {
-        if ("serviceWorker" in navigator) {
-            window.addEventListener("load", () => {
-                navigator.serviceWorker.register("/serviceWorker.js").then(registration => {
-                    console.log("ServiceWorker registration successful with scope: ", registration.scope);
-                }).catch((error: string) => {
-                    console.log("ServiceWorker registration failed: ", error);
-                });
-            });
-        }
+  // // --- При SSR - navigator is not defined ---
+  //
+  // function startServiceWorker() {
+  //   if ("serviceWorker" in navigator) {
+  //     window.addEventListener("load", () => {
+  //       navigator.serviceWorker.register("/serviceWorker.js").then(registration => {
+  //         console.log("ServiceWorker registration successful with scope: ", registration.scope);
+  //       }).catch((error: string) => {
+  //         console.log("ServiceWorker registration failed: ", error);
+  //       });
+  //     });
+  //   }
+  // }
 
-    }
+  // startServiceWorker();
 
-    startServiceWorker();
-
-    return (
-        <div className="app">
-            <Provider store={store}>
-                <RouterProvider router={Router} />
-            </Provider>
-        </div>
-    )
+  return (
+    <div className="app">
+      <Router />
+    </div>
+  )
 }
