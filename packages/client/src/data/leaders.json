@@ -2,21 +2,21 @@
   {
     "id": 1,
     "place": 1,
-    "login": "Друзь",
+    "name": "Друзь",
     "avatar": "",
     "score": 5
   },
   {
     "id": 2,
     "place": 2,
-    "login": "Вассерман",
+    "name": "Вассерман",
     "avatar": "",
     "score": 3
   },
   {
     "id": 3,
     "place": 3,
-    "login": "Поташев",
+    "name": "Поташев",
     "avatar": "",
     "score": 1
   }

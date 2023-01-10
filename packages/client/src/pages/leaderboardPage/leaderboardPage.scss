@@ -1,14 +1,21 @@
 .leaderboard {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    padding: 40px 24px;
-    background: var(--word2);
-    min-height: 500px;
-    max-height: 720px;
-    min-width: 600px;
-    border-radius: 20px;
-    overflow-y: auto;
+    align-items: flex-end;
+
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 40px 24px;
+        background: var(--word2);
+        min-height: 500px;
+        max-height: 720px;
+        min-width: 600px;
+        border-radius: 20px;
+        overflow-y: auto;
+        border-top-right-radius: inherit;
+    }
 
     &__header {
         display: flex;

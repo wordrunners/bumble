@@ -17,12 +17,12 @@ export const Header = ():JSX.Element => {
             <header className='header'>
                 <Button className='header__btn' onClick={handleOpenRules}>Правила</Button>
                 <LinkButton to='/forum' modifier='header-btn'>Форум</LinkButton>
-                {isAuth ? (
-                    <LinkButton to='/profile' modifier='header-btn'>Профиль</LinkButton>
-                ) : (
-                    null
+                {isAuth && (
+                    <>
+                        <LinkButton to='/profile' modifier='header-btn'>Профиль</LinkButton>
+                        <LinkButton to='/leaderboard' modifier='header-btn'>Рейтинги</LinkButton>
+                    </>
                 )}
-                <LinkButton to='/leaderboard' modifier='header-btn'>Рейтинги</LinkButton>
             </header>
             {isRulesOpen && <GameRules open={isRulesOpen} onClose={handleCloseRules} />}
         </>

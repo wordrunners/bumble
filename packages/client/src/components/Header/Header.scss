@@ -1,10 +1,7 @@
 .header {
     display: flex;
     flex-direction: row;
-    margin-bottom: 40px;
-    position: absolute;
-    top: -31px;
-    right: -1px;
+    justify-content: flex-end;
 }
 
 .header__btn {

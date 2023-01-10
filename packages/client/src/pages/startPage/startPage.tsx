@@ -23,15 +23,15 @@ export const StartPage = (): JSX.Element => {
   const leaders = useAppSelector(selectLeaders)
   const { isAuth } = useAuth()
 
-  useEffect(() => {
-    if (leaders.length === 0) {
-      const newLeaders: Leaders = []
-      leadersData.map((leader) => {
-        newLeaders.push(leader)
-      })
-      dispatch(setLeaders(newLeaders))
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (leaders.length === 0) {
+  //     const newLeaders: Leaders = []
+  //     leadersData.map((leader) => {
+  //       newLeaders.push(leader)
+  //     })
+  //     dispatch(setLeaders(newLeaders))
+  //   }
+  // }, [])
   useEffect(() => {
     dispatch(fetchUser());
   }, []);
@@ -42,14 +42,15 @@ export const StartPage = (): JSX.Element => {
   return (
     <section className={cn('start')}>
       <Header />
-      <img src={Logo} alt='logo' className={cn('start__logo')} />
-      <LinkButton to='/game' modifier='game-btn'>НАЧАТЬ ИГРУ</LinkButton>
-      {isAuth ? (
-        <Button className="exit-btn" onClick={onExit}>ВЫЙТИ</Button>
-      ) : (
-        <LinkButton to='/signin' modifier='login-btn'>ВОЙТИ</LinkButton>
-      )}
-      
-    </section> 
+      <div className={cn('start__wrapper')}>
+        <img src={Logo} alt='logo' className={cn('start__logo')} />
+        <LinkButton to='/game' modifier='game-btn'>НАЧАТЬ ИГРУ</LinkButton>
+        {isAuth ? (
+          <Button className="exit-btn" onClick={onExit}>ВЫЙТИ</Button>
+        ) : (
+          <LinkButton to='/signin' modifier='login-btn'>ВОЙТИ</LinkButton>
+        )}
+      </div> 
+    </section>
   )
 };
