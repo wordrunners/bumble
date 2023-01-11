@@ -4,7 +4,7 @@ import Bag from '@/assets/images/pic-08.png';
 import Rule from '@/assets/images/pic-07.png';
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { addUserToLeaderboard, fetchLeaderboard, selectLeaders } from '@/store/leaderBoardSlice'
-import { Leader } from '@/types'
+import { Leader, Leaders } from '@/types'
 import { useEffect } from 'react';
 import { LinkButton } from '@/components/LinkButton';
 import { fetchUser } from '@/store/authSlice';
@@ -25,7 +25,7 @@ export const LeaderboardPage = (): JSX.Element => {
   //     name: 'Kvi',
   //   }));
   // }, []);
-const sortedData = [...leaders].sort((a, b) => b.data.score - a.data.score);
+const sortedData: Leaders = [...leaders].sort((a, b) => b.data.score - a.data.score);
   return (
     <section className='leaderboard'>
       <LinkButton to='/' modifier='header-btn'>Назад</LinkButton>

@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import './leaderboardRow.scss';
-import { Leader } from '@/types'
+import { Leader, Leaders } from '@/types'
 import { useAppSelector } from '@/hooks';
 import { selectUser } from '@/store/authSlice';
 import { selectLeaders } from '@/store/leaderBoardSlice';
 import cn from 'classnames';
+import { UserDTO } from '@/api/types';
 
 interface Props {
   leader: Leader;
@@ -13,13 +14,14 @@ interface Props {
 
 export const LeaderboardRow: FC<Props> = ({ leader, place }): JSX.Element => {
   const { name, avatar, score, id } = leader.data;
-  const user = useAppSelector(selectUser);
-  const leaders = useAppSelector(selectLeaders);
+  const user: UserDTO = useAppSelector(selectUser);
+  const leaders: Leaders = useAppSelector(selectLeaders);
   
-  const currentLeader = leaders.find(item => item.data.id === user?.id);
+  const currentLeader: Leader = leaders.find(item => item.data.id === user?.id) || {} as Leader;
+  const currentRow: boolean = currentLeader?.data.id === id;
 
   return (
-    <div className={cn('leaderboard-row', { 'leaderboard-row_current' : currentLeader?.data.id === id })}>
+    <div className={cn('leaderboard-row', { 'leaderboard-row_current' : currentRow })}>
       <div className='leaderboard-row__place'>{place}</div>
       <div className='leaderboard-row__avatar' style={{ backgroundImage: `url(${avatar ? avatar : '/src/assets/images/avatar.png'})` }}></div>
       <p className='leaderboard-row__name'>{name}</p>

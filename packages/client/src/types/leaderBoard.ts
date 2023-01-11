@@ -5,7 +5,7 @@ export type LeaderBoard = {
   error: Error | null,
 }
 
-export interface LeaderDTO {
+export interface LeaderPayload {
   id: number;
   avatar: string;
   score: number;

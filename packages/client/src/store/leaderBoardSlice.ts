@@ -4,7 +4,7 @@ import {
   Leaders,
   Leader, 
   LeaderBoard,
-  LeaderDTO
+  LeaderPayload
 } from '@/types';
 import { leaderboardAPI, teamName } from '@/api/leaderboardApi';
 
@@ -27,7 +27,6 @@ export const fetchLeaderboard = createAsyncThunk(
       limit: 5,
     });
     
-    console.log(response);
     return response;
   } catch (error) {
     return rejectWithValue('Ошибка загрузки данных')
@@ -37,7 +36,7 @@ export const fetchLeaderboard = createAsyncThunk(
 
 export const addUserToLeaderboard = createAsyncThunk(
   'leaderBoard/addUserToLeaderboard',
- async (data: LeaderDTO, { rejectWithValue }) => {
+ async (data: LeaderPayload, { rejectWithValue }) => {
   try {
     await leaderboardAPI.addUserToLeaderboard({
       data,
