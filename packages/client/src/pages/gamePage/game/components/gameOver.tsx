@@ -12,11 +12,16 @@ import {
   selectTotalPlayers,
   setStatus,
   setSettings,
+  selectPlayers,
 } from '../core/gameSlice'
 import { Game } from '../core/game'
 import { 
   BUMBLE
 } from '@/data/consts'
+import { addUserToLeaderboard } from '@/store/leaderBoardSlice'
+import { UserDTO } from '@/api/types'
+import { selectUser } from '@/store/authSlice'
+import { LeaderPayload, Players } from '@/types'
 
 export const GameOver = () => {
   const navigate = useNavigate()
@@ -26,7 +31,16 @@ export const GameOver = () => {
   const height = useAppSelector(selectHeight)
   const card = useAppSelector(selectCard)
   const totalPlayers = useAppSelector(selectTotalPlayers)
+  const players: Players = useAppSelector(selectPlayers);
+  const user: UserDTO = useAppSelector(selectUser);
 
+  const leaderboardData: LeaderPayload = {
+    id: user.id,
+    name: user.login,
+    score: players[0].score,
+    avatar: user.avatar,
+  }
+  
   if ((totalPlayers === -1)) throw new Error('Select total players!')
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -49,6 +63,7 @@ export const GameOver = () => {
         const button = +colorInfo.slice(colorInfo.length-2, colorInfo.length)
     
         if (button === BUMBLE) {
+          dispatch(addUserToLeaderboard(leaderboardData));
           navigate('/')
           dispatch(setSettings('default'))
         }

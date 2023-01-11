@@ -3,7 +3,7 @@ import { LeaderboardRow } from './leaderboardRow';
 import Bag from '@/assets/images/pic-08.png';
 import Rule from '@/assets/images/pic-07.png';
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { addUserToLeaderboard, fetchLeaderboard, selectLeaders } from '@/store/leaderBoardSlice'
+import { fetchLeaderboard, selectLeaders } from '@/store/leaderBoardSlice'
 import { Leader, Leaders } from '@/types'
 import { useEffect } from 'react';
 import { LinkButton } from '@/components/LinkButton';
@@ -23,20 +23,12 @@ export const LeaderboardPage = (): JSX.Element => {
   
   const currentLeader: Leader = leaders.find(item => item.data.id === user?.id) || {} as Leader;
 
-  // useEffect(() => {
-  //   dispatch(addUserToLeaderboard({
-  //     id: 67816,
-  //     score: 20,
-  //     name: 'Kvi',
-  //   }));
-  // }, []);
+  const sortedLeaders: Leaders = [...leaders].sort((a, b) => b.data.score - a.data.score);
 
-const sortedLeaders: Leaders = [...leaders].sort((a, b) => b.data.score - a.data.score);
+  const isCurrentLeaderInLeaders: boolean = sortedLeaders.includes(currentLeader);
+  const currentLeaderPlace: number = sortedLeaders.indexOf(currentLeader) + 1;
 
-const isCurrentLeaderInLeaders: boolean = sortedLeaders.includes(currentLeader);
-const currentLeaderPlace: number = sortedLeaders.indexOf(currentLeader) + 1;
-
-return (
+  return (
     <section className='leaderboard'>
       <LinkButton to='/' modifier='header-btn'>Назад</LinkButton>
       <div className='leaderboard__wrapper'>

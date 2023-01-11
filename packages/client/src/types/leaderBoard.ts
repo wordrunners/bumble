@@ -6,8 +6,8 @@ export type LeaderBoard = {
 }
 
 export interface LeaderPayload {
-  id: number;
-  avatar: string;
+  id?: number;
+  avatar?: string;
   score: number;
   name: string;
 }
