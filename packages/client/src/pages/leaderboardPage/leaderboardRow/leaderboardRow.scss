@@ -8,6 +8,7 @@
     margin-bottom: 10px;
     width: 100%;
     justify-items: center;
+    box-sizing: border-box;
 
     &:last-child {
         margin-bottom: 0;
@@ -40,6 +41,10 @@
         border: none;
         background: var(--background4);
         background-size: 50px 50px;
+    }
+
+    &_current {
+        border: 5px solid var(--word1);
     }
 
 }

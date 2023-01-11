@@ -1,5 +1,3 @@
-import { UserDTO } from "@/api/types";
-
 export type LeaderBoard = {
   leaders: Leaders,
   activeLeader: number,
@@ -7,7 +5,9 @@ export type LeaderBoard = {
   error: Error | null,
 }
 
-export interface LeaderPayload extends UserDTO {
+export interface LeaderDTO {
+  id: number;
+  avatar: string;
   score: number;
   name: string;
 }

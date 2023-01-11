@@ -6,15 +6,16 @@ import { useAppDispatch, useAppSelector } from '@/hooks'
 import { addUserToLeaderboard, fetchLeaderboard, selectLeaders } from '@/store/leaderBoardSlice'
 import { Leader } from '@/types'
 import { useEffect } from 'react';
-import { Header } from '@/components/Header';
 import { LinkButton } from '@/components/LinkButton';
+import { fetchUser } from '@/store/authSlice';
 
 export const LeaderboardPage = (): JSX.Element => {
-  const leaders = useAppSelector(selectLeaders)
+  const leaders = useAppSelector(selectLeaders);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchLeaderboard());
+    dispatch(fetchUser());
   }, []);
 
   // useEffect(() => {

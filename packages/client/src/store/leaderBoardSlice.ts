@@ -4,7 +4,7 @@ import {
   Leaders,
   Leader, 
   LeaderBoard,
-  LeaderPayload
+  LeaderDTO
 } from '@/types';
 import { leaderboardAPI, teamName } from '@/api/leaderboardApi';
 
@@ -37,7 +37,7 @@ export const fetchLeaderboard = createAsyncThunk(
 
 export const addUserToLeaderboard = createAsyncThunk(
   'leaderBoard/addUserToLeaderboard',
- async (data: LeaderPayload, { rejectWithValue }) => {
+ async (data: LeaderDTO, { rejectWithValue }) => {
   try {
     await leaderboardAPI.addUserToLeaderboard({
       data,
