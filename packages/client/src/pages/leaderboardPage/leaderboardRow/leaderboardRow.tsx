@@ -1,23 +1,16 @@
 import { FC } from 'react';
 import './leaderboardRow.scss';
-import { Leader, Leaders } from '@/types'
-import { useAppSelector } from '@/hooks';
-import { selectUser } from '@/store/authSlice';
-import { selectLeaders } from '@/store/leaderBoardSlice';
+import { Leader } from '@/types'
 import cn from 'classnames';
-import { UserDTO } from '@/api/types';
 
 interface Props {
   leader: Leader;
   place: number;
+  currentLeader: Leader;
 }
 
-export const LeaderboardRow: FC<Props> = ({ leader, place }): JSX.Element => {
+export const LeaderboardRow: FC<Props> = ({ leader, place, currentLeader }): JSX.Element => {
   const { name, avatar, score, id } = leader.data;
-  const user: UserDTO = useAppSelector(selectUser);
-  const leaders: Leaders = useAppSelector(selectLeaders);
-  
-  const currentLeader: Leader = leaders.find(item => item.data.id === user?.id) || {} as Leader;
   const currentRow: boolean = currentLeader?.data.id === id;
 
   return (

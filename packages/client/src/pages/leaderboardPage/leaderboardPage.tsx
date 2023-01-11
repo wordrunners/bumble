@@ -7,16 +7,21 @@ import { addUserToLeaderboard, fetchLeaderboard, selectLeaders } from '@/store/l
 import { Leader, Leaders } from '@/types'
 import { useEffect } from 'react';
 import { LinkButton } from '@/components/LinkButton';
-import { fetchUser } from '@/store/authSlice';
+import { fetchUser, selectUser } from '@/store/authSlice';
+import { UserDTO } from '@/api/types';
 
 export const LeaderboardPage = (): JSX.Element => {
-  const leaders = useAppSelector(selectLeaders);
   const dispatch = useAppDispatch();
+
+  const leaders = useAppSelector(selectLeaders);
+  const user: UserDTO = useAppSelector(selectUser);
 
   useEffect(() => {
     dispatch(fetchLeaderboard());
     dispatch(fetchUser());
   }, []);
+  
+  const currentLeader: Leader = leaders.find(item => item.data.id === user?.id) || {} as Leader;
 
   // useEffect(() => {
   //   dispatch(addUserToLeaderboard({
@@ -25,8 +30,13 @@ export const LeaderboardPage = (): JSX.Element => {
   //     name: 'Kvi',
   //   }));
   // }, []);
-const sortedData: Leaders = [...leaders].sort((a, b) => b.data.score - a.data.score);
-  return (
+
+const sortedLeaders: Leaders = [...leaders].sort((a, b) => b.data.score - a.data.score);
+
+const isCurrentLeaderInLeaders: boolean = sortedLeaders.includes(currentLeader);
+const currentLeaderPlace: number = sortedLeaders.indexOf(currentLeader) + 1;
+
+return (
     <section className='leaderboard'>
       <LinkButton to='/' modifier='header-btn'>Назад</LinkButton>
       <div className='leaderboard__wrapper'>
@@ -36,10 +46,13 @@ const sortedData: Leaders = [...leaders].sort((a, b) => b.data.score - a.data.sc
           <img src={Bag} className='leaderboard__icon leaderboard__icon_rotated' />
         </div>
         <div className='leaderboard__list'>
-          {sortedData?.map((leader: Leader, idx: number) => (
-            <LeaderboardRow key={leader.data.id} leader={leader} place={idx + 1} />
+          {sortedLeaders.slice(0,2).map((leader: Leader, idx: number) => (
+            <LeaderboardRow key={leader.data.id} leader={leader} place={idx + 1} currentLeader={currentLeader}/>
           ))}
         </div>
+        {currentLeader.data && !isCurrentLeaderInLeaders &&
+          <LeaderboardRow leader={currentLeader} place={currentLeaderPlace} currentLeader={currentLeader}/>
+        }
       </div>
     </section>
   );
