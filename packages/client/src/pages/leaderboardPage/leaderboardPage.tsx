@@ -25,7 +25,7 @@ export const LeaderboardPage = (): JSX.Element => {
 
   const sortedLeaders: Leaders = [...leaders].sort((a, b) => b.data.score - a.data.score);
 
-  const isCurrentLeaderInLeaders: boolean = sortedLeaders.includes(currentLeader);
+  const isCurrentLeaderInLeaders: boolean = sortedLeaders.slice(0,2).includes(currentLeader);
   const currentLeaderPlace: number = sortedLeaders.indexOf(currentLeader) + 1;
 
   return (

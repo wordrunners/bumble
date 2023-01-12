@@ -11,7 +11,7 @@ interface Props {
 
 export const LeaderboardRow: FC<Props> = ({ leader, place, currentLeader }): JSX.Element => {
   const { name, avatar, score, id } = leader.data;
-  const currentRow: boolean = currentLeader?.data.id === id;
+  const currentRow: boolean = currentLeader?.data?.id === id;
 
   return (
     <div className={cn('leaderboard-row', { 'leaderboard-row_current' : currentRow })}>

@@ -20,7 +20,7 @@ import {
 } from '@/data/consts'
 import { addUserToLeaderboard } from '@/store/leaderBoardSlice'
 import { UserDTO } from '@/api/types'
-import { selectUser } from '@/store/authSlice'
+import { selectCheckAuth, selectUser } from '@/store/authSlice'
 import { LeaderPayload, Players } from '@/types'
 
 export const GameOver = () => {
@@ -33,6 +33,7 @@ export const GameOver = () => {
   const totalPlayers = useAppSelector(selectTotalPlayers)
   const players: Players = useAppSelector(selectPlayers);
   const user: UserDTO = useAppSelector(selectUser);
+  const isAuth: boolean = useAppSelector(selectCheckAuth);
 
   const leaderboardData: LeaderPayload = {
     id: user.id,
@@ -63,7 +64,7 @@ export const GameOver = () => {
         const button = +colorInfo.slice(colorInfo.length-2, colorInfo.length)
     
         if (button === BUMBLE) {
-          dispatch(addUserToLeaderboard(leaderboardData));
+          isAuth && players.length === 1 && dispatch(addUserToLeaderboard(leaderboardData));
           navigate('/')
           dispatch(setSettings('default'))
         }
