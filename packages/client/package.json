@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build --config vite.config.ts",
-    "build:ssr": "tsc && vite build --config ssr.config.ts",
+    "build": "rimraf dist && tsc && vite build --config vite.config.ts",
+    "build:ssr": "rimraf ssr-dist && tsc && vite build --config ssr.config.ts",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -37,6 +37,7 @@
     "react-redux": "8.0.5",
     "react-router-dom": "6.4.3",
     "react-scripts": "5.0.1",
+    "rimraf": "4.0.4",
     "sass": "1.56.1",
     "ts-jest": "28.0.8",
     "typescript": "4.8.2",

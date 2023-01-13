@@ -7,6 +7,7 @@ dotenv.config()
 import express from 'express'
 import * as fs from 'fs'
 import * as path from 'path'
+import { PRELOADED_STATE } from './preloadedState'
 // DB подключиться в следующих спринтах
 // import { createClientAndConnect } from './db'
 
@@ -22,7 +23,7 @@ async function startServer() {
   let vite: ViteDevServer | undefined;
   const distPath = path.dirname(require.resolve('client/dist/index.html'))
   const srcPath = path.dirname(require.resolve('client'))
-  const ssrClientPath = require.resolve('client/ssr-dist/client.cjs')
+  const ssrClientPath = require.resolve('client/ssr-dist/ssr.cjs')
 
   if (isDev()) {
     vite = await createViteServer({
@@ -65,9 +66,13 @@ async function startServer() {
         render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).render;
       }
 
-      const appHtml = await render() // render(url) ROUTER
+      const state = `
+        <script> window.__PRELOADED_STATE__=${JSON.stringify(PRELOADED_STATE)}</script>
+      `;
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml)
+      const appHtml = await render() 
+
+      const html = template.replace(`<!--ssr-outlet-->`, appHtml + state);
   
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {

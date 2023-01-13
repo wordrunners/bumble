@@ -4,12 +4,7 @@ import { RootState } from '@/store/store';
 import { authAPI } from '@/api/authApi';
 import { SigninRequestData,  SignupRequestData} from '@/api/authApi';
 import { transformUserDTOtoUser} from '@/utils';
-
-type AuthState = {
-  isAuth: boolean;
-  user: UserDTO | null;
-  loading: boolean;
-}
+import { AuthState } from '@/types';
 
 const initialState: AuthState = {
   isAuth: false,

@@ -1,3 +1,13 @@
+Начать лучше всего с команды – yarn
+
+### Нужно серверу залинковать в зависимости client:
+```
+cd packages/client
+yarn link
+cd ../server
+yarn link client
+```
+
 ### Как запускать SSR в dev?
 По умолчанию запуститься на localhost:3001
 ```
@@ -15,7 +25,7 @@ cd packages/client
 yarn build:ssr
 yarn build
 cd ../server
-yarn build
+yarn build (sudo yarn build - если Error: EACCES)
 node dist/index.js
 ```
 

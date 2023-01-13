@@ -5,6 +5,7 @@ import * as path from 'path'
 export default defineConfig({
   plugins: [react()],
   build: {
+    ssr: true,
     lib: {
       entry: path.resolve(__dirname, "ssr.tsx"),
       name: 'Client',
@@ -20,5 +21,8 @@ export default defineConfig({
     alias: [
       { find: /^@(?=\/)/, replacement: path.resolve(__dirname, './src') },
     ],
+  },
+  ssr: {
+    format: 'cjs',
   },
 })

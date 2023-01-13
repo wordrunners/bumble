@@ -4,6 +4,10 @@ import leaderBoardReducer from '@/store/leaderBoardSlice';
 import { authReducer } from './authSlice';
 import userReducer  from '@/pages/profilePage/core/userSlice';
 
+const preloadedState = typeof window !== 'undefined' 
+  ? window.__PRELOADED_STATE__ 
+  : undefined;
+
 export const store = configureStore({
   reducer: {
     game: gameReducer,
@@ -11,6 +15,7 @@ export const store = configureStore({
     user: userReducer,
     leaderBoard: leaderBoardReducer,
   },
+  preloadedState,
 });
 
 export type AppDispatch = typeof store.dispatch;
