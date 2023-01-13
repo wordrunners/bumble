@@ -1,18 +1,21 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import dotenv from 'dotenv'
 import * as path from 'path'
-dotenv.config()
 
 export default defineConfig({
-  server: {
-    port: Number(process.env.CLIENT_PORT) || 3000,
-  },
-  define: {
-    __SERVER_PORT__: process.env.SERVER_PORT || 3001,
-    __API_ENDPOINT__: JSON.stringify(process.env.API_ENDPOINT),
-  },
   plugins: [react()],
+  build: {
+    lib: {
+      entry: path.resolve(__dirname, "ssr.tsx"),
+      name: 'Client',
+      formats: ['cjs'],
+    },
+    rollupOptions: {
+      output: {
+        dir: 'ssr-dist',
+      }
+    }
+  },
   resolve: {
     alias: [
       { find: /^@(?=\/)/, replacement: path.resolve(__dirname, './src') },
