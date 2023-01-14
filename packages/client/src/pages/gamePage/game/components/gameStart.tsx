@@ -24,6 +24,7 @@ import {
 import { Game } from '../core/game'
 import { toggleFullscreen } from '../helpers'
 import { Settings } from '@/types'
+import { MusicPlayer } from '@/components/MusicPlayer'
 
 export const GameStart = () => {
   const navigate = useNavigate()

@@ -1,19 +1,32 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './MusicPlayer.scss';
 import BackgroundMusic from '../../assets/audio/POL-super-match-short.wav'
-import MuteUnmute from '@/components/MusicPlayer/controls/MuteUnmute'
+import { MuteUnmute } from '@/components/MusicPlayer/controls/MuteUnmute'
 
 export const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(new Audio(BackgroundMusic))
 
-  // const startupConfig = (instance: HTMLAudioElement) => {
-  //   instance.loop = true;
-  //   instance.autoplay = true;
-  //   instance.defaultMuted = false;
-  //   instance.volume = 0.5;
-  // }
-  //
+  const startupConfig = (instance: HTMLAudioElement) => {
+    instance.loop = true;
+    instance.volume = 0.5;
+    instance.defaultMuted = false;
+    instance.autoplay = true;
+  }
+  const click = () =>{
+    startupConfig(audioRef.current);
+    audioRef.current.play().catch(e => console.error(e))
+    console.log('click', audioRef.current)
+  }
+
+  // audioRef.current.addEventListener("canplaythrough", event => {
+  //   /* аудио может быть воспроизведено; проиграть, если позволяют разрешения */
+  //   startupConfig(audioRef.current)
+  //   audioRef.current.play().catch((e: Error) => {
+  //     console.error(e.message)
+  //   });
+  // });
+
   // useEffect(() => {
   //   if (isPlaying) {
   //     audioRef.current.play().catch((e: Error) => {
@@ -30,16 +43,11 @@ export const MusicPlayer = () => {
   //     audioRef.current.pause();
   //   };
   // }, []);
-  //
-  // // startupConfig(audioRef.current);
-  // setTimeout(()=>{
-  //   setIsPlaying(true);
-  // }, 0)
 
   return (
     <div className="audio-player">
       <div className="audio-controls">
-        <MuteUnmute></MuteUnmute>
+        <MuteUnmute onClick={()=>click()}></MuteUnmute>
       </div>
     </div>
   )

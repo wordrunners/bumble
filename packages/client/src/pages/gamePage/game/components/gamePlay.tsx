@@ -196,5 +196,5 @@ export const GamePlay = () => {
       ></canvas>
       <Game />
     </CanvasContext.Provider>
-  )
+)
 }

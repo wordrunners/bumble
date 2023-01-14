@@ -1,15 +1,18 @@
-import React, { Component } from 'react'
+import { ButtonHTMLAttributes, FC } from 'react';
 
-class MuteUnmute extends Component {
-  render() {
-    return (
-      <button
-        type="button"
-      >
-        ss
-      </button>
-    )
-  }
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
+  className?: string;
 }
 
-export default MuteUnmute;
+export const MuteUnmute: FC<ButtonProps> = ({ children, className, onClick, type = 'button', disabled }): JSX.Element => {
+  return (
+    <button
+      className={`button ${className}`}
+      onClick={onClick}
+      type={type}
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  );
+};

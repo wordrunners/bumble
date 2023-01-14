@@ -3,6 +3,7 @@ import { RouterProvider } from 'react-router-dom'
 import { Router } from '@/pages'
 import { store } from '@/store/store'
 import { Provider } from 'react-redux'
+import { MusicPlayer } from '@/components/MusicPlayer'
 
 export function App() {
     useEffect(() => {
@@ -34,6 +35,7 @@ export function App() {
         <div className="app">
             <Provider store={store}>
                 <RouterProvider router={Router} />
+                <MusicPlayer></MusicPlayer>
             </Provider>
         </div>
     )
