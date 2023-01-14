@@ -34,13 +34,21 @@ export const changeProfile = createAsyncThunk(
 
 const initialState: ProfileState = {
   profile: {
-    avatar:  localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).avatar : null,
-    email: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).email :'test@test.ru',
-    login: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).login :'Semen',
-    firstName: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).firstName :'Семен',
-    secondName: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).secondName :'Семенов',
-    displayName: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).displayName :'Семен',
-    phone: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).phone :'+77777777777',
+    // --- При SSR - Server не имеет localStorage ---
+    // avatar:  localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).avatar : null,
+    // email: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).email :'test@test.ru',
+    // login: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).login :'Semen',
+    // firstName: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).firstName :'Семен',
+    // secondName: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).secondName :'Семенов',
+    // displayName: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).displayName :'Семен',
+    // phone: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).phone :'+77777777777',
+    avatar:  '',
+    email: 'test@test.ru',
+    login: 'Semen',
+    firstName: 'Семен',
+    secondName: 'Семенов',
+    displayName: 'Семен',
+    phone: '+77777777777',
   },
   status: null,
   error: null,
