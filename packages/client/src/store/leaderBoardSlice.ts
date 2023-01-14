@@ -127,5 +127,4 @@ export const { setLeaders, addLeader, setActiveLeader } = leaderBoardSlice.actio
 export const selectLeaders = (state: RootState) => state.leaderBoard.leaders;
 export const selectActiveLeader = (state: RootState) => state.leaderBoard.activeLeader;
 
-
 export default leaderBoardSlice.reducer;

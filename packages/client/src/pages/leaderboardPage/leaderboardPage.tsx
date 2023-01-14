@@ -25,7 +25,7 @@ export const LeaderboardPage = (): JSX.Element => {
 
   const sortedLeaders: Leaders = [...leaders].sort((a, b) => b.data.score - a.data.score);
 
-  const isCurrentLeaderInLeaders: boolean = sortedLeaders.slice(0,2).includes(currentLeader);
+  const isCurrentLeaderInLeaders: boolean = sortedLeaders.slice(0,3).includes(currentLeader);
   const currentLeaderPlace: number = sortedLeaders.indexOf(currentLeader) + 1;
 
   return (
@@ -38,7 +38,7 @@ export const LeaderboardPage = (): JSX.Element => {
           <img src={Bag} className='leaderboard__icon leaderboard__icon_rotated' />
         </div>
         <div className='leaderboard__list'>
-          {sortedLeaders.slice(0,2).map((leader: Leader, idx: number) => (
+          {sortedLeaders.slice(0,3).map((leader: Leader, idx: number) => (
             <LeaderboardRow key={leader.data.id} leader={leader} place={idx + 1} currentLeader={currentLeader}/>
           ))}
         </div>

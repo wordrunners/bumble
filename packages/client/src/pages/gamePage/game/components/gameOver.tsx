@@ -13,15 +13,16 @@ import {
   setStatus,
   setSettings,
   selectPlayers,
+  selectSettings,
 } from '../core/gameSlice'
 import { Game } from '../core/game'
 import { 
   BUMBLE
 } from '@/data/consts'
-import { addUserToLeaderboard } from '@/store/leaderBoardSlice'
+import { addUserToLeaderboard, selectLeaders } from '@/store/leaderBoardSlice'
 import { UserDTO } from '@/api/types'
 import { selectCheckAuth, selectUser } from '@/store/authSlice'
-import { LeaderPayload, Players } from '@/types'
+import { Leader, LeaderPayload, Players } from '@/types'
 
 export const GameOver = () => {
   const navigate = useNavigate()
@@ -31,14 +32,19 @@ export const GameOver = () => {
   const height = useAppSelector(selectHeight)
   const card = useAppSelector(selectCard)
   const totalPlayers = useAppSelector(selectTotalPlayers)
-  const players: Players = useAppSelector(selectPlayers);
-  const user: UserDTO = useAppSelector(selectUser);
-  const isAuth: boolean = useAppSelector(selectCheckAuth);
+  const players: Players = useAppSelector(selectPlayers)
+  const user: UserDTO = useAppSelector(selectUser)
+  const isAuth: boolean = useAppSelector(selectCheckAuth)
+  const leaders = useAppSelector(selectLeaders)
+  const settings = useAppSelector(selectSettings)
+
+  const currentLeader: Leader = leaders.find(item => item.data.id === user?.id) || {} as Leader
+  const needToSendScore: boolean = settings === 'online' && isAuth && players.length === 1
 
   const leaderboardData: LeaderPayload = {
     id: user.id,
     name: user.login,
-    score: players[0].score,
+    score: (players[0].score + currentLeader?.data?.score) || 0,
     avatar: user.avatar,
   }
   
@@ -64,7 +70,7 @@ export const GameOver = () => {
         const button = +colorInfo.slice(colorInfo.length-2, colorInfo.length)
     
         if (button === BUMBLE) {
-          isAuth && players.length === 1 && dispatch(addUserToLeaderboard(leaderboardData));
+          needToSendScore && dispatch(addUserToLeaderboard(leaderboardData))
           navigate('/')
           dispatch(setSettings('default'))
         }
