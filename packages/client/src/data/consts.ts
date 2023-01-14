@@ -13,6 +13,7 @@ export const ERROR = `rgba(244, 69, 80, 255)`;
 
 export const BUMBLE = 29
 export const FULL_SCREEN = 19
+export const MUTE_CONTROLLER = 19
 export const MAIN = 29
 
 export const FONT = `PequenaPro`;

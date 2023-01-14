@@ -56,6 +56,7 @@ import {
 import cardsData from '@/data/cards.json'
 import playersData from '@/data/players.json'
 import { dictionary } from '@/data/dictionary'
+import { MusicPlayer } from '@/components/MusicPlayer'
 
 export const GamePlay = () => {
   const navigate = useNavigate()
@@ -195,6 +196,7 @@ export const GamePlay = () => {
         onMouseMove={ handleCanvasMove }
       ></canvas>
       <Game />
+      <MusicPlayer></MusicPlayer>
     </CanvasContext.Provider>
   )
 }
