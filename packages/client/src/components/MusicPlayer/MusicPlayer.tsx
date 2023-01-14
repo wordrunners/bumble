@@ -15,8 +15,8 @@ export const MusicPlayer = () => {
   }
   const toggleIsPlaying = () =>{
     setIsPlaying(!isPlaying)
-    console.log('click', audioRef.current)
   }
+
   startupConfig(audioRef.current);
 
   // audioRef.current.addEventListener("canplaythrough", event => {
