@@ -38,7 +38,7 @@ import {
 } from '../core/gameSlice'
 import {
   userSelector
-} from '@/pages/profilePage/core/userSlice'
+} from '@/store/userSlice'
 
 import { Game } from '../core/game'
 import { 

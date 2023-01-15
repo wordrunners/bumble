@@ -1,15 +1,10 @@
 import { createSlice, PayloadAction, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
-import { UserDTO } from '@/api/types';
+import type { UserDTO } from '@/api/types';
 import { RootState } from '@/store/store';
 import { authAPI } from '@/api/authApi';
 import { SigninRequestData,  SignupRequestData} from '@/api/authApi';
 import { transformUserDTOtoUser} from '@/utils';
-
-type AuthState = {
-  isAuth: boolean;
-  user: UserDTO | null;
-  loading: boolean;
-}
+import type { AuthState } from '@/types';
 
 const initialState: AuthState = {
   isAuth: false,

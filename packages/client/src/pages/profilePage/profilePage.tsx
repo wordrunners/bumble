@@ -7,7 +7,7 @@ import { LinkButton } from '@/components/LinkButton'
 import './profilePage.scss'
 import { ChangeData } from '@/components/ChangeData'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeProfile, profileLoading } from './core/userSlice'
+import { changeProfile, profileLoading } from '@/store/userSlice'
 import { useInput } from '@/hooks'
 import { AppDispatch } from '@/store/store'
 import { selectUser } from '@/store/authSlice';
