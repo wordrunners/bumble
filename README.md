@@ -1,10 +1,42 @@
+### Как начать разрабатывать в пустой папке с SSR
+Версия в dev:
+```
+git clone https://github.com/wordrunners/bumble
+cd bumble
+git checkout dev
+Переименовать packages/client/.env.sample в packages/client/.env
+yarn bootstrap
+Y
+cd packages/client
+yarn link
+cd ../server
+yarn link client
+cd ../client
+yarn build:ssr
+yarn build
+cd ../server
+yarn build
+cd ../..
+yarn bootstrap
+Y
+yarn dev
+```
+
+Версия в prod:
+```
+… после сборки клиента
+cd packages/server
+yarn build
+node dist/index.js
+```
+
 ### Как запускать SSR в dev?
 По умолчанию запуститься на localhost:3001
 ```
 cd packages/client
 yarn build:ssr
 yarn build
-cd ../server
+cd ../..
 yarn dev
 ```
 
