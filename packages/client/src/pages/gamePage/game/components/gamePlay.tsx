@@ -98,9 +98,6 @@ export const GamePlay = () => {
         for (let i = 0; i <= totalPlayers; i++) {
           dispatch(addPlayer(playersData[i]))
         }
-        // for (let i = 0; i <= ((totalPlayers + 1) * ROUNDS - 1); i++) {
-        //   newCards.push(cardsData[i])
-        // }
       } else if (settings === 'online') {
         dispatch(fetchLeaderboard());
         login && dispatch(addPlayer({  

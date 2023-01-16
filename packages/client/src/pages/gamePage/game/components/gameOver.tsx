@@ -14,8 +14,8 @@ import {
   setSettings,
   selectPlayers,
   selectSettings,
-} from '../core/gameSlice'
-import { Game } from '../core/game'
+} from '@/pages/gamePage/game/core/gameSlice'
+import { Game } from '@/pages/gamePage/game/core/game'
 import { 
   BUMBLE
 } from '@/data/consts'

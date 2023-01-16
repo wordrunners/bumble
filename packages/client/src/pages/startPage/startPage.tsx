@@ -10,7 +10,7 @@ import {
   useAuth
 } from '@/hooks'
 import { logout, fetchUser } from '@/store/authSlice';
-import { addPlayer } from '../gamePage/game/core/gameSlice';
+import { addPlayer } from '@/pages/gamePage/game/core/gameSlice';
 
 export const StartPage = (): JSX.Element => {
   const dispatch = useAppDispatch()
