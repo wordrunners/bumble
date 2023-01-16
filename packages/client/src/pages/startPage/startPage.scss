@@ -1,16 +1,18 @@
 .start {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 45px 20px;
-    border: 1px solid var(--background);
-    background-color: var(--background);
-    max-height: 700px;
-    width: max-content;
-    border-radius: 20px;
-    border-top-right-radius: inherit;
+    
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 45px 20px;
+        border: 1px solid var(--background);
+        background-color: var(--background);
+        max-height: 700px;
+        width: max-content;
+        border-radius: 20px;
+        border-top-right-radius: inherit;
+    }
 
     &__logo {
         width: 400px;

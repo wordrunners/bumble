@@ -214,16 +214,16 @@ export const addWord =
     dispatch(deletePlayers())
     dispatch(addPlayers(clonePlayers))
 
-    if (settings === 'online') {
-      const candidate: Leader = {
-        'id': 2,
-        'place': 2,
-        'login': clonePlayers[player].login,
-        'avatar': '',
-        'score': clonePlayers[player].score
-      }
-      dispatch(checkLeaders(candidate))
-    }
+  //   if (settings === 'online') {
+  //     const candidate: Leader = {
+  //       'id': 2,
+  //       'place': 2,
+  //       'login': clonePlayers[player].login,
+  //       'avatar': '',
+  //       'score': clonePlayers[player].score
+  //     }
+  //     // dispatch(checkLeaders(candidate))
+  //   }
   }
 
 export const { 

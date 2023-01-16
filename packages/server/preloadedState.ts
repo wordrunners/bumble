@@ -25,7 +25,9 @@ const userState: ProfileState = {
 
 const leaderBoardState: LeaderBoard = {
   leaders: [],
-  activeLeader: -1
+  activeLeader: -1,
+  loading: false,
+  error: null,
 }
 
 const gameState: Game = {

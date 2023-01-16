@@ -1,8 +1,5 @@
 import { useEffect } from 'react'
-import { RouterProvider } from 'react-router-dom'
 import { Router } from '@/pages'
-import { store } from '@/store/store'
-import { Provider } from 'react-redux'
 
 export function App() {
   useEffect(() => {

@@ -56,6 +56,7 @@ import {
 import cardsData from '@/data/cards.json'
 import playersData from '@/data/players.json'
 import { dictionary } from '@/data/dictionary'
+import { fetchLeaderboard } from '@/store/leaderBoardSlice'
 
 export const GamePlay = () => {
   const navigate = useNavigate()
@@ -97,21 +98,22 @@ export const GamePlay = () => {
         for (let i = 0; i <= totalPlayers; i++) {
           dispatch(addPlayer(playersData[i]))
         }
-        for (let i = 0; i <= ((totalPlayers + 1) * ROUNDS - 1); i++) {
-          newCards.push(cardsData[i])
-        }
       } else if (settings === 'online') {
-        dispatch(addPlayer({  
+        dispatch(fetchLeaderboard());
+        login && dispatch(addPlayer({  
           'login': login,
           'words': [],
           'score': 0,
           'enabled': true
         }))
-
-        for (let i = 0; i < ROUNDS; i++) {
-          newCards.push(randomCard(CYRILLIC_CHARACTERS))
-        }
-      } 
+        // TODO: сделать ежедневное обновление сетов букв или личный прогресс юзера (рандом иногда не дает вариантов слова)
+        // for (let i = 0; i < ROUNDS; i++) {
+        //   newCards.push(randomCard(CYRILLIC_CHARACTERS))
+        // }
+      }
+      for (let i = 0; i <= ((totalPlayers + 1) * ROUNDS - 1); i++) {
+        newCards.push(cardsData[i])
+      }
       dispatch(setCards(newCards))
       dispatch(setActiveCard(0))
       dispatch(setEnabledSectors())

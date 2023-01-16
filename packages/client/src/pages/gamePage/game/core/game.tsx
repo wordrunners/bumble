@@ -31,11 +31,12 @@ import {
   selectBumble,
 } from './gameSlice'
 import {
-  selectCheckAuth
+  selectCheckAuth, selectUser
 } from '@/store/authSlice'
 import {
   selectLeaders,
 } from '@/store/leaderBoardSlice'
+import { Leader } from '@/types'
 
 export const Game = () => {
   const width = useAppSelector(selectWidth)
@@ -51,9 +52,11 @@ export const Game = () => {
   const settings = useAppSelector(selectSettings)
   const activeSettings = useAppSelector(selectActiveSettings)
   const bumble = useAppSelector(selectBumble)
-
+  const user = useAppSelector(selectUser)
   const authorized = useAppSelector(selectCheckAuth)
   const leaders = useAppSelector(selectLeaders)
+
+  const currentLeader: Leader = leaders.find(item => item.data.id === user?.id) || {} as Leader
 
   const { context } = useCanvasContext()
 
@@ -63,7 +66,7 @@ export const Game = () => {
         .then(() => {
           BackgroundEntity(context, width, height)
           if (settings === 'online') {
-            HighScoresEntity(context, width, height, leaders)
+            HighScoresEntity(context, width, height, leaders, currentLeader)
           }
           switch (status) {
             case 'start':
