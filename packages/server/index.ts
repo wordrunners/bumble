@@ -7,6 +7,7 @@ dotenv.config()
 import express from 'express'
 import * as fs from 'fs'
 import * as path from 'path'
+import { PRELOADED_STATE } from './preloadedState'
 // DB подключиться в следующих спринтах
 // import { createClientAndConnect } from './db'
 
@@ -64,10 +65,14 @@ async function startServer() {
         template = await vite!.transformIndexHtml(url, template)
         render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).render;
       }
+      
+      const appHtml = await render()
 
-      const appHtml = await render() // render(url) ROUTER
+      const state = `
+        <script> window.__PRELOADED_STATE__=${JSON.stringify(PRELOADED_STATE)}</script>
+      `;
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml)
+      const html = template.replace(`<!--ssr-outlet-->`, appHtml + state)
   
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {

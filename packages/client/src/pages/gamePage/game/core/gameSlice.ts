@@ -16,6 +16,7 @@ import {
 } from '@/store/leaderBoardSlice'
 import { ROUNDS } from '@/data/consts'
 
+
 const initialState: Game = {
   totalPlayers: -1,
   activePlayer: 0,
@@ -34,6 +35,7 @@ const initialState: Game = {
   activeSettings: 'default',
   bumble: 'default'
 }
+
 
 export const gameSlice = createSlice({
   name: 'game',
