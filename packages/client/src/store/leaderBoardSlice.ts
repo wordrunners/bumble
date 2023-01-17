@@ -24,7 +24,7 @@ export const fetchLeaderboard = createAsyncThunk(
     const response = await leaderboardAPI.getLeaderboard({
       ratingFieldName,
       cursor: 0,
-      limit: 5,
+      limit: 100,
     });
     
     return response;
