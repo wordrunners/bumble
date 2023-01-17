@@ -1,34 +1,38 @@
 import React, { FC, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
 import type { User  } from '@/types/user'
 import { Avatar } from '@/components/Avatar'
 import { Button } from '@/components/Button'
 import { LinkButton } from '@/components/LinkButton'
 import './profilePage.scss'
 import { ChangeData } from '@/components/ChangeData'
-import { useDispatch, useSelector } from 'react-redux'
 import { changeProfile, profileLoading } from '@/store/userSlice'
-import { useInput } from '@/hooks'
-import { AppDispatch } from '@/store/store'
-import { selectUser } from '@/store/authSlice';
+import { useInput, useAppDispatch, useAppSelector} from '@/hooks'
+import { selectUser, fetchUser } from '@/store/authSlice';
 import { transformUserDTOtoUser } from '@/utils';
+import { UserDTO } from '@/api/types';
+
+
 export const ProfilePage: FC = () => {
 
-  const navigate = useNavigate();
-  const isAuth = localStorage.getItem('user'); 
-  console.log('isAuth', isAuth);
+  const dispatch = useAppDispatch()
   
+  const userState: UserDTO = useAppSelector(selectUser);
     
   useEffect(() => {
-    if (!isAuth) {
-      navigate('/signin')
-    }
+    dispatch(fetchUser());
   }, []);
 
-  const userState = useSelector(selectUser);
-  const user = transformUserDTOtoUser(userState);
-
-  const dispatch = useDispatch<AppDispatch>();
+  const testUser = {
+    avatar:  '',
+    email: 'test@test.ru',
+    login: 'Semen',
+    firstName: 'Семен',
+    secondName: 'Семенов',
+    displayName: 'Семен',
+    phone: '+77777777777',
+  }
+  
+  const user = userState === null ? testUser : transformUserDTOtoUser(userState);
 
   const email = useInput(user.email, {isEmail: true});
   const login = useInput(user.login, {isLogin: true});
@@ -42,6 +46,7 @@ export const ProfilePage: FC = () => {
     e.preventDefault();
     
     const changeProfileData: User = {
+      id: 0,
       email: e.target[0].value,
       login: e.target[1].value,
       firstName: e.target[2].value,
@@ -54,7 +59,7 @@ export const ProfilePage: FC = () => {
     
     dispatch(changeProfile(changeProfileData));
   }
-
+  
   return (
     <div className='wrapper'>
       <Avatar displayName={user.displayName} avatar={user.avatar} />

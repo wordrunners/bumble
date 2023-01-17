@@ -34,6 +34,7 @@ export const changeProfile = createAsyncThunk(
 
 const initialState: ProfileState = {
   profile: {
+    id: 0,
     avatar:  '',
     email: 'test@test.ru',
     login: 'Semen',

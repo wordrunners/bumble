@@ -35,7 +35,7 @@ export const Avatar: FC<User> = props => {
     setFileSelected(fileList[0])
   }
 
-  useEffect(() => {console.log('аватарка изменена');}, [props.avatar])
+  // useEffect(() => {console.log('аватарка изменена');}, [props.avatar])
 
   const onAvatarUp = async (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.preventDefault()
@@ -45,7 +45,7 @@ export const Avatar: FC<User> = props => {
       formData.append('avatar', fileSelected)
       
       const response = await avatarAPI.avatarUp(formData)
-      console.log('response=', response);
+      // console.log('response=', response);
       
       
       if (!hasError(response)) {

@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { selectUser, fetchUser } from '@/store/authSlice';
+import { useAppSelector} from '@/hooks'
+import { UserDTO } from '@/api/types';
+import { transformUserDTOtoUser } from '@/utils';
 
 export const useValidation = (value: any, validations: any) => {
   
@@ -61,6 +65,14 @@ export const useValidation = (value: any, validations: any) => {
 
 export const useInput = (initialValue: any, validations: any) => {
   const [value, setValue] = useState(initialValue);
+
+ 
+  const userState: UserDTO = useAppSelector(selectUser);
+  // const user = transformUserDTOtoUser(userState);
+  // console.log('user=', user);
+
+  useEffect(() => {setValue(initialValue)}, [value])
+  
   const [isDirty, setDirty] = useState(false); 
   const valid = useValidation(value, validations);
 

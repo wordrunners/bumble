@@ -44,7 +44,7 @@ export const GameOver = () => {
   const leaderboardData: LeaderPayload = {
     id: user.id,
     name: user.login,
-    score: (players[0].score + currentLeader?.data?.score) || 0,
+    score: currentLeader.data ? (players[0].score + currentLeader?.data?.score) : players[0].score,
     avatar: user.avatar,
   }
   
