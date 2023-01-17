@@ -9,7 +9,7 @@ import {
   useAppDispatch,
   useAuth
 } from '@/hooks'
-import { logout, fetchUser } from '@/store/authSlice';
+import { logout, fetchUser, oAuth } from '@/store/authSlice';
 import { addPlayer } from '@/pages/gamePage/game/core/gameSlice';
 
 export const StartPage = (): JSX.Element => {
@@ -29,6 +29,17 @@ export const StartPage = (): JSX.Element => {
       'enabled': true
     }))
   }
+
+  useEffect(() => {
+    const code = new URLSearchParams(globalThis.window?.location.search).get('code');
+
+    if (code) {
+      dispatch(oAuth({ code, redirect_uri: 'http://localhost:3000' }));
+    } else {
+      return
+    }
+  }, []);
+
   return (
     <section className={cn('start')}>
       <Header />

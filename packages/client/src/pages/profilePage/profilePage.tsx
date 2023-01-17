@@ -15,15 +15,6 @@ import { transformUserDTOtoUser } from '@/utils';
 export const ProfilePage: FC = () => {
 
   const navigate = useNavigate();
-  const isAuth = localStorage.getItem('user'); 
-  console.log('isAuth', isAuth);
-  
-    
-  useEffect(() => {
-    if (!isAuth) {
-      navigate('/signin')
-    }
-  }, []);
 
   const userState = useSelector(selectUser);
   const user = transformUserDTOtoUser(userState);

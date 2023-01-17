@@ -2,8 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk, createSelector } from '@r
 import type { UserDTO } from '@/api/types';
 import { RootState } from '@/store/store';
 import { authAPI } from '@/api/authApi';
-import { SigninRequestData,  SignupRequestData} from '@/api/authApi';
-import { transformUserDTOtoUser} from '@/utils';
+import { SigninRequestData,  SignupRequestData, OAuthRequestData } from '@/api/authApi';
 import type { AuthState } from '@/types';
 
 const initialState: AuthState = {
@@ -30,7 +29,6 @@ export const authSlice = createSlice({
         state.loading = false;
         state.isAuth = true;
         state.user = action.payload;
-        localStorage.setItem('user', JSON.stringify(transformUserDTOtoUser(action.payload)));
       }
     );
     buider.addCase(fetchUser.rejected, state => {
@@ -66,10 +64,12 @@ export const authSlice = createSlice({
       state.loading = false;
       state.isAuth = false;
       state.user = null;
-      localStorage.removeItem('user');
     });
     buider.addCase(logout.rejected, state => {
       state.loading = false;
+      state.isAuth = true;
+    });
+    buider.addCase(oAuth.fulfilled, state => {
       state.isAuth = true;
     });
   },
@@ -125,6 +125,29 @@ export const logout = createAsyncThunk('auth/logout',
       return response;
     } catch (error) {
       return thunkApi.rejectWithValue('Ошибка выхода');
+    }
+  }
+);
+
+export const fetchOAuth = createAsyncThunk('auth/fetchOAuth',
+  async (_, thunkApi) => {
+    try {
+      const response  = await authAPI.fetchOAuth();
+      window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${response.service_id}&redirect_uri=${window.location.origin}`;
+    } 
+      catch (error) {
+      return thunkApi.rejectWithValue('Ошибка входа');
+    }
+  }
+);
+
+export const oAuth = createAsyncThunk('auth/OAuth',
+  async (data: OAuthRequestData, thunkApi) => {
+    try {
+      const response  = await authAPI.oAuth(data);
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue('Ошибка авторизации');
     }
   }
 );

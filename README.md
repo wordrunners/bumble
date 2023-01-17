@@ -31,7 +31,7 @@ node dist/index.js
 ```
 
 ### Как запускать SSR в dev?
-По умолчанию запуститься на localhost:3001
+По умолчанию запуститься на localhost:5000
 ```
 cd packages/client
 yarn build:ssr
@@ -41,7 +41,7 @@ yarn dev
 ```
 
 ### Как запускать SSR в prod?
-По умолчанию запуститься на localhost:3001
+По умолчанию запуститься на localhost:5000
 ```
 cd packages/client
 yarn build:ssr

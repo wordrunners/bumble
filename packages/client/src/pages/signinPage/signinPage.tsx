@@ -6,7 +6,7 @@ import { FormField } from "@/components/FormField";
 import { Button } from "@/components/Button";
 import { useForm, useAuth, useAppDispatch } from "@/hooks";
 import validate from "@/Core/ValidateForm";
-import { signin } from "@/store/authSlice";
+import { signin, fetchOAuth } from "@/store/authSlice";
 
 import "./signinPage.scss";
 
@@ -18,6 +18,10 @@ export const SigninPage: FC = () => {
     
    function submitForm() {
     dispatch(signin(values));
+  }
+
+  function handleOAuth() {
+    dispatch(fetchOAuth());
   }
   
   useEffect(() => {
@@ -35,6 +39,7 @@ export const SigninPage: FC = () => {
         <FormField type="password" name="password" value={values.password} label="Пароль" onChange={handleChange} />
         {errors.password && <p className="auth__error">{errors.password}</p>}
         <Button className="auth__btn" type="submit">АВТОРИЗАЦИЯ</Button>
+        <Button className="auth__btn" onClick={handleOAuth}>АВТОРИЗАЦИЯ ЧЕРЕЗ ЯНДЕКС</Button>
         <Link className="auth__link" to={`/signup`} >Нет Аккаунта? Зарегистрируйтесь</Link>
       </Form>
     </div>
