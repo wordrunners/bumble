@@ -36,9 +36,6 @@ import {
   selectSettings,
   setBumble
 } from '../core/gameSlice'
-import {
-  userSelector
-} from '@/store/userSlice'
 
 import { Game } from '../core/game'
 import { 
@@ -57,6 +54,8 @@ import cardsData from '@/data/cards.json'
 import playersData from '@/data/players.json'
 import { dictionary } from '@/data/dictionary'
 import { fetchLeaderboard } from '@/store/leaderBoardSlice'
+import { selectUser } from '@/store/authSlice'
+import { transformUserDTOtoUser } from '@/utils'
 
 export const GamePlay = () => {
   const navigate = useNavigate()
@@ -72,9 +71,9 @@ export const GamePlay = () => {
   const totalPlayers = useAppSelector(selectTotalPlayers)
   const activePlayer = useAppSelector(selectActivePlayer)
   const settings = useAppSelector(selectSettings)
-
-  const user = useAppSelector(userSelector)
-  const login = user.profile.login;
+  const userState = useAppSelector(selectUser)
+  const user = transformUserDTOtoUser(userState)
+  const login = user.login;
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
