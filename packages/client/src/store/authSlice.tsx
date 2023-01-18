@@ -69,7 +69,7 @@ export const authSlice = createSlice({
       state.loading = false;
       state.isAuth = true;
     });
-    buider.addCase(oAuth.fulfilled, state => {
+    buider.addCase(signinOAuth.fulfilled, state => {
       state.isAuth = true;
     });
   },
@@ -141,7 +141,7 @@ export const fetchOAuth = createAsyncThunk('auth/fetchOAuth',
   }
 );
 
-export const oAuth = createAsyncThunk('auth/OAuth',
+export const signinOAuth = createAsyncThunk('auth/signinOAuth',
   async (data: OAuthRequestData, thunkApi) => {
     try {
       const response  = await authAPI.oAuth(data);

@@ -9,7 +9,7 @@ import {
   useAppDispatch,
   useAuth
 } from '@/hooks'
-import { logout, fetchUser, oAuth } from '@/store/authSlice';
+import { logout, fetchUser, signinOAuth } from '@/store/authSlice';
 import { addPlayer } from '@/pages/gamePage/game/core/gameSlice';
 
 export const StartPage = (): JSX.Element => {
@@ -34,7 +34,7 @@ export const StartPage = (): JSX.Element => {
     const code = new URLSearchParams(globalThis.window?.location.search).get('code');
 
     if (code) {
-      dispatch(oAuth({ code, redirect_uri: 'http://localhost:3000' }));
+      dispatch(signinOAuth({ code, redirect_uri: 'http://localhost:3000' }));
     } else {
       return
     }
