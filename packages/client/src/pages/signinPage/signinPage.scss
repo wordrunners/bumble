@@ -28,6 +28,9 @@
   &__btn {
     width: 100%;
     margin: 0 auto;
+    &+& {
+      margin-top: 20px;
+    }
     &:hover {
       background-color: var(--word3);
       text-decoration: underline;
