@@ -4,7 +4,7 @@
 git clone https://github.com/wordrunners/bumble
 cd bumble
 git checkout dev
-Переименовать packages/client/.env.sample в packages/client/.env
+Создать копию файла packages/client/.env.sample -> packages/client/.env
 yarn bootstrap
 Y
 cd packages/client
