@@ -66,14 +66,17 @@ export const GameOver = () => {
       if (pixel) {
         const colorInfo = `${pixel[1]}`
         const button = +colorInfo.slice(colorInfo.length-2, colorInfo.length)
-        const leaderboardData: LeaderPayload = {
-          id: user.id,
-          name: user.login,
-          score: currentLeader.data ? (players[0].score + currentLeader?.data?.score) : players[0].score,
-          avatar: user.avatar,
-        }
+
         if (button === BUMBLE) {
-          needToSendScore && dispatch(addUserToLeaderboard(leaderboardData))
+          if (needToSendScore) {
+            const leaderboardData: LeaderPayload = {
+              id: user.id,
+              name: user.login,
+              score: currentLeader.data ? (players[0].score + currentLeader?.data?.score) : players[0].score,
+              avatar: user.avatar,
+            }
+            dispatch(addUserToLeaderboard(leaderboardData))
+          }
           navigate('/')
           dispatch(setSettings('default'))
         }

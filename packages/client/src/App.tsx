@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 import { Router } from '@/pages'
 import { MusicPlayer } from '@/components/MusicPlayer'
 
 export function App() {
 
-  // TODO - узнать зачем это
+  // TODO - Узнать зачем это
   // useEffect(() => {
   //     const fetchServerData = async () => {
   //       const url = `http://localhost:${__SERVER_PORT__}/api`
