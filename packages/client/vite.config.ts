@@ -13,6 +13,10 @@ export default defineConfig({
     __API_ENDPOINT__: JSON.stringify(process.env.API_ENDPOINT),
   },
   plugins: [react()],
+  ssr: {
+    target: 'node',
+    format: 'cjs',
+  },
   resolve: {
     alias: [
       { find: /^@(?=\/)/, replacement: path.resolve(__dirname, './src') },

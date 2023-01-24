@@ -4,7 +4,15 @@ import { App } from './App'
 import '@/styles/index.scss'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { store } from '@/store/store'
+import { RootState, setupStore } from '@/store/store'
+
+const store = setupStore(window.__PRELOADED_STATE__)
+
+declare global {
+  interface Window {
+    __PRELOADED_STATE__: RootState
+  }
+}
 
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,

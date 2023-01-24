@@ -8,7 +8,12 @@
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test": "jest ."
+    "test": "jest .",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "vite": "3.0.7",
+    "vite-plugin-environment": "1.1.3",
+    "http-proxy-middleware": "2.0.6"
   },
   "dependencies": {
     "cors": "2.8.5",

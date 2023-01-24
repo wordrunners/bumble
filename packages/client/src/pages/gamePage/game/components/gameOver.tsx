@@ -28,10 +28,14 @@ export const GameOver = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
+  const totalPlayers = useAppSelector(selectTotalPlayers)
+  if ((totalPlayers === -1)) {
+    navigate(`/game`)
+  }
+
   const width = useAppSelector(selectWidth)
   const height = useAppSelector(selectHeight)
   const card = useAppSelector(selectCard)
-  const totalPlayers = useAppSelector(selectTotalPlayers)
   const players: Players = useAppSelector(selectPlayers)
   const user: UserDTO = useAppSelector(selectUser)
   const isAuth: boolean = useAppSelector(selectCheckAuth)
@@ -41,19 +45,13 @@ export const GameOver = () => {
   const currentLeader: Leader = leaders.find(item => item.data.id === user?.id) || {} as Leader
   const needToSendScore: boolean = settings === 'online' && isAuth && players.length === 1
 
-  const leaderboardData: LeaderPayload = {
-    id: user.id,
-    name: user.login,
-    score: currentLeader.data ? (players[0].score + currentLeader?.data?.score) : players[0].score,
-    avatar: user.avatar,
-  }
-  
-  if ((totalPlayers === -1)) throw new Error('Select total players!')
-
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
 
   useEffect(() => {
+    if ((totalPlayers === -1)) {
+      navigate(`/game`)
+    }
     const context = canvasRef.current?.getContext('2d',{willReadFrequently:true})
     if (context) {
       setContext(context)
@@ -68,7 +66,12 @@ export const GameOver = () => {
       if (pixel) {
         const colorInfo = `${pixel[1]}`
         const button = +colorInfo.slice(colorInfo.length-2, colorInfo.length)
-    
+        const leaderboardData: LeaderPayload = {
+          id: user.id,
+          name: user.login,
+          score: currentLeader.data ? (players[0].score + currentLeader?.data?.score) : players[0].score,
+          avatar: user.avatar,
+        }
         if (button === BUMBLE) {
           needToSendScore && dispatch(addUserToLeaderboard(leaderboardData))
           navigate('/')
@@ -78,15 +81,21 @@ export const GameOver = () => {
     }
   }
 
-  return (
-    <CanvasContext.Provider value={{ context: context }}>
-      <canvas
-        ref={ canvasRef }
-        width={ width }
-        height={ height }
-        onClick={ handleCanvasClick }
-      ></canvas>
-      <Game />
-    </CanvasContext.Provider>
-  )
+  if (totalPlayers !== -1) {
+    return (
+      <CanvasContext.Provider value={{ context: context }}>
+        <canvas
+          ref={ canvasRef }
+          width={ width }
+          height={ height }
+          onClick={ handleCanvasClick }
+        ></canvas>
+        <Game />
+      </CanvasContext.Provider>
+    )
+  } else {
+    return (
+      null
+    )
+  }
 }
