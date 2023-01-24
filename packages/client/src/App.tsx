@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Router } from '@/pages'
+import { MusicPlayer } from '@/components/MusicPlayer'
 
 export function App() {
 
@@ -30,9 +31,11 @@ export function App() {
 
   // startServiceWorker();
 
+
   return (
     <div className="app">
       <Router />
+      <MusicPlayer></MusicPlayer>
     </div>
   )
 }
