@@ -2,7 +2,16 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import gameReducer from '@/pages/gamePage/game/core/gameSlice';
 import leaderBoardReducer from '@/store/leaderBoardSlice';
 import { authReducer } from './authSlice';
-import userReducer  from '@/pages/profilePage/core/userSlice';
+import userReducer  from './userSlice';
+
+const preloadedState = typeof window !== 'undefined' 
+  ? window.__PRELOADED_STATE__ 
+  : undefined;
+
+// @ts-ignore
+if (typeof window !== 'undefined') {
+  delete window.__PRELOADED_STATE__;
+  }
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +20,7 @@ export const store = configureStore({
     user: userReducer,
     leaderBoard: leaderBoardReducer,
   },
+  preloadedState,
 });
 
 export type AppDispatch = typeof store.dispatch;

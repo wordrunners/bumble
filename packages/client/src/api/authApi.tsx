@@ -17,9 +17,18 @@ export type SignupRequestData = {
   password: string;
 }
 
+export type OAuthRequestData = {
+  code: string;
+  redirect_uri: string;
+}
+
 type SigninResponseData = {} | APIError;
 
 type SignupResponseData = {} | APIError;
+
+type OAuthResponseData = {
+  service_id: string;
+}
 
 export const authAPI = {
   signin: (data: SigninRequestData) =>
@@ -31,4 +40,8 @@ export const authAPI = {
   getUser: () => request.get<UserDTO>('/auth/user'),
 
   logout: () => request.post('/auth/logout'),
+
+  oAuth: (data: OAuthRequestData) => request.post('/oauth/yandex', data),
+
+  fetchOAuth: () => request.get<OAuthResponseData>('/oauth/yandex/service-id')
 }

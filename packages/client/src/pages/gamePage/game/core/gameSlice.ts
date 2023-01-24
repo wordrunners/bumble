@@ -16,6 +16,7 @@ import {
 } from '@/store/leaderBoardSlice'
 import { ROUNDS } from '@/data/consts'
 
+
 const initialState: Game = {
   totalPlayers: -1,
   activePlayer: 0,
@@ -34,6 +35,7 @@ const initialState: Game = {
   activeSettings: 'default',
   bumble: 'default'
 }
+
 
 export const gameSlice = createSlice({
   name: 'game',
@@ -212,16 +214,16 @@ export const addWord =
     dispatch(deletePlayers())
     dispatch(addPlayers(clonePlayers))
 
-    if (settings === 'online') {
-      const candidate: Leader = {
-        'id': 2,
-        'place': 2,
-        'login': clonePlayers[player].login,
-        'avatar': '',
-        'score': clonePlayers[player].score
-      }
-      dispatch(checkLeaders(candidate))
-    }
+  //   if (settings === 'online') {
+  //     const candidate: Leader = {
+  //       'id': 2,
+  //       'place': 2,
+  //       'login': clonePlayers[player].login,
+  //       'avatar': '',
+  //       'score': clonePlayers[player].score
+  //     }
+  //     // dispatch(checkLeaders(candidate))
+  //   }
   }
 
 export const { 
