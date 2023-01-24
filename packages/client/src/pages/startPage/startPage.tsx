@@ -17,7 +17,9 @@ export const StartPage = (): JSX.Element => {
   const { isAuth } = useAuth()
 
   useEffect(() => {
-    dispatch(fetchUser());
+    if (!isAuth) {
+      dispatch(fetchUser());
+    }
   }, []);
   
   function onExit() {

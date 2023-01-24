@@ -4,21 +4,9 @@
 git clone https://github.com/wordrunners/bumble
 cd bumble
 git checkout dev
-Создать копию файла packages/client/.env.sample -> packages/client/.env
 yarn bootstrap
 Y
-cd packages/client
-yarn link
-cd ../server
-yarn link client
-cd ../client
-yarn build:ssr
 yarn build
-cd ../server
-yarn build
-cd ../..
-yarn bootstrap
-Y
 yarn dev
 ```
 
@@ -26,7 +14,6 @@ yarn dev
 ```
 … после сборки клиента
 cd packages/server
-yarn build
 node dist/index.js
 ```
 

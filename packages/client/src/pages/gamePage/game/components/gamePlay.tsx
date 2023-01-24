@@ -55,10 +55,14 @@ import playersData from '@/data/players.json'
 import { dictionary } from '@/data/dictionary'
 import { fetchLeaderboard } from '@/store/leaderBoardSlice'
 import { selectUser } from '@/store/authSlice'
-import { transformUserDTOtoUser } from '@/utils'
 
 export const GamePlay = () => {
   const navigate = useNavigate()
+  const totalPlayers = useAppSelector(selectTotalPlayers)
+  if ((totalPlayers === -1)) {
+    navigate(`/game`)
+  }
+
   const dispatch = useAppDispatch()
 
   const width = useAppSelector(selectWidth)
@@ -68,19 +72,18 @@ export const GamePlay = () => {
   const card = useAppSelector(selectCard)
   const cards = useAppSelector(selectCards)
   const activeCard = useAppSelector(selectActiveCard)
-  const totalPlayers = useAppSelector(selectTotalPlayers)
+
   const activePlayer = useAppSelector(selectActivePlayer)
   const settings = useAppSelector(selectSettings)
   const userState = useAppSelector(selectUser)
-  const user = transformUserDTOtoUser(userState)
-  const login = user.login;
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
 
-  if ((totalPlayers === -1)) throw new Error('Select total players!')
-
   useEffect(() => {
+    if ((totalPlayers === -1)) {
+      navigate(`/game`)
+    }
     const context = canvasRef.current?.getContext('2d',{willReadFrequently:true})
     if (context) {
       setContext(context)
@@ -99,8 +102,8 @@ export const GamePlay = () => {
         }
       } else if (settings === 'online') {
         dispatch(fetchLeaderboard());
-        login && dispatch(addPlayer({  
-          'login': login,
+        userState.login && dispatch(addPlayer({  
+          'login': userState.login,
           'words': [],
           'score': 0,
           'enabled': true
@@ -186,16 +189,22 @@ export const GamePlay = () => {
     }
   }
 
-  return (
-    <CanvasContext.Provider value={{ context: context }}>
-      <canvas
-        ref={ canvasRef }
-        width={ width }
-        height={ height }
-        onClick={ handleCanvasClick }
-        onMouseMove={ handleCanvasMove }
-      ></canvas>
-      <Game />
-    </CanvasContext.Provider>
-)
+  if (totalPlayers !== -1) {
+    return (
+      <CanvasContext.Provider value={{ context: context }}>
+        <canvas
+          ref={ canvasRef }
+          width={ width }
+          height={ height }
+          onClick={ handleCanvasClick }
+          onMouseMove={ handleCanvasMove }
+        ></canvas>
+        <Game />
+      </CanvasContext.Provider>
+    )
+  } else {
+    return (
+      null
+    )
+  }
 }

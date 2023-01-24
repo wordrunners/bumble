@@ -7,25 +7,22 @@ dotenv.config()
 import express from 'express'
 import * as fs from 'fs'
 import * as path from 'path'
-import { PRELOADED_STATE } from './preloadedState'
-// DB подключиться в следующих спринтах
-// import { createClientAndConnect } from './db'
+import { createClientAndConnect } from './db';
 
-const isDev = () => process.env.NODE_ENV === 'development'
+const port = Number(process.env.SERVER_PORT) || 5000
 
-async function startServer() {
+async function createServer(isDev = process.env.NODE_ENV === 'development') {
+  await createClientAndConnect();
   const app = express()
+  app.disable('x-powered-by').enable('trust proxy')
   app.use(cors())
-  const port = Number(process.env.SERVER_PORT) || 5000
-
-  // createClientAndConnect()
 
   let vite: ViteDevServer | undefined;
   const distPath = path.dirname(require.resolve('client/dist/index.html'))
   const srcPath = path.dirname(require.resolve('client'))
-  const ssrClientPath = require.resolve('client/ssr-dist/client.cjs')
+  const ssrClientPath = require.resolve('client/ssr-dist/ssr.cjs')
 
-  if (isDev()) {
+  if (isDev) {
     vite = await createViteServer({
       server: { middlewareMode: true },
       root: srcPath,
@@ -35,14 +32,11 @@ async function startServer() {
     app.use(vite.middlewares)
   }
 
-  app.get('/api', (_, res) => {
-    res.json('👋 Howdy from the server :)')
-  })
-
-
-  if (!isDev()) {
+  if (!isDev) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))
   }
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: true }))
 
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
@@ -50,42 +44,47 @@ async function startServer() {
     try {
       let template: string;
       let render;
+      let store
       
-      if (!isDev()) {
+      if (!isDev) {
         template = fs.readFileSync(
           path.resolve(distPath, 'index.html'),
           'utf-8',
         )
         render = (await import(ssrClientPath)).render
+        store = (await import(ssrClientPath)).store
       } else {
         template = fs.readFileSync(
           path.resolve(srcPath, 'index.html'),
           'utf-8',
         )
         template = await vite!.transformIndexHtml(url, template)
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).render;
+        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'src/ssr.tsx'))).render;
+        store = (await vite!.ssrLoadModule(path.resolve(srcPath, 'src/ssr.tsx'))).store;
       }
       
-      const appHtml = await render()
+      const appHtml = await render(url)
 
-      const state = `
-        <script> window.__PRELOADED_STATE__=${JSON.stringify(PRELOADED_STATE)}</script>
-      `;
+      const state = store.getState()
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml + state)
+      const preloadedState = `<script>window.__PRELOADED_STATE__  = ${JSON.stringify(
+        state
+      )}</script>`
+
+      const html = template.replace(`<!--ssr-outlet-->`, appHtml + preloadedState)
   
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
-      if (isDev()) {
+      if (isDev) {
         vite!.ssrFixStacktrace(e as Error)
       }
       next(e)
     }
   })
 
-  app.listen(port, () => {
-    console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
-  })
+  return { app }
 }
 
-startServer()
+createServer().then(({ app }) => app.listen(port, () => {
+  console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
+}))

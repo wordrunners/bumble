@@ -1,11 +1,12 @@
-import { App } from './src/App'
+import { App } from './App'
 import { renderToString } from 'react-dom/server'
-import React from 'react'
 import { Provider } from 'react-redux'
-import { store } from './src/store/store'
+import { setupStore } from '@/store/store'
 import { StaticRouter } from 'react-router-dom/server'
 
-export function render(url) {
+export const store = setupStore()
+
+export function render(url: string | Partial<Location>) {
   return renderToString(
     <StaticRouter location={url}>
       <Provider store={store}>

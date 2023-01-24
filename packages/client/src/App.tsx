@@ -1,19 +1,21 @@
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 import { Router } from '@/pages'
 import { MusicPlayer } from '@/components/MusicPlayer'
 
 export function App() {
-  useEffect(() => {
-      const fetchServerData = async () => {
-        const url = `http://localhost:${__SERVER_PORT__}/api`
-        const response = await fetch(url)
-        const data = await response.json()
-        console.log(data)
-      }
-    fetchServerData()
-  }, []);
 
-  // // --- При SSR - navigator is not defined ---
+  // TODO - Узнать зачем это
+  // useEffect(() => {
+  //     const fetchServerData = async () => {
+  //       const url = `http://localhost:${__SERVER_PORT__}/api`
+  //       const response = await fetch(url)
+  //       const data = await response.json()
+  //       console.log(data)
+  //     }
+  //   fetchServerData()
+  // }, []);
+
+  // TODO--- При SSR - navigator is not defined ---
   //
   // function startServiceWorker() {
   //   if ("serviceWorker" in navigator) {

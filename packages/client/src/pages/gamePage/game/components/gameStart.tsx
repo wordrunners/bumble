@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { 
   CanvasContext, 
   useAppSelector, 
-  useAppDispatch } from '@/hooks'
+  useAppDispatch,
+  useAuth } from '@/hooks'
 import {
   selectHeight,
   selectWidth,
@@ -16,7 +17,7 @@ import {
   setActiveSettings,
 } from '../core/gameSlice'
 import {
-  selectCheckAuth
+  fetchUser
 } from '@/store/authSlice'
 import {
   setActiveLeader
@@ -32,17 +33,18 @@ export const GameStart = () => {
   const width = useAppSelector(selectWidth)
   const height = useAppSelector(selectHeight)
 
-  const authorized = useAppSelector(selectCheckAuth)
+  const { user } = useAuth();
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
 
   let settingsLines: Settings = 'default'
   
-  if (!authorized) {
-    settingsLines = 'local'
-    dispatch(setActiveSettings('local'))
-  } 
+  useEffect(() => {
+    if (!user) {
+      dispatch(fetchUser());
+    }
+  }, []);
 
   useEffect(() => {
     const context = canvasRef.current?.getContext('2d',{willReadFrequently:true})
@@ -64,10 +66,8 @@ export const GameStart = () => {
         settingsLines = 'default'
         break
       case 'ArrowDown':
-        if (authorized) {
-          settingsLines = 'online'
-          dispatch(setActiveSettings('online'))
-        }
+        settingsLines = 'online'
+        dispatch(setActiveSettings('online'))
         break
       case 'ArrowUp':
         settingsLines = 'local'
