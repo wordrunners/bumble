@@ -8,6 +8,7 @@ import express from 'express'
 import * as fs from 'fs'
 import * as path from 'path'
 import { createClientAndConnect } from './db';
+import { router } from './src/Router'
 
 const port = Number(process.env.SERVER_PORT) || 5000
 
@@ -37,6 +38,7 @@ async function createServer(isDev = process.env.NODE_ENV === 'development') {
   }
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
+  app.use(router);
 
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
@@ -86,5 +88,5 @@ async function createServer(isDev = process.env.NODE_ENV === 'development') {
 }
 
 createServer().then(({ app }) => app.listen(port, () => {
-  console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
-}))
+    console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
+  }))

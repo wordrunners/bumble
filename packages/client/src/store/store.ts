@@ -4,12 +4,14 @@ import leaderBoardReducer from '@/store/leaderBoardSlice';
 import { authReducer } from './authSlice';
 import userReducer  from './userSlice';
 import { combineReducers } from 'redux'
+import boardsReducer from './boards/boardsSlice'
 
 const RootReducer = combineReducers({
   game: gameReducer,
   auth: authReducer,
   user: userReducer,
   leaderBoard: leaderBoardReducer,
+  boards: boardsReducer,
 })
 
 export const setupStore = (state?: RootState) => {

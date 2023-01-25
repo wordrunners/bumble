@@ -1,15 +1,19 @@
-import { StartPage } from '@/pages/startPage'
-import { ErrorPage } from '@/pages'
-import { GameStartPage } from '@/pages'
-import { GamePlayPage } from '@/pages'
-import { GameOverPage } from '@/pages'
-import { SigninPage } from './signinPage'
-import { SignupPage } from './signupPage'
-import { ProfilePage } from './profilePage'
-import { ForumPage } from './forumPage'
-import { ChangePasswordPage } from '@/pages/changePasswordPage'
-import { LeaderboardPage } from './leaderboardPage'
 import { Route, Routes } from 'react-router-dom'
+import { 
+  StartPage,
+  SigninPage,
+  SignupPage,
+  ForumPage,
+  ChangePasswordPage,
+  LeaderboardPage,
+  GamePlayPage,
+  GameStartPage,
+  GameOverPage,
+  BoardPage,
+  BoardsPage,
+  ErrorPage,
+  ProfilePage,
+} from '@/pages'
 import { 
   ROOT_ROUTE,
   GAME_ROUTE,
@@ -21,6 +25,8 @@ import {
   CHANGE_PASSWORD_ROUTE,
   LEADERBOARD_ROUTE,
   FORUM_ROUTE,
+  BOARDS_ROUTE,
+  BOARD_ROUTE,
   ERROR_ROUTE,
 } from '@/data/routes'
 
@@ -37,6 +43,8 @@ export const Router = () => {
       <Route path={CHANGE_PASSWORD_ROUTE} element={<ChangePasswordPage />} />
       <Route path={LEADERBOARD_ROUTE} element={<LeaderboardPage />} />
       <Route path={FORUM_ROUTE} element={<ForumPage />} />
+      <Route path={BOARDS_ROUTE} element={<BoardsPage />} />
+      <Route path={BOARD_ROUTE} element={<BoardPage />} />
       <Route path={ERROR_ROUTE} element={<ErrorPage />}/>
     </Routes>
   )
