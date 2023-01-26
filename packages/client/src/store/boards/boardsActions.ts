@@ -19,7 +19,7 @@ export const addBoard = createAsyncThunk(
   async (data: AddBoard, thunkAPI) => {
     try {
       const response = await axiosRequestDB.post(ADD_BOARD_ROUTE, data)
-      return await response.data
+      return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue('Ошибка в отправке данных')
     }
@@ -31,7 +31,7 @@ export const getBoards = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axiosRequestDB.get(GET_BOARDS_ROUTE)
-      return await response.data
+      return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue('Ошибка в получении данных')
     }
@@ -43,7 +43,7 @@ export const addComment = createAsyncThunk(
   async (data: AddComment, thunkAPI) => {
     try {
       const response = await axiosRequestDB.post(ADD_COMMENT_ROUTE, data)
-      return await response.data
+      return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue('Ошибка в отправке данных')
     }
@@ -54,7 +54,7 @@ export const getComments = createAsyncThunk(
   async (data: { id: number }, thunkAPI) => {
     try {
       const response = await axiosRequestDB.post(GET_COMMENTS_ROUTE, data)
-      return await response.data
+      return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue('Ошибка в отправке данных')
     }
@@ -66,7 +66,7 @@ export const addLike = createAsyncThunk(
   async (data: AddLike, thunkAPI) => {
     try {
       const response = await axiosRequestDB.post(ADD_LIKE_ROUTE, data)
-      return await response.data
+      return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue('Ошибка в отправке данных')
     }
@@ -78,7 +78,7 @@ export const getLikes = createAsyncThunk(
   async (data: { id: number }, thunkAPI) => {
     try {
       const response = await axiosRequestDB.post(GET_LIKES_ROUTE, data)
-      return await response.data
+      return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue('Ошибка в отправке данных')
     }

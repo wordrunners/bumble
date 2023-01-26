@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Button } from "../Button";
 import { GameRules } from "../GameRules";
 import { LinkButton } from "../LinkButton";
@@ -15,8 +15,8 @@ export const Header = ():JSX.Element => {
   const [isRulesOpen, setIsRulesOpen] = useState<boolean>(false);
   const { isAuth } = useAuth();
   
-  const handleOpenRules = useCallback(() => { setIsRulesOpen(true); }, []);
-  const handleCloseRules = useCallback(() => { setIsRulesOpen(false); }, []);
+  const handleOpenRules = () => { setIsRulesOpen(true); };
+  const handleCloseRules = () => { setIsRulesOpen(false); };
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { Formik, Field, Form } from 'formik';
 import { useAuth, useAppDispatch } from "@/hooks";
 import { fetchUser } from '@/store/authSlice';
@@ -20,8 +20,7 @@ export const FormBox: FC<Props> = ({parentId, boardId}): JSX.Element => {
     }
   }, []);
 
-  const onSubmit = useCallback(
-    (value: { comment: string }) => {
+  const onSubmit = (value: { comment: string }) => {
     if (user) {
       dispatch(
         addComment({
@@ -35,9 +34,9 @@ export const FormBox: FC<Props> = ({parentId, boardId}): JSX.Element => {
         return dispatch(getComments({ id: boardId }))
       })
     }
-  }, [])
+  }
 
-  if ((user)) {
+  if (user) {
     const initial = {
       parentId: parentId,
       boardId: boardId,

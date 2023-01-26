@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect } from "react";
+import { FC, useEffect } from "react";
 import { Link } from 'react-router-dom'
 import { Formik, Field, Form } from 'formik';
 import { useAuth, useAppDispatch, useAppSelector } from "@/hooks";
@@ -23,14 +23,12 @@ export const BoardsPage: FC = () => {
     dispatch(getBoards())
   }, []);
 
-  const onSubmitAddBoard = useCallback(
-    (value: { title: string, description: string, }) => {
-      dispatch(addBoard(value))
-        .then(() => { 
-          return dispatch(getBoards()) 
-        })
-      }, 
-  [])
+  const onSubmitAddBoard = (value: { title: string, description: string, }) => {
+    dispatch(addBoard(value))
+      .then(() => { 
+        return dispatch(getBoards()) 
+      })
+    }
 
   if (user) {
     

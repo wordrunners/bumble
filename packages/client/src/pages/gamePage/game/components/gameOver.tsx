@@ -29,7 +29,7 @@ export const GameOver = () => {
   const dispatch = useAppDispatch()
 
   const totalPlayers = useAppSelector(selectTotalPlayers)
-  if ((totalPlayers === -1)) {
+  if (totalPlayers === -1) {
     navigate(`/game`)
   }
 
@@ -49,7 +49,7 @@ export const GameOver = () => {
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
 
   useEffect(() => {
-    if ((totalPlayers === -1)) {
+    if (totalPlayers === -1) {
       navigate(`/game`)
     }
     const context = canvasRef.current?.getContext('2d',{willReadFrequently:true})
