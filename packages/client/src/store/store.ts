@@ -3,6 +3,7 @@ import gameReducer from '@/pages/gamePage/game/core/gameSlice';
 import leaderBoardReducer from '@/store/leaderBoardSlice';
 import { authReducer } from './authSlice';
 import userReducer  from './userSlice';
+import { themeReducer } from './themeSlice';
 import { combineReducers } from 'redux'
 
 const RootReducer = combineReducers({
@@ -10,6 +11,7 @@ const RootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
   leaderBoard: leaderBoardReducer,
+  themes: themeReducer,
 })
 
 export const setupStore = (state?: RootState) => {
