@@ -2,8 +2,6 @@
 По умолчанию запуститься на localhost:5000
 ```
 yarn docker:build
-yarn docker:stop
-yarn docker
 ```
 
 ###  Как начать разрабатывать в hot-reload режиме с БД в Docker?

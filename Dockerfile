@@ -22,9 +22,12 @@ WORKDIR /app
 COPY --from=builder /app/packages/client/ /client/
 COPY --from=builder /app/packages/server/dist/ /app/
 COPY --from=builder /app/packages/server/package.json /app/package.json
+COPY --from=builder /app/packages/server/utils/wait-for.sh /app/utils/wait-for.sh
+
+RUN apt-get -q update && apt-get -qy install netcat
+RUN chmod +x /app/utils/wait-for.sh
 
 RUN sed -i 's/"client": "0.0.0"/"client": "file:..\/client"/g' /app/package.json \
     && yarn install --production=true
 
 EXPOSE $SERVER_PORT
-CMD [ "node", "/app/index.js" ]
