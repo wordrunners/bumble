@@ -50,11 +50,13 @@ body {
   .popup__container,
   .wrap,
   .change__form,
-  .leaderboard-row,
   .auth,
   .card {
     background: var(--darkblue);
     border: none;
+  }
+  .leaderboard-row {
+    background: var(--darkblue);
   }
   .link-button_header-btn,
   .header__btn,
