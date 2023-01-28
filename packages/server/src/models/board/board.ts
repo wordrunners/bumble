@@ -9,13 +9,15 @@ import {
 import { UserModel } from './user'
 
 type Board = {
+  id?: number,
   user_id: number
   title: string
   description?: string
 }
 
 @Table({
-  tableName: 'boards',
+  // http://stackoverflow.com/questions/338156/table-naming-dilemma-singular-vs-plural-names
+  tableName: 'board',
 })
 export class BoardModel extends Model<Board> {
   @AllowNull(false)

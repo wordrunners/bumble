@@ -18,7 +18,8 @@ type Comment = {
 }
 
 @Table({
-  tableName: 'boards_comments',
+  // http://stackoverflow.com/questions/338156/table-naming-dilemma-singular-vs-plural-names
+  tableName: 'board_comment',
 })
 export class CommentModel extends Model<Comment> {
   @BelongsTo(() => BoardModel, {

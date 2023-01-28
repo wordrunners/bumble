@@ -7,7 +7,7 @@ import {
   BoardModel, 
   UserModel, 
   LikeModel, 
-} from './src/models/boards'
+} from './src/models/board'
 
 
 const {
