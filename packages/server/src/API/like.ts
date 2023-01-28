@@ -57,7 +57,7 @@ export const getCommentLikeCounter =
       const data = await LikeModel.count({
         where: { comment_id: id },
       })
-      res.send({ likes: data })
+      res.send({ likeCounter: data })
     } catch (error) {
       res.status(400).send()
       console.error(error)

@@ -9,15 +9,16 @@ import {
 import {
   addComment,
   deleteComment,
-  getCommentList
+  getCommentList,
+  updateComment
 } from '../API/comment'
 
 import {
   toggleLike,
-  getUserLikeList,
+  getUserLikeList, getCommentLikeCounter
 } from '../API/like'
 
-import { 
+import {
   BOARDS_ROUTE,
   ADD_BOARD_ROUTE,
   GET_BOARDS_ROUTE,
@@ -31,7 +32,7 @@ import {
 
   ADD_LIKE_ROUTE,
   GET_LIKES_BY_USER_ROUTE,
-  GET_LIKES_BY_COMMENT_ROUTE,
+  GET_LIKES_COUNTER_BY_COMMENT_ROUTE
 } from './routes'
 
 export const boardsRouter = (router: Router) => {
@@ -48,9 +49,9 @@ export const boardsRouter = (router: Router) => {
     .post(ADD_COMMENT_ROUTE, addComment)
     .get(GET_COMMENTS_ROUTE, getCommentList)
     .delete(DELETE_COMMENT_ROUTE, deleteComment)
-    .put(UPDATE_COMMENT_ROUTE, updateBoard)
+    .put(UPDATE_COMMENT_ROUTE, updateComment)
 
     .put(ADD_LIKE_ROUTE, toggleLike)
     .get(GET_LIKES_BY_USER_ROUTE, getUserLikeList)
-    .get(GET_LIKES_BY_COMMENT_ROUTE, getUserLikeList)
+    .get(GET_LIKES_COUNTER_BY_COMMENT_ROUTE, getCommentLikeCounter)
 }

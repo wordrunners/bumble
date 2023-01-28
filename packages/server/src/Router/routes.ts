@@ -11,5 +11,4 @@ export const DELETE_COMMENT_ROUTE = `/delete-comment`;
 
 export const ADD_LIKE_ROUTE = `/add-like`;
 export const GET_LIKES_BY_USER_ROUTE = `/get-user-likes`;
-
-export const GET_LIKES_BY_COMMENT_ROUTE = `/get-likes`;
+export const GET_LIKES_COUNTER_BY_COMMENT_ROUTE = `/get-likes`;
