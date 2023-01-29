@@ -27,6 +27,7 @@ export type BoardDTO = {
   title: string
   description?: string
   id: number
+  createdAt: Date | string
 }
 
 export interface Board {

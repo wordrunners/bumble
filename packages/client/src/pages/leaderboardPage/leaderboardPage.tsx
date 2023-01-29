@@ -9,12 +9,14 @@ import { useEffect } from 'react';
 import { LinkButton } from '@/components/LinkButton';
 import { fetchUser, selectUser } from '@/store/authSlice';
 import { UserDTO } from '@/api/types';
+import { Loader } from '@/components/Loader';
 
 export const LeaderboardPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const leaders = useAppSelector(selectLeaders);
   const user: UserDTO = useAppSelector(selectUser);
+  const { loading } = useAppSelector(state => state.leaderBoard);
 
   useEffect(() => {
     dispatch(fetchLeaderboard());
@@ -37,13 +39,20 @@ export const LeaderboardPage = (): JSX.Element => {
           <h2 className='leaderboard__title'>ЛИДЕРЫ</h2>
           <img src={Bag} className='leaderboard__icon leaderboard__icon_rotated' />
         </div>
-        <div className='leaderboard__list'>
-          {sortedLeaders.slice(0,3).map((leader: Leader, idx: number) => (
-            <LeaderboardRow key={leader.data.id} leader={leader} place={idx + 1} currentLeader={currentLeader}/>
-          ))}
-        </div>
-        {currentLeader.data && !isCurrentLeaderInLeaders &&
-          <LeaderboardRow leader={currentLeader} place={currentLeaderPlace} currentLeader={currentLeader}/>
+        {loading
+          ? <Loader />
+          : (
+            <>
+              <div className='leaderboard__list'>
+                {sortedLeaders.slice(0,3).map((leader: Leader, idx: number) => (
+                  <LeaderboardRow key={leader.data.id} leader={leader} place={idx + 1} currentLeader={currentLeader}/>
+                ))}
+              </div>
+                {currentLeader.data && !isCurrentLeaderInLeaders &&
+                  <LeaderboardRow leader={currentLeader} place={currentLeaderPlace} currentLeader={currentLeader}/>
+                }
+            </>
+          )
         }
       </div>
     </section>

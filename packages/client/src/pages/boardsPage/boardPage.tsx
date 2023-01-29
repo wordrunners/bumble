@@ -9,6 +9,7 @@ import {
   selectBoardsData,
 } from '@/store/boards'
 import { FormBox, CommentBox } from './components'
+import { Loader } from "@/components/Loader";
 
 
 type boardIdParams = {
@@ -41,7 +42,7 @@ export const BoardPage: FC = () => {
 
   if ((user) && (board)) {
     return (
-      <div className="page">
+      <section className="forum">
         Board Page
         <FormBox
           parentId={null}
@@ -53,7 +54,7 @@ export const BoardPage: FC = () => {
           <i>Описание:{board.description}</i><br></br>
           ==================<br></br>
           {status !== 'FETCH_FULFILLED' ? (
-              <>loading</>
+              <Loader />
             ) : (
               <>
                 {comments?.length ? (
@@ -83,13 +84,11 @@ export const BoardPage: FC = () => {
               </>
             )}
         </div>
-      </div>
+      </section>
     )
   } else {
     return (
-      <div className="page">
-        Board Page
-      </div>
+      <Loader />
     )
   }
 }
