@@ -8,6 +8,7 @@ import './changePasswordPage.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import {selectUser, changePass}  from '@/store/userSlice'
 import { AppDispatch } from '@/store/store'
+import { YA_API } from "@/data/api"
 
 
 export const ChangePasswordPage: FC<User> = () => {
@@ -15,7 +16,7 @@ export const ChangePasswordPage: FC<User> = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch<AppDispatch>();
   const avatarUser = user.avatar
-    ? `${__API_ENDPOINT__}/resources${user.avatar}`
+    ? `${YA_API}/resources${user.avatar}`
     : avatar
 
   const [oldPassword, setOldPassword] = useState('')

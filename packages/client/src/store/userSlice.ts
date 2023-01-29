@@ -2,12 +2,13 @@ import { createSlice, createSelector, createAsyncThunk } from '@reduxjs/toolkit'
 import { User, ProfileState } from '@/types/user'
 import { RootState } from '@/store/store';
 import { transformUserDTOtoUser, transformUsertoUserDTO} from '@/utils'
+import { YA_API } from "@/data/api"
 
 export const changeProfile = createAsyncThunk(
   'profile/changeProfile',
   async (profie:User, thunkAPI) => {
     try {
-      const response = await fetch(`${__API_ENDPOINT__}/user/profile`,
+      const response = await fetch(`${YA_API}/user/profile`,
       {
         method: 'PUT',
         credentials: 'include',

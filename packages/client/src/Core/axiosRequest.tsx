@@ -1,14 +1,10 @@
 import axios from 'axios'
+import { YA_API, HOST } from "@/data/api"
 
-const isUser = () => typeof window !== 'undefined'
-const getLocation = (): string => location.origin
-const HOST = isUser() 
-  ? getLocation() 
-  : ''
 
 export const axiosRequest = axios
   .create({
-    baseURL: __API_ENDPOINT__,
+    baseURL: YA_API,
     headers: { 'Content-Type': 'application/json' },
     responseType: 'json',
     withCredentials: true,
