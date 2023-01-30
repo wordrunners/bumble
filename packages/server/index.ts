@@ -3,7 +3,8 @@ import cors from 'cors'
 import { createServer as createViteServer } from 'vite'
 import type { ViteDevServer } from 'vite';
 dotenv.config()
-import proxy from './src/middleware/proxy'
+import { proxy } from './src/middleware/proxy'
+import { CLIENT_API } from './src/data'
 import express from 'express'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -17,7 +18,6 @@ async function createServer(isDev = process.env.NODE_ENV === 'development') {
   const app = express()
   app.disable('x-powered-by').enable('trust proxy')
   app.use(cors())
-  app.use('/api', proxy);
 
   let vite: ViteDevServer | undefined;
   const distPath = path.dirname(require.resolve('client/dist/index.html'))
@@ -40,6 +40,7 @@ async function createServer(isDev = process.env.NODE_ENV === 'development') {
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
   app.use(router);
+  app.use(CLIENT_API, proxy);
 
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;

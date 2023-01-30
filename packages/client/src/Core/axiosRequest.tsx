@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { API } from "@/data/api"
 
 const isUser = () => typeof window !== 'undefined'
 const getLocation = (): string => location.origin
@@ -8,7 +9,7 @@ const HOST = isUser()
 
 export const axiosRequest = axios
   .create({
-    baseURL: __API_ENDPOINT__,
+    baseURL: API,
     headers: { 'Content-Type': 'application/json' },
     responseType: 'json',
     withCredentials: true,
