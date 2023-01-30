@@ -37,7 +37,7 @@ export const BoardsPage: FC = () => {
     }
 
   if (user) {
-    
+
     const initial = {
       title: '',
       description: '',
@@ -55,7 +55,7 @@ export const BoardsPage: FC = () => {
                 <Loader />
               ) : (
                 <>
-                  {boards?.slice(0).reverse().map(({ title, description, id, createdAt }) => {
+                  {boards?.map(({ title, description, id, createdAt }) => {
                     const formattedDate: string = format(new Date(createdAt), "dd-MM-yyyy, HH:mm");
                     return <Link to={`${BOARDS_ROUTE}/${id}`} key={`link-${id}`} className='forum__link'>
                       <SubforumRow
