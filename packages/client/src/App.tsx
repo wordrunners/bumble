@@ -1,6 +1,10 @@
 // import { useEffect } from 'react'
 import { Router } from '@/pages'
 import { MusicPlayer } from '@/components/MusicPlayer'
+import { ThemeTogglerButton } from '@/components/ThemeTogglerButton';
+import { ThemeContext } from './utils/themeContext';
+import { useAppSelector } from './hooks';
+import { selectTheme } from './store/themeSlice';
 
 export function App() {
 
@@ -30,12 +34,19 @@ export function App() {
   // }
 
   // startServiceWorker();
-
+  const theme = useAppSelector(selectTheme);
 
   return (
-    <div className="app">
-      <Router />
-      <MusicPlayer></MusicPlayer>
-    </div>
+  <ThemeContext.Provider value={theme}>
+    <ThemeContext.Consumer>
+    {theme => (
+      <div className={`app ${theme.style}`}>
+        <Router />
+        <MusicPlayer></MusicPlayer>
+        <ThemeTogglerButton/>
+      </div>
+    )}
+    </ThemeContext.Consumer>
+  </ThemeContext.Provider>
   )
 }
