@@ -2,15 +2,17 @@ import { FC, useState } from 'react'
 import { addLike, Comment, selectBoardsData } from '@/store/boards'
 import { useAuth, useAppDispatch, useAppSelector } from "@/hooks";
 import { FormBox, Like, CommentsCounter } from '.'
-
+import { Loader } from '@/components/Loader';
+import '../boardPage.scss';
 
 type Props = {
   like: boolean | undefined
   comment: Comment
   childComment: Comment[]
+  userLogin: string;
 }
 
-export const CommentBox: FC<Props> = ({like, comment, childComment}): JSX.Element => {
+export const CommentBox: FC<Props> = ({like, comment, childComment, userLogin}): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const { user } = useAuth();
@@ -35,13 +37,15 @@ export const CommentBox: FC<Props> = ({like, comment, childComment}): JSX.Elemen
   }
 
   return (
-    <div className="comment-box">
+    <div className="forum__comment-box">
       {user ? (
-        <div>
-          <br></br>
-          Комментарий:
-          <b>"<i>{comment.comment}</i>"</b>
-
+        <>
+          <p className='forum__text forum__text_login'>{userLogin}</p>
+          <p className='forum__text'>{comment.comment}</p>
+          <Like
+            color={like ? '#dedc00' : 'grey'}
+            onClick={() => clickLike(!like)}
+          />
           {!comment.parent_id ? (
             <CommentsCounter 
               open={open}
@@ -52,7 +56,7 @@ export const CommentBox: FC<Props> = ({like, comment, childComment}): JSX.Elemen
 
           {open ? (
             status !== 'FETCH_FULFILLED' ? (
-                <>loading</>
+                <Loader />
               ) : (
                 <>
                   {childComment?.length ? (
@@ -67,7 +71,7 @@ export const CommentBox: FC<Props> = ({like, comment, childComment}): JSX.Elemen
                       })}
                     </>
                   ) : (
-                    <>Ответы не найдены</>
+                    null
                   )}
                   <FormBox
                     parentId={comment.id}
@@ -76,11 +80,7 @@ export const CommentBox: FC<Props> = ({like, comment, childComment}): JSX.Elemen
                 </>
               )
             ) : null }
-          <Like
-            color={like ? 'red' : 'grey'}
-            onClick={() => clickLike(!like)}
-          />
-        </div>
+        </>
       ) : null}
     </div>
   )

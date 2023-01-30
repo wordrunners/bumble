@@ -54,6 +54,11 @@
         width: 100%;
         display: flex;
         flex-direction: column;
+
+        &_comments {
+            flex-direction: row;
+            margin-top: auto;
+        }
     }
 
     &__field {
@@ -66,20 +71,89 @@
         font-size: 14px;
         line-height: 20px;
         max-width: 240px;
+
         &_desc {
             max-width: 80%;
             margin-bottom: 24px;
         }
+
+        &_comments {
+            margin-bottom: 0;
+            margin-right: 16px;
+            min-width: 440px;
+        }
+
         &::placeholder {
             color: var(--background2);
         }
     }
 
+    &__field_answer {
+        margin-bottom: 0;
+        margin-right: 16px;
+        min-width: 500px;
+        border: 1px solid var(--word3);
+
+        &::placeholder {
+            color: var(--word3);
+        }
+    }
     &__button {
         align-self: center;
         height: 54px;
         &:hover {
             background-color: var(--word1)
         };
+
+        &_comments {
+            height: 38px;
+            font-size: 18px;
+        }
     }
+
+    &__topic-title {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0 0 4px;
+        word-wrap: break-word;
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+    &__topic-desc {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0 0 20px;
+        word-wrap: break-word;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+     &__like {
+        cursor: pointer;
+        margin-left: auto;
+     }
+
+     &__comment-list {
+        width: 100%;
+     }
+
+     &__comment-box {
+        background-color: var(--background2);
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 8px;
+     }
+
+     &__text {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 12px;
+
+        &_login {
+            margin-bottom: 2px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+     }
 }
