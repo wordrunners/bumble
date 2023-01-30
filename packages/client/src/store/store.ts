@@ -5,6 +5,7 @@ import { authReducer } from './authSlice';
 import userReducer  from './userSlice';
 import { themeReducer } from './themeSlice';
 import { combineReducers } from 'redux'
+import boardsReducer from './boards/boardsSlice'
 
 const RootReducer = combineReducers({
   game: gameReducer,
@@ -12,6 +13,7 @@ const RootReducer = combineReducers({
   user: userReducer,
   leaderBoard: leaderBoardReducer,
   themes: themeReducer,
+  boards: boardsReducer,
 })
 
 export const setupStore = (state?: RootState) => {

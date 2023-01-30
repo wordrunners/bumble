@@ -12,7 +12,13 @@
     "test": "lerna run test",
     "lint": "lerna run lint",
     "format": "lerna run format",
-    "preview": "yarn build && lerna run preview --parallel"
+    "preview": "yarn build && lerna run preview --parallel",
+    "docker": "docker-compose up",
+    "docker:build": "docker-compose up --build",
+    "docker:db": "docker-compose up postgres",
+    "docker:pg": "docker-compose up pgadmin",
+    "docker:dev": "yarn docker:db && yarn dev",
+    "docker:stop": "docker-compose stop"
   },
   "license": "MIT",
   "workspaces": [

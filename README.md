@@ -1,3 +1,35 @@
+###  Как собрать и запустить Сервер и БД в Docker?
+По умолчанию запуститься на localhost:5000
+```
+yarn docker:build
+```
+
+###  Как начать разрабатывать в hot-reload режиме с БД в Docker?
+По умолчанию запуститься на localhost:5000. После сборки Docker сервисов. В отдельных терминалах:
+
+```
+yarn docker:db
+```
+```
+yarn dev
+```
+
+### Как зайти в БД через pgAdmin?
+В скобках указано значение по умолчанию из файла .env.sample
+
+1. yarn docker:pg
+2. localhost:8080
+- PGADMIN_DEFAULT_EMAIL (admin@admin.com)
+- PGADMIN_DEFAULT_PASSWORD (secret)
+3. Add New Server -> General
+- name - LocalDB
+4. Add New Server -> ConnectionHost
+- name - postgres
+- Port - POSTGRES_PORT (5432)
+- Username - POSTGRES_PASSWORD (postgres)
+- Password - POSTGRES_USER (postgres)
+5. yarn docker:stop
+
 ### Как начать разрабатывать в пустой папке с SSR
 Версия в dev:
 ```

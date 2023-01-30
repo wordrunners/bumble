@@ -11,6 +11,10 @@ import {
 } from '@/hooks'
 import { logout, fetchUser, signinOAuth } from '@/store/authSlice';
 import { addPlayer } from '@/pages/gamePage/game/core/gameSlice';
+import { 
+  SIGNIN_ROUTE,
+  GAME_ROUTE
+} from '@/data/routes'
 
 export const StartPage = (): JSX.Element => {
   const dispatch = useAppDispatch()
@@ -47,11 +51,11 @@ export const StartPage = (): JSX.Element => {
       <Header />
       <div className={cn('start__wrapper')}>
         <img src={Logo} alt='logo' className={cn('start__logo')} />
-        <LinkButton to='/game' modifier='game-btn'>НАЧАТЬ ИГРУ</LinkButton>
+        <LinkButton to={GAME_ROUTE} modifier='game-btn'>НАЧАТЬ ИГРУ</LinkButton>
         {isAuth ? (
           <Button className="exit-btn" onClick={onExit}>ВЫЙТИ</Button>
         ) : (
-          <LinkButton to='/signin' modifier='login-btn'>ВОЙТИ</LinkButton>
+          <LinkButton to={SIGNIN_ROUTE} modifier='login-btn'>ВОЙТИ</LinkButton>
         )}
       </div> 
     </section>

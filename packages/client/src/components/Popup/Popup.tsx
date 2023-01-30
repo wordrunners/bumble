@@ -1,4 +1,4 @@
-import { FC, ReactNode, useCallback } from "react";
+import { FC, ReactNode } from "react";
 import CloseIcon from '@/assets/icons/close-icon.svg';
 import { Button } from "../Button";
 import cn from 'classnames';
@@ -17,10 +17,10 @@ export const Popup: FC<Props> = ({
     title, children, onSubmit, onClose, buttonName = 'Понятно', isOpen,
   }): JSX.Element => {
 
-    const handleSubmit = useCallback((): void => {
+    const handleSubmit = (): void => {
         onSubmit && onSubmit();
         onClose();
-    }, []);
+    };
 
     const handleOverlayClose = (e: any): void => {
         if (e.target !== e.currentTarget) {
