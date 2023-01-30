@@ -1,4 +1,4 @@
-// import { SubforumRow } from '../components/SubforumRow'
+import { SubforumRow } from '../components/SubforumRow'
 // import { render } from '@testing-library/react'
 
 // test('SubforumRow', async () => {
