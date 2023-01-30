@@ -14,38 +14,26 @@ Object {
         <div
           class="subforum-description subforum-column"
         >
-          <h4>
-            <a
-              href="#"
-            >
-              This is SubforumRow
-            </a>
+          <h4
+            class="subforum-row__title"
+          >
+            This is SubforumRow
           </h4>
-          <p />
+          <div
+            class="subforum-row__wrapper"
+          >
+            <p
+              class="subforum-row__description"
+            />
+            <p
+              class="subforum-row__date"
+            />
+          </div>
         </div>
         <div
           class="subforum-stats subforum-column center"
         >
-          <span>
-             | 
-          </span>
-        </div>
-        <div
-          class="subforum-info subforum-column"
-        >
-          <b>
-            <a
-              href=""
-            />
-          </b>
-           
-          от 
-          <a
-            href=""
-          />
-           
-          <br />
-          <small />
+          <span />
         </div>
       </div>
     </div>
@@ -60,38 +48,26 @@ Object {
       <div
         class="subforum-description subforum-column"
       >
-        <h4>
-          <a
-            href="#"
-          >
-            This is SubforumRow
-          </a>
+        <h4
+          class="subforum-row__title"
+        >
+          This is SubforumRow
         </h4>
-        <p />
+        <div
+          class="subforum-row__wrapper"
+        >
+          <p
+            class="subforum-row__description"
+          />
+          <p
+            class="subforum-row__date"
+          />
+        </div>
       </div>
       <div
         class="subforum-stats subforum-column center"
       >
-        <span>
-           | 
-        </span>
-      </div>
-      <div
-        class="subforum-info subforum-column"
-      >
-        <b>
-          <a
-            href=""
-          />
-        </b>
-         
-        от 
-        <a
-          href=""
-        />
-         
-        <br />
-        <small />
+        <span />
       </div>
     </div>
   </div>,
