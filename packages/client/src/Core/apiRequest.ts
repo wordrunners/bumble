@@ -1,3 +1,4 @@
+import { API } from "@/data/api"
 const sleep = (ms = 300) => new Promise(res => setTimeout(res, ms))
 
 export function request<T>({
@@ -9,7 +10,7 @@ export function request<T>({
 }: any): Promise<T> {
   if (isFormData) {
     return sleep().then(() =>
-      fetch(`${__API_ENDPOINT__}${path}`, {
+      fetch(`${API}${path}`, {
         method,
         credentials: 'include',
         body: data,
@@ -26,7 +27,7 @@ export function request<T>({
     )
   } else {
     return sleep().then(() =>
-      fetch(`${__API_ENDPOINT__}${path}`, {
+      fetch(`${API}${path}`, {
         method,
         credentials: 'include',
         headers: headers ? headers : { 'Content-Type': 'application/json' },

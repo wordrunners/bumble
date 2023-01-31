@@ -6,6 +6,7 @@ import clip from '@/assets/images/clip.svg'
 import send from '@/assets/images/send.svg'
 import { hasError } from '@/utils/apiHasError'
 import {transformUserDTOtoUser} from '@/utils'
+import { API } from "@/data/api"
 
 export type User = {
   id?: number
@@ -22,7 +23,7 @@ export const Avatar: FC<User> = props => {
   const [fileSelected, setFileSelected] = useState<File>()
 
   const avatarUser = props.avatar
-    ? `${__API_ENDPOINT__}/resources${props.avatar}`
+    ? `${API}/resources${props.avatar}`
     : avatar
 
   const displayName = props.displayName ? props.displayName : 'User'
