@@ -10,6 +10,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { createClientAndConnect } from './db';
 import { router } from './src/Router'
+import  helmet  from 'helmet'
 
 const port = Number(process.env.SERVER_PORT) || 5000
 
@@ -18,6 +19,12 @@ async function createServer(isDev = process.env.NODE_ENV === 'development') {
   const app = express()
   app.disable('x-powered-by').enable('trust proxy')
   app.use(cors())
+  
+  app.use(helmet.xssFilter())
+  app.use(function (_, res, next) {
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    next();
+  });
 
   let vite: ViteDevServer | undefined;
   const distPath = path.dirname(require.resolve('client/dist/index.html'))
