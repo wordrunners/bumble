@@ -1,9 +1,10 @@
 import { FC, useState } from 'react'
 import { addLike, Comment, selectBoardsData } from '@/store/boards'
 import { useAuth, useAppDispatch, useAppSelector } from "@/hooks";
-import { FormBox, Like, CommentsCounter } from '.'
+import { FormBox, Like } from '.'
 import { Loader } from '@/components/Loader';
 import '../boardPage.scss';
+import { format } from "date-fns";
 
 type Props = {
   like: boolean | undefined
@@ -17,6 +18,7 @@ export const CommentBox: FC<Props> = ({like, comment, childComment, userLogin}):
 
   const { user } = useAuth();
   const {  status } = useAppSelector(selectBoardsData)
+  const formattedDate: string = format(new Date(comment?.createdAt), "dd-MM-yyyy, HH:mm");
 
   const clickLike = (value: boolean) => {
     if (user) {
@@ -38,38 +40,41 @@ export const CommentBox: FC<Props> = ({like, comment, childComment, userLogin}):
 
   return (
     <div className="forum__comment-box">
-      {user ? (
+      {user && (
         <>
-          <p className='forum__text forum__text_login'>{userLogin}</p>
-          <p className='forum__text'>{comment.comment}</p>
-          <Like
-            color={like ? '#dedc00' : 'grey'}
-            onClick={() => clickLike(!like)}
-          />
-          {!comment.parent_id ? (
-            <CommentsCounter 
-              open={open}
-              counter={childComment?.length}
-              onClick={handleOpen}
+          <div className='forum__details'>
+            <p className='forum__text forum__text_login'>{userLogin}</p>
+            <p className="forum__date">{formattedDate}</p>
+            <Like
+              color={like ? '#dedc00' : 'grey'}
+              onClick={() => clickLike(!like)}
             />
-          ) : null}
+          </div>
+          <p className='forum__text'>{comment.comment}</p>
+          
+          {!comment.parent_id && (
+            <p onClick={handleOpen} className='forum__comments-counter'>
+              {!open ?  (!childComment?.length ? 'Ответить' : 'Ответы: ' + childComment?.length) : 'Скрыть'}
+            </p>
+          )}
 
-          {open ? (
+          {open && (
             status !== 'FETCH_FULFILLED' ? (
                 <Loader />
               ) : (
                 <>
                   {childComment?.length ? (
-                    <>
+                    <div className='forum__answers'>
                       Ответы:
                       {childComment?.map(comment => {
                         return (
                           <div key={`comment-${comment.id}`}>
-                            {comment.user_login}: <b>"<i>{comment.comment}</i>"</b>
+                            <p className='forum__text forum__text_login'>{comment.user_login}</p>
+                            <p className='forum__text'>{comment.comment}</p>
                           </div>
                         )
                       })}
-                    </>
+                    </div>
                   ) : (
                     null
                   )}
@@ -79,9 +84,9 @@ export const CommentBox: FC<Props> = ({like, comment, childComment, userLogin}):
                   />
                 </>
               )
-            ) : null }
+          )}
         </>
-      ) : null}
+      )}
     </div>
   )
 }
