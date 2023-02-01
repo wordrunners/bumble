@@ -8,9 +8,7 @@
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test": "jest .",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "test": "jest ."
   },
   "dependencies": {
     "http-proxy-middleware": "2.0.6",
