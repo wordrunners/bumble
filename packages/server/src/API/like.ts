@@ -6,10 +6,22 @@ export const toggleLike =
     try {
       const { isLike, commentId, userId, userLogin } = req.body
 
-      await UserModel.findOrCreate({
-        where: { id: userId },
-        defaults: { id: userId, login: userLogin },
+      const [user, isCreated] = await UserModel.findOrCreate({
+        where: { login: userLogin },
+        defaults: { login: userLogin },
       })
+
+      if(isCreated || user.id) {
+        await LikeModel.create({
+          comment_id: commentId,
+          isLike: isLike,
+          user_id: userId,
+        })
+        res.send('OK')
+      } else {
+        res.status(400).send()
+        console.error('User was not find or created');
+      }
 
       const foundItem = await LikeModel.findOne({
         where: { comment_id: commentId, user_id: userId },

@@ -7,17 +7,22 @@ import {
 export const addBoard =
   async (req: Request, res: Response) => {
     try {
-      const { title, description, userId, userLogin } = req.body
-      await UserModel.findOrCreate({
-        where: { id: userId },
-        defaults: { id: userId, login: userLogin },
+      const { title, description, userLogin } = req.body
+      const [user, isCreated] = await UserModel.findOrCreate({
+        where: { login: userLogin },
+        defaults: { login: userLogin },
       })
-      await BoardModel.create({
-        title: title,
-        description: description,
-        user_id: userId,
-      })
-      res.send('OK')
+      if(isCreated || user.id) {
+        await BoardModel.create({
+          title: title,
+          description: description,
+          user_id: userLogin,
+        })
+        res.send('OK')
+      } else {
+        res.status(400).send()
+        console.error('User was not find or created');
+      }
     } catch (error) {
       res.status(400).send()
       console.error(error)
@@ -35,7 +40,7 @@ export const getBoardList =
     }
   }
 
-export const updateBoard =  async (req: Request, res: Response) => {
+export const updateBoard = async (req: Request, res: Response) => {
   try {
     const { id, title, description } = req.body
     await BoardModel.update({ title, description }, { where: { id }})

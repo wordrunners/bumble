@@ -43,15 +43,15 @@ export const boardsRouter = (router: Router) => {
   boardsRouter
     .post(ADD_BOARD_ROUTE, addBoard)
     .get(GET_BOARDS_ROUTE, getBoardList)
-    .put(UPDATE_BOARD_ROUTE, updateBoard)
+    .post(UPDATE_BOARD_ROUTE, updateBoard)
     .post(REMOVE_BOARD_ROUTE, deleteBoard)
 
     .post(ADD_COMMENT_ROUTE, addComment)
-    .get(GET_COMMENTS_ROUTE, getCommentList)
+    .post(GET_COMMENTS_ROUTE, getCommentList)
     .delete(DELETE_COMMENT_ROUTE, deleteComment)
-    .put(UPDATE_COMMENT_ROUTE, updateComment)
+    .post(UPDATE_COMMENT_ROUTE, updateComment)
 
-    .put(ADD_LIKE_ROUTE, toggleLike)
-    .get(GET_LIKES_BY_USER_ROUTE, getUserLikeList)
-    .get(GET_LIKES_COUNTER_BY_COMMENT_ROUTE, getCommentLikeCounter)
+    .post(ADD_LIKE_ROUTE, toggleLike)
+    .post(GET_LIKES_BY_USER_ROUTE, getUserLikeList)
+    .post(GET_LIKES_COUNTER_BY_COMMENT_ROUTE, getCommentLikeCounter)
 }

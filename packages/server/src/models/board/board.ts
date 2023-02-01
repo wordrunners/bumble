@@ -29,8 +29,8 @@ export class BoardModel extends Model<Board> {
   description: string | undefined
 
   @BelongsTo(() => UserModel, {
-    foreignKey: 'user_id',
+    foreignKey: 'user_login',
     as: 'user',
   })
-  user_id: number | undefined
+  user_login: number | undefined
 }
