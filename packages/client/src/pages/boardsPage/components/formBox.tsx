@@ -3,7 +3,9 @@ import { Formik, Field, Form } from 'formik';
 import { useAuth, useAppDispatch } from "@/hooks";
 import { fetchUser } from '@/store/authSlice';
 import { getComments, addComment } from '@/store/boards'
-
+import { Loader } from '@/components/Loader';
+import { Button } from '@/components/Button';
+import '../boardPage.scss';
 
 type Props = {
   parentId: number | null
@@ -51,7 +53,7 @@ export const FormBox: FC<Props> = ({parentId, boardId}): JSX.Element => {
         onSubmit={onSubmit}
       >
         {({ errors, touched }) => (
-          <Form>
+          <Form className="forum__form forum__form_comments">
             {parentId ? ( 
                 <>
                   <Field
@@ -61,8 +63,9 @@ export const FormBox: FC<Props> = ({parentId, boardId}): JSX.Element => {
                     type='text'
                     placeholder="Ответ"
                     key="newСomment"
+                    className="forum__field forum__field_answer"
                   />   
-                  <button type="submit">Ответить</button>
+                  <Button type="submit" className="forum__button forum__button_comments">Ответить</Button>
                 </> 
               ) : (
                 <>
@@ -73,8 +76,11 @@ export const FormBox: FC<Props> = ({parentId, boardId}): JSX.Element => {
                     type='text'
                     placeholder="Комментарий"
                     key="newСomment"
+                    className="forum__field forum__field_comments"
                   />   
-                  <button type="submit">Комментировать</button>
+                  <Button type="submit" className="forum__button forum__button_comments">
+                    Комментировать
+                  </Button>
                 </>
               )
             }
@@ -84,9 +90,7 @@ export const FormBox: FC<Props> = ({parentId, boardId}): JSX.Element => {
     )
   } else {
     return (
-      <div>
-        loading
-      </div>
+      <Loader />
     )
   }
 }
