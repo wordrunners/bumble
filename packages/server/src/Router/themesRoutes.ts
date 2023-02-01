@@ -13,7 +13,7 @@ export const themesRouter = (router: Router) => {
   router.use(THEMES_ROUTE, themesRouter)
 
   themesRouter
-    .get(GET_THEME_ROUTE, [], get)
-    .post(ADD_THEME_ROUTE, [], create)
-    .post(UPDATE_THEME_ROUTE, [], update)
+    .get(GET_THEME_ROUTE, get)
+    .post(ADD_THEME_ROUTE, create)
+    .post(UPDATE_THEME_ROUTE, update)
 }
