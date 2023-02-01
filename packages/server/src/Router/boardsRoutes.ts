@@ -34,6 +34,7 @@ import {
   GET_LIKES_BY_USER_ROUTE,
   GET_LIKES_COUNTER_BY_COMMENT_ROUTE
 } from './routes'
+import { auth } from '../middleware/authChecker'
 
 export const boardsRouter = (router: Router) => {
   const boardsRouter: Router = Router()

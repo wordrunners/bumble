@@ -7,7 +7,6 @@ import './Header.scss';
 import { 
   PROFILE_ROUTE,
   BOARDS_ROUTE,
-  FORUM_ROUTE,
   LEADERBOARD_ROUTE
 } from '@/data/routes'
 
@@ -22,12 +21,11 @@ export const Header = ():JSX.Element => {
     <>
       <header className='header'>
         <Button className='header__btn' onClick={handleOpenRules}>Правила</Button>
-        <LinkButton to={FORUM_ROUTE} modifier='header-btn'>Форум</LinkButton>
         {isAuth && (
           <>
             <LinkButton to={PROFILE_ROUTE} modifier='header-btn'>Профиль</LinkButton>
+            <LinkButton to={BOARDS_ROUTE} modifier='header-btn'>Форум</LinkButton>
             <LinkButton to={LEADERBOARD_ROUTE} modifier='header-btn'>Рейтинги</LinkButton>
-            <LinkButton to={BOARDS_ROUTE} modifier='header-btn'>BOARDS</LinkButton>
           </>
         )}
       </header>

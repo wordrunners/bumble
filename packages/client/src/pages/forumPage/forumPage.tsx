@@ -50,11 +50,7 @@ export const ForumPage = () => {
         <SubforumRow
           icon={<DiscussIcon />}
           title="Заголовок"
-          discription="Обсуждение правил игры. Предложения, дискуссии."
-          numberOfPosts="24 Поста"
-          numberOfTopics="12 Тем"
-          lastPost="Последний пост"
-          player="Игрока 1"
+          description="Обсуждение правил игры. Предложения, дискуссии."
           date="05.12.2022"
         />
       </div>
@@ -67,33 +63,21 @@ export const ForumPage = () => {
         <SubforumRow
           icon={<TalkIcon />}
           title="Заголовок"
-          discription="Новости и анонсы размещены здесь."
-          numberOfPosts="12 Постов"
-          numberOfTopics="3 Темы"
-          lastPost="Последний пост"
-          player="Игрока 2"
+          description="Новости и анонсы размещены здесь."
           date="07.12.2022"
         />
         <hr className="subforum-devider" />
         <SubforumRow
           icon={<TalkIcon />}
           title="Заголовок"
-          discription="Новости и анонсы размещены здесь."
-          numberOfPosts="10 Постов"
-          numberOfTopics="4 Темы"
-          lastPost="Последний пост"
-          player="Игрока 3"
+          description="Новости и анонсы размещены здесь."
           date="08.12.2022"
         />
         <hr className="subforum-devider" />
         <SubforumRow
           icon={<TalkIcon />}
           title="Заголовок"
-          discription="Новости и анонсы размещены здесь."
-          numberOfPosts="1 Пост"
-          numberOfTopics="2 Темы"
-          lastPost="Последний пост"
-          player="Игрока 4"
+          description="Новости и анонсы размещены здесь."
           date="03.12.2022"
         />
       </div>

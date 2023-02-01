@@ -90,38 +90,6 @@ export const leaderBoardSlice = createSlice({
   }
 });
 
-export const checkLeaders =
-  (candidate: Leader): AppThunk =>
-  (dispatch, getState) => {
-    const leaders = selectLeaders(getState())
-    const activeLeader = selectActiveLeader(getState())
-    const cloneLeaders = JSON.parse(JSON.stringify(leaders))
-    const newLeaders: Leaders = []
-
-    let inserted = false;
-    if (cloneLeaders.length === 0) {
-      candidate.data.place = 0;
-      newLeaders.push(candidate)
-      dispatch(setActiveLeader(0))
-    } else
-    for (let i = 0; i < cloneLeaders.length; i++) {
-      if (((candidate.data.score < cloneLeaders[i].score) || (inserted))) {
-        if (activeLeader !== i) {
-          newLeaders.push(cloneLeaders[i])
-        }
-      } else {
-        candidate.data.place = i;
-        newLeaders.push(candidate)
-
-        dispatch(setActiveLeader(i))
-        inserted = true
-        i--
-      } 
-    }
-
-    // dispatch(setLeaders(newLeaders))
-  }
-
 export const { setLeaders, addLeader, setActiveLeader } = leaderBoardSlice.actions;
 
 export const selectLeaders = (state: RootState) => state.leaderBoard.leaders;

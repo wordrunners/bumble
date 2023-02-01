@@ -9,11 +9,8 @@ import {
   Status,
   Settings,
   Bumble,
-  Leader, 
 } from '@/types'
-import {
-  checkLeaders
-} from '@/store/leaderBoardSlice'
+
 import { ROUNDS } from '@/data/consts'
 
 
@@ -213,17 +210,6 @@ export const addWord =
     dispatch(setTimer(60))
     dispatch(deletePlayers())
     dispatch(addPlayers(clonePlayers))
-
-  //   if (settings === 'online') {
-  //     const candidate: Leader = {
-  //       'id': 2,
-  //       'place': 2,
-  //       'login': clonePlayers[player].login,
-  //       'avatar': '',
-  //       'score': clonePlayers[player].score
-  //     }
-  //     // dispatch(checkLeaders(candidate))
-  //   }
   }
 
 export const { 

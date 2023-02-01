@@ -1,40 +1,28 @@
-import * as React from 'react'
-import '@/components/SubforumRow/Subforum.scss'
+import './SubforumRow.scss';
 
 type SubforumRowProps = {
   icon?: JSX.Element
-  title?: string
-  discription?: string
-  numberOfPosts?: string
-  numberOfTopics?: string
-  lastPost?: string
-  player?: string
+  title: string
+  description?: string
+  numberOfComments?: string
   date?: string
 }
 
-export const SubforumRow = (props: SubforumRowProps) => {
+export const SubforumRow = ({
+  title, description, icon, numberOfComments, date,
+}: SubforumRowProps): JSX.Element => {
   return (
     <div className="subforum-row">
-      <div className="subforum-icon subforum-column center">
-        {props.icon}
-      </div>
+      <div className="subforum-icon subforum-column center">{icon}</div>
       <div className="subforum-description subforum-column">
-        <h4>
-          <a href="#">{props.title}</a>
-        </h4>
-        <p>{props.discription}</p>
+        <h4 className="subforum-row__title">{title}</h4>
+        <div className='subforum-row__wrapper'>
+          <p className="subforum-row__description">{description}</p>
+          <p className="subforum-row__date">{date}</p>
+        </div>
       </div>
       <div className="subforum-stats subforum-column center">
-        <span>
-          {props.numberOfPosts} | {props.numberOfTopics}
-        </span>
-      </div>
-      <div className="subforum-info subforum-column">
-        <b>
-          <a href="">{props.lastPost}</a>
-        </b>{' '}
-        от <a href="">{props.player}</a> <br />
-        <small>{props.date}</small>
+        <span>{numberOfComments}</span>
       </div>
     </div>
   )
