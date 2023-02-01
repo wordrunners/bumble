@@ -56,6 +56,8 @@ services:
       - pgadmin-data:/var/lib/pgadmin
     depends_on:
       - postgres
+    networks:
+      - awesome
 
 networks:
   awesome:

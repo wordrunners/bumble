@@ -1,22 +1,43 @@
-import { useAppDispatch, useAppSelector } from '@/hooks';
-import { selectTheme, changeTheme } from '@/store/themeSlice';
-import { Button } from '../Button';
-import { themes } from '@/utils/themeContext';
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { selectUser } from '@/store/authSlice';
+import { selectTheme  } from '@/store/theme/themeSlice';
+import { changeTheme } from '@/store/theme'
+import { fetchUser } from '@/store/authSlice';
+import { AppDispatch } from '@/store/store'
 
-import './themeTogglerButton.scss';
+import './ThemeTogglerButton.scss';
 
 export const ThemeTogglerButton = () => {
-  const currentTheme = useAppSelector(selectTheme);
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, []);
+  const user = useSelector(selectUser);
+  const theme = useSelector(selectTheme);
 
-  const toggleTheme = () => {
-    const theme = JSON.stringify(currentTheme) === JSON.stringify(themes.light) ? themes.dark : themes.light;
-    dispatch(changeTheme(theme));
-  };
+  const [checked, setChecked] = useState(false)
+  const handleThemeChange = () => {
+    if ((user) && (user.id)) {
+      dispatch(
+        changeTheme({
+          userId: user.id,
+          themeId: theme === 'dark' ? 2 : 1,
+        })
+      )
+    }
+    
+    setChecked(prevChecked => !prevChecked)
+  }
+
+  useEffect(() => {
+    setChecked(theme === 'dark')
+  }, [theme])
 
   return (
-    <Button className={'themeTogglerButton'} onClick={toggleTheme}>
-      Сменить тему
-    </Button>
+    <label className="container">
+      <input type="checkbox" onChange={handleThemeChange} checked={checked}></input>
+      <span className="checkmark"></span>
+    </label>
   );
-};
+}; 

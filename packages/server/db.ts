@@ -8,6 +8,7 @@ import {
   UserModel, 
   LikeModel, 
 } from './src/models/boards'
+import { ThemeModel } from './src/models/themes'
 
 
 const {
@@ -26,6 +27,7 @@ const sequelizeOptions: SequelizeOptions = {
   database: POSTGRES_DB,
   dialect: 'postgres',
   models: [
+    ThemeModel,
     CommentModel,
     BoardModel,
     UserModel,

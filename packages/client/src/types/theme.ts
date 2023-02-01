@@ -1,3 +1,6 @@
 export interface ThemeState {
-  activeTheme: Record<"style", string>
+  theme: Theme
+  loading: boolean
 }
+
+export type Theme = 'dark' | 'light'
