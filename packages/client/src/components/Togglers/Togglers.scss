@@ -63,7 +63,7 @@
 
 .emoji-theme {
   @include emojiType(
-    "\01F31D", "\01F31A"
+    "\01F31A", "\01F31D"
   );
 }
 
@@ -75,6 +75,6 @@
 
 .emoji-screen {
   @include emojiType(
-    "\01F532", "\01F533"
+    "\01F533", "\01F532"
   );
 }

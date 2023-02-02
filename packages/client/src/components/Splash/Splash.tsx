@@ -3,7 +3,7 @@ import { selectLoading, selectUser } from '@/store/authSlice';
 import { useEffect } from "react";
 import { useAppDispatch } from "@/hooks";
 import { fetchUser } from '@/store/authSlice';
-import { Togglers } from '@/components/TogglerButton';
+import { Togglers } from '@/components/Togglers';
 
 import './Splash.scss';
 
