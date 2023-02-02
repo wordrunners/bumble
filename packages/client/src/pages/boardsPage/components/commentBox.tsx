@@ -1,20 +1,24 @@
 import { FC, useState } from 'react'
 import { addLike, Comment, selectBoardsData } from '@/store/boards'
 import { useAuth, useAppDispatch, useAppSelector } from "@/hooks";
-import { FormBox, Like, CommentsCounter } from '.'
-
+import { FormBox, Like } from '.'
+import { Loader } from '@/components/Loader';
+import '../boardPage.scss';
+import { format } from "date-fns";
 
 type Props = {
   like: boolean | undefined
   comment: Comment
   childComment: Comment[]
+  userLogin: string;
 }
 
-export const CommentBox: FC<Props> = ({like, comment, childComment}): JSX.Element => {
+export const CommentBox: FC<Props> = ({like, comment, childComment, userLogin}): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const { user } = useAuth();
   const {  status } = useAppSelector(selectBoardsData)
+  const formattedDate: string = format(new Date(comment?.createdAt), "dd-MM-yyyy, HH:mm");
 
   const clickLike = (value: boolean) => {
     if (user) {
@@ -35,39 +39,44 @@ export const CommentBox: FC<Props> = ({like, comment, childComment}): JSX.Elemen
   }
 
   return (
-    <div className="comment-box">
-      {user ? (
-        <div>
-          <br></br>
-          Комментарий:
-          <b>"<i>{comment.comment}</i>"</b>
-
-          {!comment.parent_id ? (
-            <CommentsCounter 
-              open={open}
-              counter={childComment?.length}
-              onClick={handleOpen}
+    <div className="forum__comment-box">
+      {user && (
+        <>
+          <div className='forum__details'>
+            <p className='forum__text forum__text_login'>{userLogin}</p>
+            <p className="forum__date">{formattedDate}</p>
+            <Like
+              color={like ? '#dedc00' : 'grey'}
+              onClick={() => clickLike(!like)}
             />
-          ) : null}
+          </div>
+          <p className='forum__text'>{comment.comment}</p>
+          
+          {!comment.parent_id && (
+            <p onClick={handleOpen} className='forum__comments-counter'>
+              {!open ?  (!childComment?.length ? 'Ответить' : 'Ответы: ' + childComment?.length) : 'Скрыть'}
+            </p>
+          )}
 
-          {open ? (
+          {open && (
             status !== 'FETCH_FULFILLED' ? (
-                <>loading</>
+                <Loader />
               ) : (
                 <>
                   {childComment?.length ? (
-                    <>
+                    <div className='forum__answers'>
                       Ответы:
                       {childComment?.map(comment => {
                         return (
                           <div key={`comment-${comment.id}`}>
-                            {comment.user_login}: <b>"<i>{comment.comment}</i>"</b>
+                            <p className='forum__text forum__text_login'>{comment.user_login}</p>
+                            <p className='forum__text'>{comment.comment}</p>
                           </div>
                         )
                       })}
-                    </>
+                    </div>
                   ) : (
-                    <>Ответы не найдены</>
+                    null
                   )}
                   <FormBox
                     parentId={comment.id}
@@ -75,13 +84,9 @@ export const CommentBox: FC<Props> = ({like, comment, childComment}): JSX.Elemen
                   />
                 </>
               )
-            ) : null }
-          <Like
-            color={like ? 'red' : 'grey'}
-            onClick={() => clickLike(!like)}
-          />
-        </div>
-      ) : null}
+          )}
+        </>
+      )}
     </div>
   )
 }
