@@ -12,7 +12,6 @@ import {
   BackgroundEntity,
   OverEntity,
   StartEntity,
-  FullScreenEntity,
   HighScoresEntity
 } from '../entity'
 import {
@@ -76,7 +75,6 @@ export const Game = () => {
               BackgroundEntity(context, width, height)
               break
             case 'game':
-              FullScreenEntity(context, width, height)
               if (card) {
                 DrumEntity(context, width, height, card)
                 WordEntity(context, width, height, word, card, points)

@@ -6,7 +6,6 @@ import { selectUser } from '@/store/authSlice';
 import { selectTheme  } from '@/store/theme/themeSlice';
 
 export function CurrentTheme() {
-
   const dispatch = useAppDispatch()
   const theme = useSelector(selectTheme);
   const user = useSelector(selectUser);
@@ -21,3 +20,4 @@ export function CurrentTheme() {
 
   return style
 }
+ 

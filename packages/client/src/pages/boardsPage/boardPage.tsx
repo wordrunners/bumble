@@ -1,7 +1,6 @@
 import { FC, useEffect } from "react";
 import { useParams } from 'react-router-dom'
 import { useAuth, useAppDispatch, useAppSelector } from "@/hooks";
-import { fetchUser } from '@/store/authSlice';
 import {
   getComments,
   getLikes,
@@ -23,12 +22,6 @@ export const BoardPage: FC = () => {
   const { boards, likes, comments, status } = useAppSelector(selectBoardsData)
   const { boardId } = useParams<boardIdParams>()
   const board = boards?.find(item => item.id === Number(boardId))
-
-  useEffect(() => {
-    if (!user) {
-      dispatch(fetchUser());
-    }
-  }, []);
 
   useEffect(() => {
     if (user) {

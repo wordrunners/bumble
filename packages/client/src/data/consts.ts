@@ -12,7 +12,6 @@ export const BLUE_BLACK = `rgba(0, 89, 135, 1)`;
 export const ERROR = `rgba(244, 69, 80, 255)`;
 
 export const BUMBLE = 29
-export const FULL_SCREEN = 19
 export const MAIN = 29
 
 export const FONT = `PequenaPro`;

@@ -1,7 +1,7 @@
 import { Router } from '@/pages'
-import { MusicPlayer } from '@/components/MusicPlayer'
-import { ThemeTogglerButton } from '@/components/ThemeTogglerButton';
+
 import { CurrentTheme } from '@/utils/currentTheme';
+import { Splash } from './components/Splash';
 
 export function App() {
 
@@ -36,9 +36,8 @@ export function App() {
 
   return (
     <div className={`app ${style}`}>
+      <Splash/>
       <Router />
-      <MusicPlayer></MusicPlayer>
-      <ThemeTogglerButton/>
     </div>
   )
 }

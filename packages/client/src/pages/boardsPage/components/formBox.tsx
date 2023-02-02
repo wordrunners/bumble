@@ -1,7 +1,6 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { Formik, Field, Form } from 'formik';
 import { useAuth, useAppDispatch } from "@/hooks";
-import { fetchUser } from '@/store/authSlice';
 import { getComments, addComment } from '@/store/boards'
 
 
@@ -13,12 +12,6 @@ type Props = {
 export const FormBox: FC<Props> = ({parentId, boardId}): JSX.Element => {
   const dispatch = useAppDispatch();
   const { user } = useAuth();
-
-  useEffect(() => {
-    if (!user) {
-      dispatch(fetchUser());
-    }
-  }, []);
 
   const onSubmit = (value: { comment: string }) => {
     if (user) {

@@ -52,6 +52,11 @@ export const selectTheme = createSelector(
   themes => themes.theme as Theme
 );
 
+export const selectThemesLoading = createSelector(
+  (state: RootState) => state.themes,
+  themes => themes.loading
+);
+
 export const themeReducer = themeSlice.reducer;
 
 

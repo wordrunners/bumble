@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { Formik, Field, Form } from 'formik';
 import { useAuth, useAppDispatch, useAppSelector } from "@/hooks";
 import { BOARDS_ROUTE } from '@/data/routes'
-import { fetchUser } from '@/store/authSlice';
 import { 
   selectBoardsData, 
   getBoards, 
@@ -23,9 +22,6 @@ export const BoardsPage: FC = () => {
   const { boards, status } = useAppSelector(selectBoardsData)
 
   useEffect(() => {
-    if (!user) {
-      dispatch(fetchUser());
-    }
     dispatch(getBoards())
   }, []);
 
