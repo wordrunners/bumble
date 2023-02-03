@@ -20,7 +20,6 @@ export const LeaderboardPage = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(fetchLeaderboard());
-    // dispatch(fetchUser());
   }, []);
   
   const currentLeader: Leader = leaders.find(item => item.data.id === user?.id) || {} as Leader;
