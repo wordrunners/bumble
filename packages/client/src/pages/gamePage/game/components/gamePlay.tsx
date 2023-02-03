@@ -39,7 +39,6 @@ import {
 
 import { Game } from '../core/game'
 import { 
-  toggleFullscreen,
   correctPixels,
   randomCard
 } from '../helpers'
@@ -47,7 +46,6 @@ import {
   ROUNDS,
   CYRILLIC_CHARACTERS,
   BUMBLE,
-  FULL_SCREEN
 } from '@/data/consts'
 
 import cardsData from '@/data/cards.json'
@@ -176,9 +174,7 @@ export const GamePlay = () => {
               }
             }
           })
-        } else if (button === FULL_SCREEN) {
-          toggleFullscreen()
-        } else if (sector < 9) {
+        }  else if (sector < 9) {
           dispatch(addLetter(`${sector}`))
           dispatch(countPoints())
         } else if ((sector === 9) && (word)) {

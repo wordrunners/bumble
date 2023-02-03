@@ -7,7 +7,7 @@ import { fetchLeaderboard, selectLeaders } from '@/store/leaderBoardSlice'
 import { Leader, Leaders } from '@/types'
 import { useEffect } from 'react';
 import { LinkButton } from '@/components/LinkButton';
-import { fetchUser, selectUser } from '@/store/authSlice';
+import { selectUser } from '@/store/authSlice';
 import { UserDTO } from '@/api/types';
 import { Loader } from '@/components/Loader';
 
@@ -20,7 +20,6 @@ export const LeaderboardPage = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(fetchLeaderboard());
-    dispatch(fetchUser());
   }, []);
   
   const currentLeader: Leader = leaders.find(item => item.data.id === user?.id) || {} as Leader;
