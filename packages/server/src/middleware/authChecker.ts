@@ -9,7 +9,7 @@ import {
   ADD_COMMENT_ROUTE,
   GET_COMMENTS_ROUTE,
   ADD_LIKE_ROUTE,
-  GET_LIKES_ROUTE,  
+  GET_LIKES_BY_USER_ROUTE,
 } from '../Router/routes'
 
 const backendAPIs = [
@@ -18,10 +18,11 @@ const backendAPIs = [
   BOARDS_ROUTE + ADD_COMMENT_ROUTE,
   BOARDS_ROUTE + GET_COMMENTS_ROUTE,
   BOARDS_ROUTE + ADD_LIKE_ROUTE,
-  BOARDS_ROUTE + GET_LIKES_ROUTE
+  BOARDS_ROUTE + GET_LIKES_BY_USER_ROUTE
 ]
 
 export async function auth(req: Request, res: Response, next: NextFunction) {
+  console.log(`The request method is ${req.method}`);
   if (backendAPIs.includes(req.originalUrl)) {
     if (req.headers.cookie) {
       if (await authChecker(req.headers.cookie)) {

@@ -40,7 +40,7 @@ export const boardsRouter = (router: Router) => {
   const boardsRouter: Router = Router()
 
   router.use(BOARDS_ROUTE, boardsRouter)
-
+  boardsRouter.use(auth);
   boardsRouter
     .post(ADD_BOARD_ROUTE, addBoard)
     .get(GET_BOARDS_ROUTE, getBoardList)
