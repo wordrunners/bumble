@@ -7,8 +7,10 @@ import {
   BoardModel, 
   UserModel, 
   LikeModel, 
-} from './src/models/boards'
+} from './src/models/board'
+
 import { ThemeModel } from './src/models/themes'
+
 
 
 const {
