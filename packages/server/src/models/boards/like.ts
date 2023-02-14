@@ -16,8 +16,7 @@ export type Like = {
 }
 
 @Table({
-  // http://stackoverflow.com/questions/338156/table-naming-dilemma-singular-vs-plural-names
-  tableName: 'board_like',
+  tableName: 'boards_likes',
 })
 export class LikeModel extends Model<Like> {
   @AllowNull(true)
