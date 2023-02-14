@@ -9,6 +9,9 @@ import {
   LikeModel, 
 } from './src/models/board'
 
+import { ThemeModel } from './src/models/themes'
+
+
 
 const {
   POSTGRES_HOST,
@@ -26,6 +29,7 @@ const sequelizeOptions: SequelizeOptions = {
   database: POSTGRES_DB,
   dialect: 'postgres',
   models: [
+    ThemeModel,
     CommentModel,
     BoardModel,
     UserModel,

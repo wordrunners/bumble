@@ -18,16 +18,17 @@ export const HighScoresEntity = (
   currentLeader: Leader,
 ) => {
   const coordinates = [
-    {x: width*0.35, y: height*0.02},
-    {x: width*0.45, y: height*0.02},
-    {x: width*0.55, y: height*0.02},
-    {x: width*0.65, y: height*0.02},
-    {x: width*0.75, y: height*0.02},
-    {x: width*0.35, y: height*0.04},
-    {x: width*0.45, y: height*0.04},
-    {x: width*0.55, y: height*0.04},
-    {x: width*0.65, y: height*0.04},
-    {x: width*0.75, y: height*0.04},
+    {x: width*0.2, y: height*0.025},
+    {x: width*0.35, y: height*0.025},
+    {x: width*0.5, y: height*0.025},
+    {x: width*0.65, y: height*0.025},
+    {x: width*0.8, y: height*0.025},
+
+    {x: width*0.2, y: height*0.045},
+    {x: width*0.35, y: height*0.045},
+    {x: width*0.5, y: height*0.045},
+    {x: width*0.65, y: height*0.045},
+    {x: width*0.8, y: height*0.045},
   ]
   
   if (leaders.length !== 0) {

@@ -20,11 +20,11 @@ export const StartPage = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const { isAuth } = useAuth()
 
-  useEffect(() => {
-    if (!isAuth) {
-      dispatch(fetchUser());
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!isAuth) {
+  //     dispatch(fetchUser());
+  //   }
+  // }, []);
   
   function onExit() {
     dispatch(logout());

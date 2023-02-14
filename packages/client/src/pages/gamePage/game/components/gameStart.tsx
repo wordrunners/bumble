@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { 
   CanvasContext, 
   useAppSelector, 
-  useAppDispatch,
-  useAuth } from '@/hooks'
+  useAppDispatch
+} from '@/hooks'
 import {
   selectHeight,
   selectWidth,
@@ -17,13 +17,9 @@ import {
   setActiveSettings,
 } from '../core/gameSlice'
 import {
-  fetchUser
-} from '@/store/authSlice'
-import {
   setActiveLeader
 } from '@/store/leaderBoardSlice'
 import { Game } from '../core/game'
-import { toggleFullscreen } from '../helpers'
 import { Settings } from '@/types'
 
 export const GameStart = () => {
@@ -33,18 +29,10 @@ export const GameStart = () => {
   const width = useAppSelector(selectWidth)
   const height = useAppSelector(selectHeight)
 
-  const { user } = useAuth();
-
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [context, setContext] = useState<CanvasRenderingContext2D | undefined>()
 
   let settingsLines: Settings = 'default'
-  
-  useEffect(() => {
-    if (!user) {
-      dispatch(fetchUser());
-    }
-  }, []);
 
   useEffect(() => {
     const context = canvasRef.current?.getContext('2d',{willReadFrequently:true})
@@ -99,9 +87,6 @@ export const GameStart = () => {
           settingsLines = 'default'
           dispatch(setActiveSettings('default'))
         }
-        break
-      case 'f':
-        toggleFullscreen()
         break
       default:
         console.log(`Кнопкой ${event.key} игру не запустить`)
