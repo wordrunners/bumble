@@ -15,6 +15,7 @@ yarn dev
 ```
 
 ###  Как собрать Клиент с nginx и Сервер в prod?
+
 ```
 yarn docker:prod
 ```
