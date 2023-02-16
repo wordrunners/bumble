@@ -14,6 +14,11 @@ yarn docker:db
 yarn dev
 ```
 
+###  Как собрать Клиент с nginx и Сервер в prod?
+```
+yarn docker:prod
+```
+
 ### Как зайти в БД через pgAdmin?
 В скобках указано значение по умолчанию из файла .env.sample
 

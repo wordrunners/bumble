@@ -2,10 +2,8 @@
   "name": "client-server-template-with-vite",
   "private": true,
   "scripts": {
-    "bootstrap": "yarn && node init.js && lerna clean && yarn && lerna bootstrap",
-    "build:client": "lerna run build --scope=client",
-    "build:server": "lerna run build --scope=server",
-    "build": "yarn build:client && yarn build:server",
+    "bootstrap": "yarn && node init.js && lerna clean --yes && yarn && lerna bootstrap",
+    "build": "lerna run build:ssr --scope=client && lerna run build --scope=server",
     "dev:client": "lerna run dev  --scope=client",
     "dev:server": "lerna run dev --scope=server",
     "dev": "lerna run dev --parallel",
@@ -13,12 +11,12 @@
     "lint": "lerna run lint",
     "format": "lerna run format",
     "preview": "yarn build && lerna run preview --parallel",
-    "docker": "docker-compose up",
-    "docker:build": "docker-compose up --build",
-    "docker:db": "docker-compose up postgres",
-    "docker:pg": "docker-compose up pgadmin",
+    "docker:db": "docker-compose -f docker-compose.dev.yml up postgres",
+    "docker:pg": "docker-compose -f docker-compose.dev.yml up pgadmin",
     "docker:dev": "yarn docker:db && yarn dev",
-    "docker:stop": "docker-compose stop"
+    "docker:build": "docker-compose -f docker-compose.dev.yml up --build",
+    "docker:prod": "docker-compose build",
+    "docker:stop": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml stop"
   },
   "license": "MIT",
   "workspaces": [
