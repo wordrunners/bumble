@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState, DragEvent } from 'react'
 import { avatarAPI } from '@/api/avatarApi'
 import './Avatar.scss'
 import avatar from '@/assets/images/avatar.png'
@@ -28,12 +28,34 @@ export const Avatar: FC<User> = props => {
 
   const displayName = props.displayName ? props.displayName : 'User'
 
+  const handleFile = (file: File) => {
+    const { type } = file
+    if(type === 'image/png' || type === 'image/jpg' || type === 'image/jpeg') {
+      setFileSelected(file);
+    } 
+  }
+
   const handleImageChange = function (e: React.ChangeEvent<HTMLInputElement>) {
     const fileList = e.target.files
 
     if (!fileList) return
 
-    setFileSelected(fileList[0])
+    handleFile(fileList[0])
+  }
+
+  const handleOndragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.dataTransfer.dropEffect = 'copy';
+  }
+
+  const handleOndrop = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const tempFile = e.dataTransfer.files[0];
+        if (tempFile) {
+          handleFile(tempFile);
+        }
   }
 
   useEffect(() => {console.log('аватарка изменена');}, [props.avatar])
@@ -53,6 +75,7 @@ export const Avatar: FC<User> = props => {
         localStorage.setItem('user', JSON.stringify(transformUserDTOtoUser(response)))
       }
     }
+    setFileSelected(undefined)
   }
 
   return (
@@ -65,8 +88,16 @@ export const Avatar: FC<User> = props => {
         <form className="change__avatar-file" name="avatar">
           <label className="label">
             <img src={clip} alt="adding a file" />
-            <input type="file" name="avatar" onChange={handleImageChange} />
+            <input type="file" name="avatar" onChange={handleImageChange} accept="image/*" hidden />
           </label>
+          
+          <div
+                className={"dragZone " + (fileSelected ? 'active' : '')}
+                onDragOver={handleOndragOver}
+                onDrop={handleOndrop}
+            >
+                <span>или перетяните на поле</span>
+            </div>
           <button
             className="sending__button-img"
             type="submit"
