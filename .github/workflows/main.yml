@@ -26,10 +26,10 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
           CLIENT_PORT: 3000
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
           POSTGRES_PORT: 5432
-          SERVER_NAME: ${{ secrets.SERVER_NAME }}
+          SERVER_NAME: wordrunners-bumble-20.ya-praktikum.tech
           SERVER_PORT: 5000
         run: |
           docker compose build
@@ -37,4 +37,3 @@ jobs:
           docker push cr.yandex/$CR_REGISTRY/practicum-client:latest
           docker tag practicum-server:latest cr.yandex/$CR_REGISTRY/practicum-server:latest
           docker push cr.yandex/$CR_REGISTRY/practicum-server:latest
-
