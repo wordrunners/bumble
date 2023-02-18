@@ -7,7 +7,6 @@ export const SIGNUP_ROUTE = `/signup`;
 export const PROFILE_ROUTE = `/profile`;
 export const CHANGE_PASSWORD_ROUTE = `/change-password`;
 export const LEADERBOARD_ROUTE = `/leaderboard`;
-export const FORUM_ROUTE = `/forum`;
 export const BOARDS_ROUTE = `/boards`;
 export const BOARD_ROUTE = `/boards/:boardId`;
 export const ERROR_ROUTE = `*`;
