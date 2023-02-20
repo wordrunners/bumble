@@ -25,13 +25,14 @@
     &__score {
         background: var(--text);
         color: var(--background);
-        border-radius: 50%;
+        border-radius: 20px;
         height: 35px;
-        width: 35px;
+        min-width: 35px;
         display: flex;
         align-items: center;
         justify-content: center;
         justify-self: end;
+        padding: 0 4px;
     }
 
     &__avatar {

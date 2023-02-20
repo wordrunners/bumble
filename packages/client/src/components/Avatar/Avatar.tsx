@@ -58,8 +58,6 @@ export const Avatar: FC<User> = props => {
         }
   }
 
-  useEffect(() => {console.log('аватарка изменена');}, [props.avatar])
-
   const onAvatarUp = async (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.preventDefault()
 

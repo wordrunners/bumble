@@ -4,9 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:client": "rimraf dist && vite build --outDir dist",
-    "build:ssr": "rimraf ssr-dist && vite build --outDir ssr-dist --ssr src/ssr.tsx ",
-    "build": "yarn build:client && yarn build:ssr",
+    "build": "tsc && vite build --config vite.config.ts",
+    "build:ssr": "tsc && vite build --config ssr.config.ts && yarn build",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",

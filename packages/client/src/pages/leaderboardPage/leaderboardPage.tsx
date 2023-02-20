@@ -14,13 +14,14 @@ import { Loader } from '@/components/Loader';
 export const LeaderboardPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
-  const leaders = useAppSelector(selectLeaders);
   const user: UserDTO = useAppSelector(selectUser);
-  const { loading } = useAppSelector(state => state.leaderBoard);
+  const { loading, leaders } = useAppSelector(state => state.leaderBoard);
 
   useEffect(() => {
-    dispatch(fetchLeaderboard());
-  }, []);
+    if (user) {
+      dispatch(fetchLeaderboard());
+    }
+  }, [user]);
   
   const currentLeader: Leader = leaders.find(item => item.data.id === user?.id) || {} as Leader;
 
