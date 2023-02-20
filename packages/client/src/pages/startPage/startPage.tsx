@@ -40,7 +40,7 @@ export const StartPage = (): JSX.Element => {
     const code = new URLSearchParams(globalThis.window?.location.search).get('code');
 
     if (code) {
-      dispatch(signinOAuth({ code, redirect_uri: 'http://localhost:3000' }));
+      dispatch(signinOAuth({ code, redirect_uri: 'https://wordrunners-bumble-20.ya-praktikum.tech/' }));
     } else {
       return
     }
