@@ -3,7 +3,6 @@ import {
   StartPage,
   SigninPage,
   SignupPage,
-  ForumPage,
   ChangePasswordPage,
   LeaderboardPage,
   GamePlayPage,
@@ -24,7 +23,6 @@ import {
   PROFILE_ROUTE,
   CHANGE_PASSWORD_ROUTE,
   LEADERBOARD_ROUTE,
-  FORUM_ROUTE,
   BOARDS_ROUTE,
   BOARD_ROUTE,
   ERROR_ROUTE,
@@ -42,7 +40,6 @@ export const Router = () => {
       <Route path={PROFILE_ROUTE} element={<ProfilePage />} />
       <Route path={CHANGE_PASSWORD_ROUTE} element={<ChangePasswordPage />} />
       <Route path={LEADERBOARD_ROUTE} element={<LeaderboardPage />} />
-      <Route path={FORUM_ROUTE} element={<ForumPage />} />
       <Route path={BOARDS_ROUTE} element={<BoardsPage />} />
       <Route path={BOARD_ROUTE} element={<BoardPage />} />
       <Route path={ERROR_ROUTE} element={<ErrorPage />}/>
