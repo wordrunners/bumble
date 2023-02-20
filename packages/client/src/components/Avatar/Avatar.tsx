@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { avatarAPI } from '@/api/avatarApi'
 import './Avatar.scss'
 import avatar from '@/assets/images/avatar.png'
@@ -35,8 +35,6 @@ export const Avatar: FC<User> = props => {
 
     setFileSelected(fileList[0])
   }
-
-  useEffect(() => {console.log('аватарка изменена');}, [props.avatar])
 
   const onAvatarUp = async (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.preventDefault()

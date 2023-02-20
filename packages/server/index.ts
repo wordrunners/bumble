@@ -12,6 +12,7 @@ import { createClientAndConnect } from './db';
 import { router } from './src/Router'
 import  helmet  from 'helmet'
 
+
 const port = Number(process.env.SERVER_PORT) || 5000
 
 async function createServer(isDev = process.env.NODE_ENV === 'development') {
@@ -20,6 +21,16 @@ async function createServer(isDev = process.env.NODE_ENV === 'development') {
   app.disable('x-powered-by').enable('trust proxy')
   app.use(cors())
   
+  app.use(
+    helmet.contentSecurityPolicy({
+      useDefaults: true,
+      directives: {
+        scriptSrc: [`'self'`, `'unsafe-inline'`],
+        connectSrc: [`'self'`, 'ws://localhost:*']
+      },
+    })
+  )
+
   app.use(helmet.xssFilter())
   app.use(function (_, res, next) {
     res.setHeader('X-XSS-Protection', '1; mode=block');
