@@ -1,0 +1,40 @@
+name: Push To Yandex Cloud CR
+
+on:
+  push:
+    branches:
+    - deploy
+    - deploy-test
+    - task-51-deploy-to-cloud
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Yandex Cloud CR "Login" Action for GitHub Actions
+        uses: yc-actions/yc-cr-login@v0.1-alpha
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+
+      - name: Build, tag, and push image to Yandex Cloud Container Registry
+        env:
+          CR_REGISTRY: ${{ secrets.CR_REGISTRY }}
+          CR_REPOSITORY: bumble
+          IMAGE_TAG: ${{ github.sha }}
+          CLIENT_PORT: 3000
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+          POSTGRES_PORT: 5432
+          SERVER_NAME: wordrunners-bumble-20.ya-praktikum.tech
+          SERVER_PORT: 5000
+        run: |
+          docker compose build
+          docker tag practicum-client:latest cr.yandex/$CR_REGISTRY/practicum-client:latest
+          docker push cr.yandex/$CR_REGISTRY/practicum-client:latest
+          docker tag practicum-server:latest cr.yandex/$CR_REGISTRY/practicum-server:latest
+          docker push cr.yandex/$CR_REGISTRY/practicum-server:latest

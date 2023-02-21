@@ -1,0 +1,26 @@
+[
+  {  
+    "login": "Первый",
+    "words": [],
+    "score": 0,
+    "enabled": true
+  },
+  {  
+    "login": "Второй",
+    "words": [],
+    "score": 0,
+    "enabled": false
+  },
+  {  
+    "login": "Третий",
+    "words": [],
+    "score": 0,
+    "enabled": false
+  },
+  {  
+    "login": "Четвертый",
+    "words": [],
+    "score": 0,
+    "enabled": false
+  }
+]

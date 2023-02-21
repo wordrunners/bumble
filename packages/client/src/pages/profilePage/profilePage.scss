@@ -1,0 +1,21 @@
+@import '@/styles/mixins.scss';
+
+.wrapper {
+  @include min-max(32rem, 100%, 0);
+}
+
+.change__form {
+  @include min-max-m(32rem, 50rem, 1.2rem, 0);
+  margin: 0 auto 2rem;
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+  border-radius: 1rem;
+  &-list {
+    padding-bottom: 1rem;
+  }
+  & .error {
+    color: var(--error);
+    font-size: 0.7rem;
+  }
+}

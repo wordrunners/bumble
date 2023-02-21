@@ -1,0 +1,80 @@
+.toggler {
+  position: absolute;
+  bottom: 160px;
+  border-radius: 0;
+  right: 60px;
+  margin: 0px;
+  height: 0px;
+  width: 0px;
+  justify-content: center;
+  align-items: center;
+}
+
+.emoji-toggle {
+  position: relative;
+  width: 40px;
+  margin: 30px auto;
+  .well {
+    display: block;
+    background: #eee;
+    height: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .toggle {
+    opacity: 0;
+    border: 0;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100; 
+    ~.emoji:before {
+      content: "\01F431";
+      position: absolute;
+      left: 0;
+      top: -10px;
+      font-size: 28px;
+      transition: 0.2s;
+    }
+    &:checked {
+      ~.emoji:before {
+        left: 100%;
+        margin-left: -1em;
+      }
+    }
+  }
+}
+
+@mixin emojiType($leftEmoji, $rightEmoji) {
+  .toggle {
+    ~.emoji:before {
+      content: $leftEmoji;
+    }
+    &:checked {
+      ~.emoji:before {
+        content: $rightEmoji;
+      }
+    }
+  }
+}
+
+.emoji-theme {
+  @include emojiType(
+    "\01F31A", "\01F31D"
+  );
+}
+
+.emoji-sound {
+  @include emojiType(
+    "\01F507", "\01F509"
+  );
+}
+
+.emoji-screen {
+  @include emojiType(
+    "\01F533", "\01F532"
+  );
+}

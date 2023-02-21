@@ -1,0 +1,52 @@
+.leaderboard-row {
+    font-family: Arial, Helvetica, sans-serif;
+    display: grid;
+    grid-template-columns: 50px repeat(3, 1fr);
+    align-items: center;
+    background: var(--background);
+    padding: 8px 40px 8px 15px;
+    margin-bottom: 10px;
+    width: 100%;
+    justify-items: center;
+    box-sizing: border-box;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &__place {
+        min-width: 15px;
+    }
+
+    &__name {
+        margin: 0;
+    }
+
+    &__score {
+        background: var(--text);
+        color: var(--background);
+        border-radius: 20px;
+        height: 35px;
+        min-width: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        justify-self: end;
+        padding: 0 4px;
+    }
+
+    &__avatar {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        border: none;
+        background: var(--background4);
+        background-size: 50px 50px;
+    }
+
+    &_current {
+        border: 5px solid var(--word1);
+        padding: 8px 35px 8px 10px;
+    }
+
+}

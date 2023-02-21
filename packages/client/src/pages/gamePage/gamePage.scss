@@ -1,0 +1,16 @@
+.game-page {
+  margin: auto;
+  text-align: center;
+  color: var(--background5);
+  overflow: hidden;
+  font-family: PequenaPro, Arial, Helvetica, sans-serif;
+  background-image: none;
+  background-color: var(--secondary);
+  background-image: none;
+  cursor: pointer;
+}
+
+.game-page:before {
+  display: block;
+  margin-bottom: 0.5rem;
+}

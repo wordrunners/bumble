@@ -1,0 +1,30 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-right: 0px;
+}
+
+.header__btn {
+    color: var(--background);
+    height: 30px;
+    padding-top: 16px;
+    border-radius: 0;
+    font-size: 14px;
+    line-height: 20px;
+
+    &:nth-child(1) {
+        background-color: var(--word1);
+        border-top-left-radius: 10px;
+    }
+    &:nth-child(2) {
+        background-color: var(--word2);
+    }
+    &:nth-child(3) {
+        background-color: var(--word3);
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+}

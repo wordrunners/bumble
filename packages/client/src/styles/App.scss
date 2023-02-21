@@ -1,0 +1,78 @@
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  line-height: 1.5;
+  color: var(--black);
+}
+
+#root {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../assets/images/Bg_2.png');
+  background-position: center;
+  background-size: cover;
+  font-family: PequenaPro, Arial, Helvetica, sans-serif;
+}
+
+.dark__theme {
+  &.app {
+    background-image: url('../assets/images/Bg_dark.png');
+  }
+  .start__wrapper,
+  .popup__container,
+  .wrap,
+  .change__form,
+  .auth,
+  .card {
+    background: var(--darkblue);
+    border: none;
+  }
+  .leaderboard-row {
+    background: var(--darkblue);
+  }
+  .link-button_header-btn,
+  .header__btn,
+  .leaderboard-row__score {
+    color: var(--text);
+  }
+  .popup__title,
+  .rules__text,
+  .data-list input,
+  .data-list,
+  .leaderboard-row,
+  .form__field-input,
+  .input__field {
+    color: var(--background);
+  }
+  .leaderboard-row__score {
+    background: var(--word1);
+  }
+}
