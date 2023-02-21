@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - deploy
+    - deploy-test
     - task-51-deploy-to-cloud
   workflow_dispatch:
 

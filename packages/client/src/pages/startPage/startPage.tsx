@@ -9,7 +9,7 @@ import {
   useAppDispatch,
   useAuth
 } from '@/hooks'
-import { logout, fetchUser, signinOAuth } from '@/store/authSlice';
+import { logout, signinOAuth } from '@/store/authSlice';
 import { addPlayer } from '@/pages/gamePage/game/core/gameSlice';
 import { 
   SIGNIN_ROUTE,
@@ -19,12 +19,6 @@ import {
 export const StartPage = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const { isAuth } = useAuth()
-
-  // useEffect(() => {
-  //   if (!isAuth) {
-  //     dispatch(fetchUser());
-  //   }
-  // }, []);
   
   function onExit() {
     dispatch(logout());

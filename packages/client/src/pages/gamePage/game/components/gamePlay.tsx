@@ -40,11 +40,9 @@ import {
 import { Game } from '../core/game'
 import { 
   correctPixels,
-  randomCard
 } from '../helpers'
 import { 
   ROUNDS,
-  CYRILLIC_CHARACTERS,
   BUMBLE,
 } from '@/data/consts'
 
@@ -106,10 +104,6 @@ export const GamePlay = () => {
           'score': 0,
           'enabled': true
         }))
-        // TODO: сделать ежедневное обновление сетов букв или личный прогресс юзера (рандом иногда не дает вариантов слова)
-        // for (let i = 0; i < ROUNDS; i++) {
-        //   newCards.push(randomCard(CYRILLIC_CHARACTERS))
-        // }
       }
       for (let i = 0; i <= ((totalPlayers + 1) * ROUNDS - 1); i++) {
         newCards.push(cardsData[i])
